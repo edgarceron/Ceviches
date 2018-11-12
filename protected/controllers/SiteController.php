@@ -13,8 +13,8 @@ class SiteController extends Controller
         public function accessRules()
 	{
 		return array(	
-                        array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('error','login','logout'),
+                array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('error','login','logout', 'register'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -150,6 +150,66 @@ class SiteController extends Controller
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
+	}
+	
+	/**
+	 * Displays the login page
+	 */
+	public function actionRegister()
+	{
+		$model=new SofintUsers;
+
+		// collect user input data
+		if(isset($_POST['SofintUsers']))
+        {
+            $model->setAttributes($_POST['SofintUsers']);
+			$password = $model->password;
+			$email = $model->nick;
+			$repetido = SofintUsers::model()->find('nick = "' . $email . '"');
+			$errors = false;
+			if(!filter_var($email, FILTER_VALIDATE_EMAIL) || $repetido){	
+				$model->nick = '';
+			}
+            $model->password = md5($password);
+			$model->estado = 1;
+			$model->perfil = 2;
+            $model->fecha_creacion = time();
+			
+            if($model->save())
+            {
+                Yii::app()->user->setFlash('success', "Usuario creado exitosamente!");
+				$identity=new UserIdentity($email,$password);
+				$identity->authenticate();
+				$duration = 3600;
+				if($identity->errorCode===UserIdentity::ERROR_NONE)
+				{
+					Yii::app()->user->login($identity,$duration);
+				}	
+				$this->redirect(Yii::app()->user->returnUrl);
+            }   
+            else
+            {
+                Yii::app()->user->setFlash('warning', "Informacion Incorrecta, verifique nuevamente!");
+				$model->password = $password;
+				$model->nick = $email;
+				
+				if($password == ''){
+					$model->addError('password', 'Contraseña no puede estar vacia');
+				}
+				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){	
+					$model->clearErrors('nick');
+					$model->addError('nick', 'El correo electronico ingresado no es valido, verifique nuevamente');
+				}
+				if($repetido){
+					$model->clearErrors('nick');
+					$model->addError('nick', 'Ya existe un usuario registrado con el correo ingresado');
+				}
+				$this->render('register',array('model'=>$model));
+            }
+        }
+		else{
+			$this->render('register',array('model'=>$model));
+		}
 	}
 
 	/**

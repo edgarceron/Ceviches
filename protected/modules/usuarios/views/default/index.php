@@ -72,8 +72,8 @@ $this->breadcrumbs=array(
                                         <tr>
                                             <td><?php echo $perfil_mostrar->nombre ?></td>                    
                                             <td class="text-right">                        
-                                                <a href="<?php echo Yii::app()->createUrl('/usuarios/default/verperfil',array('id'=>$perfil_mostrar->nombre)) ?>" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span></a> 
-                                                <a href="<?php echo Yii::app()->createUrl('/usuarios/default/borrarperfil',array('id'=>$perfil_mostrar->nombre)) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                                                <a href="<?php echo Yii::app()->createUrl('/usuarios/default/verperfil',array('id'=>$perfil_mostrar->nombre)) ?>" class="btn btn-warning"><img src="<?php echo Yii::app()->request->baseUrl.'/images/view.png' ?>"/></a> 
+                                                <a href="<?php echo Yii::app()->createUrl('/usuarios/default/borrarperfil',array('id'=>$perfil_mostrar->nombre)) ?>" class="btn btn-danger"><img src="<?php echo Yii::app()->request->baseUrl.'/images/delete.png' ?>"/></span></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

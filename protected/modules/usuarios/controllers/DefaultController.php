@@ -49,6 +49,7 @@ class DefaultController extends Controller
                 'nuevaContra'=>'application.modules.'.$this->module->id.'.controllers.acciones.NuevaContraAction',	
                 'recuperar'=>'application.modules.'.$this->module->id.'.controllers.acciones.RecuperarAction',	
                 'cambiar'=>'application.modules.'.$this->module->id.'.controllers.acciones.CambiarAction',	
+                'cuenta'=>'application.modules.'.$this->module->id.'.controllers.acciones.CuentaAction',	
             );
         }
         
@@ -103,6 +104,10 @@ class DefaultController extends Controller
 					array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('cambiar'),
                                 'expression' => array(__CLASS__,'allowCambiar'),
+                            ),
+					array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('cuenta'),
+                                'expression' => array(__CLASS__,'allowCuenta'),
                             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -314,6 +319,27 @@ class DefaultController extends Controller
             $criteria->compare('perfil', $usuario->perfil);
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'cambiar');
+            $permisos = PerfilContenido::model()->find($criteria);
+            if(count($permisos) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+	
+	public function allowCuenta()
+	{
+        if(Yii::app()->user->name != "Guest"){
+            $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+            $criteria = new CDbCriteria();            
+            $modulo = 'usuarios';
+            $criteria->compare('perfil', $usuario->perfil);
+            $criteria->compare('modulo', $modulo);
+            $criteria->compare('accion', 'cuenta');
             $permisos = PerfilContenido::model()->find($criteria);
             if(count($permisos) == 1)
             {

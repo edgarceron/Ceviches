@@ -9,7 +9,6 @@
  * @property string $password
  * @property string $nombre
  * @property string $apellido
- * @property integer $telefono
  * @property string $movil
  * @property string $email
  * @property string $foto
@@ -19,6 +18,8 @@
  * @property integer $fecha_creacion
  * @property integer $restablecer
  * @property integer $grupo
+ * @property integer $telefono
+ * @property string $fecha_nacimiento
  *
  * The followings are the available model relations:
  * @property Recuperar[] $recuperars
@@ -42,16 +43,15 @@ class SofintUsers extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nick, password, nombre, apellido, email, perfil, estado, fecha_creacion', 'required'),
-			array('telefono, perfil, estado, fecha_creacion, restablecer, grupo', 'numerical', 'integerOnly'=>true),
-			array('nick', 'length', 'max'=>10),
+			array('perfil, estado, fecha_creacion, restablecer, grupo, telefono', 'numerical', 'integerOnly'=>true),
+			array('nick, email', 'length', 'max'=>40),
 			array('password, foto', 'length', 'max'=>50),
 			array('nombre, apellido', 'length', 'max'=>20),
 			array('movil', 'length', 'max'=>11),
-			array('email', 'length', 'max'=>40),
-			array('direccion', 'safe'),
+			array('direccion, fecha_nacimiento', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nick, password, nombre, apellido, telefono, movil, email, foto, direccion, perfil, estado, fecha_creacion, restablecer, grupo', 'safe', 'on'=>'search'),
+			array('id, nick, password, nombre, apellido, movil, email, foto, direccion, perfil, estado, fecha_creacion, restablecer, grupo, telefono, fecha_nacimiento', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +78,6 @@ class SofintUsers extends CActiveRecord
 			'password' => 'Password',
 			'nombre' => 'Nombre',
 			'apellido' => 'Apellido',
-			'telefono' => 'Telefono',
 			'movil' => 'Movil',
 			'email' => 'Email',
 			'foto' => 'Foto',
@@ -88,6 +87,8 @@ class SofintUsers extends CActiveRecord
 			'fecha_creacion' => 'Fecha Creacion',
 			'restablecer' => 'Restablecer',
 			'grupo' => 'Grupo',
+			'telefono' => 'Telefono',
+			'fecha_nacimiento' => 'Fecha Nacimiento',
 		);
 	}
 
@@ -114,7 +115,6 @@ class SofintUsers extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellido',$this->apellido,true);
-		$criteria->compare('telefono',$this->telefono);
 		$criteria->compare('movil',$this->movil,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('foto',$this->foto,true);
@@ -124,6 +124,8 @@ class SofintUsers extends CActiveRecord
 		$criteria->compare('fecha_creacion',$this->fecha_creacion);
 		$criteria->compare('restablecer',$this->restablecer);
 		$criteria->compare('grupo',$this->grupo);
+		$criteria->compare('telefono',$this->telefono);
+		$criteria->compare('fecha_nacimiento',$this->fecha_nacimiento,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

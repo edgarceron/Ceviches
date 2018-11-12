@@ -26,6 +26,20 @@ class IndexAction extends CAction
             }
         } 
 		
+		if(isset($_POST['Perfil']))
+        {
+            $perfil->setAttributes($_POST['Perfil']);
+            $perfil->fecha_creacion = time();
+            if($perfil->save())
+            {
+                Yii::app()->user->setFlash('success', "Perfil Guardado!");
+            }   
+            else
+            {
+                Yii::app()->user->setFlash('warning', "Informacion Incompleta, verifique nuevamente!");
+            }
+        } 
+		
 		$usuarios = Usuarios::getUsuarios();  
 		$perfiles = Perfil::model()->findAll();
 		$grupos = Grupo::model()->findAll();

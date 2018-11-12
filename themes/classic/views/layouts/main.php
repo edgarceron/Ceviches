@@ -26,10 +26,9 @@
  
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">
-			<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logogrupo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-			Sofint
+			<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo_ceviche_y_mar.png" width="100" height="100" class="d-inline-block align-top" alt="">
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -92,16 +91,27 @@
 			
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item dropleft">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<?php
+						$nombre = '';
+						if(!(Yii::app()->user->name == "Guest")) {
+							$user = SofintUsers::model()->findByPk(Yii::app()->user->id);
+							$nombre = $user->nombre;
+							echo '<span class="navbar-text">Bienvenido ' . $nombre . '</span>';
+						}
+					?>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/user32.png">
 					</a>
 					
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 					<?php if(Yii::app()->user->name == "Guest") { ?>
-						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/login") ?>">Login</a>
+						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/login") ?>">Ingresar</a>
+						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/register") ?>">Registrarse</a>
 					<?php }else{ ?>
-						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/logout") ?>">Logout(<?php echo Yii::app()->user->name ?>)</a>
-						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl('/usuarios/default/view',array('id'=>Yii::app()->user->id)) ?>">Mi Cuenta</a>
+						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/logout") ?>">Logout(<?php echo $nombre ?>)</a>
+						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl('/usuarios/default/cuenta',array('id'=>Yii::app()->user->id)) ?>">Mi Cuenta</a>
 						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/usuarios") ?>">Configuracion</a>
 					<?php } ?>
 					</div>
