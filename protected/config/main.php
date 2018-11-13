@@ -101,18 +101,18 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=sofintceviches',
+			'connectionString' => 'mysql:host=localhost;dbname=cevich_sofintceviches',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'cevich_sofint',
+			'password' => 'VNdZ8}r4u}Wa',
 			'charset' => 'utf8',
 		),
 		
 		'tienda'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=tienda',
+			'connectionString' => 'mysql:host=localhost;dbname=cevich_tienda',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'cevich_sofint',
+			'password' => 'VNdZ8}r4u}Wa',
 			'charset' => 'utf8',
 			'class' => 'CDbConnection',
 		),
