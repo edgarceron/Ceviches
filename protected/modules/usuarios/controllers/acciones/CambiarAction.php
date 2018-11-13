@@ -18,7 +18,7 @@ class CambiarAction extends CAction
 						$model->password = md5($password);
 						$model->save();
 						Yii::app()->user->setFlash('success', "La contraseña se cambio satisfactoriamente");
-						$this->controller->redirect(Yii::app()->createAbsoluteUrl('usuarios/default/view', array('id' => $id)));
+						$this->controller->redirect(Yii::app()->createAbsoluteUrl('usuarios/default/cuenta', array('id' => $id)));
 					}
 				}
 				Yii::app()->user->setFlash('success', "Verifique los datos ingresados e intente nuevamente");
