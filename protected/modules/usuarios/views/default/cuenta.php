@@ -80,7 +80,7 @@ $this->breadcrumbs=array(
 				
 				<div class="card-body">
 				
-				<?php echo CHtml::button('Crear una nueva direccioón', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/direcciones/default/formulario'). '"', 'class' => 'btn btn-primary')); ?>
+				<?php echo CHtml::button('Crear una nueva dirección', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/direcciones/default/formulario'). '"', 'class' => 'btn btn-primary')); ?>
 				<br><br>
 				<?php
 					Yii::app()->controller->widget(
