@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-09-2018 a las 21:00:34
+-- Tiempo de generación: 13-11-2018 a las 19:39:36
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 5.6.36
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sofintbase`
+-- Base de datos: `sofintceviches`
 --
 
 -- --------------------------------------------------------
@@ -50,7 +50,17 @@ INSERT INTO `acciones` (`id`, `modulo`, `accion`, `ruta`) VALUES
 (8, 'usuarios', 'perfil', 'application.modules.usuarios.controllers.acciones.PerfilAction'),
 (9, 'usuarios', 'verperfil', 'application.modules.usuarios.controllers.acciones.VerperfilAction'),
 (10, 'usuarios', 'borrarperfil', 'application.modules.usuarios.controllers.acciones.BorrarperfilAction'),
-(11, 'usuarios', 'grupo', 'application.modules.usuarios.controllers.acciones.GrupoAction');
+(11, 'usuarios', 'grupo', 'application.modules.usuarios.controllers.acciones.GrupoAction'),
+(12, 'usuarios', 'restablecer', 'application.modules.usuarios.controllers.acciones.RestablecerAction'),
+(13, 'usuarios', 'nuevaContra', 'application.modules.usuarios.controllers.acciones.NuevaContraAction'),
+(14, 'usuarios', 'recuperar', 'application.modules.usuarios.controllers.acciones.RecuperarAction'),
+(15, 'usuarios', 'cambiar', 'application.modules.usuarios.controllers.acciones.CambiarAction'),
+(16, 'usuarios', 'cuenta', 'application.modules.usuarios.controllers.acciones.CuentaAction'),
+(17, 'direcciones', 'index', 'application.modules.direcciones.controllers.acciones.IndexAction'),
+(18, 'direcciones', 'formulario', 'application.modules.direcciones.controllers.acciones.FormularioAction'),
+(19, 'direcciones', 'guardar', 'application.modules.direcciones.controllers.acciones.GuardarAction'),
+(20, 'direcciones', 'vista', 'application.modules.direcciones.controllers.acciones.VistaAction'),
+(21, 'direcciones', 'eliminar', 'application.modules.direcciones.controllers.acciones.EliminarAction');
 
 -- --------------------------------------------------------
 
@@ -772,7 +782,47 @@ INSERT INTO `logs` (`ID`, `accion`, `usuario`, `fecha`) VALUES
 (682, 17, 1, '2018-07-09 15:39:01'),
 (683, 13, 1, '2018-07-09 15:48:56'),
 (684, 14, 1, '2018-07-09 15:49:03'),
-(685, 17, 1, '2018-07-09 15:49:08');
+(685, 17, 1, '2018-07-09 15:49:08'),
+(686, 0, 1, '2018-10-22 22:06:46'),
+(687, -1, 1, '2018-10-22 22:19:06'),
+(688, 0, 1, '2018-10-22 22:19:14'),
+(689, -1, 1, '2018-10-22 22:21:26'),
+(690, 0, 3, '2018-10-22 22:21:32'),
+(691, -1, 3, '2018-10-22 22:22:27'),
+(692, 0, 1, '2018-10-22 22:22:43'),
+(693, -1, 1, '2018-10-22 22:22:55'),
+(694, 0, 3, '2018-10-22 22:23:01'),
+(695, -1, 3, '2018-10-22 22:24:50'),
+(696, 0, 3, '2018-10-22 22:24:56'),
+(697, -1, 3, '2018-10-22 22:25:13'),
+(698, 0, 3, '2018-10-22 22:25:53'),
+(699, -1, 3, '2018-10-22 22:26:16'),
+(700, 0, 1, '2018-11-12 15:37:01'),
+(701, -1, 1, '2018-11-12 16:51:49'),
+(702, 0, 1, '2018-11-12 17:05:15'),
+(703, -1, 1, '2018-11-12 17:12:09'),
+(704, 0, 1, '2018-11-12 17:12:14'),
+(705, -1, 1, '2018-11-12 17:25:21'),
+(706, 0, 1, '2018-11-12 17:55:05'),
+(707, -1, 1, '2018-11-12 18:12:10'),
+(708, -1, 13, '2018-11-12 19:50:05'),
+(709, 0, 10, '2018-11-12 20:06:24'),
+(710, -1, 10, '2018-11-12 20:08:49'),
+(711, 0, 10, '2018-11-12 20:09:54'),
+(712, -1, 10, '2018-11-12 20:10:34'),
+(713, 0, 1, '2018-11-12 20:10:35'),
+(714, -1, 1, '2018-11-12 20:11:06'),
+(715, 0, 10, '2018-11-12 20:11:23'),
+(716, -1, 10, '2018-11-12 20:23:08'),
+(717, 0, 1, '2018-11-12 20:23:15'),
+(718, 0, 1, '2018-11-13 13:43:00'),
+(719, -1, 1, '2018-11-13 15:05:46'),
+(720, 0, 10, '2018-11-13 16:57:48'),
+(721, 0, 10, '2018-11-13 16:59:29'),
+(722, -1, 10, '2018-11-13 17:51:59'),
+(723, -1, 14, '2018-11-13 18:12:09'),
+(724, 0, 1, '2018-11-13 18:12:12'),
+(725, -1, 1, '2018-11-13 18:17:32');
 
 -- --------------------------------------------------------
 
@@ -795,9 +845,30 @@ CREATE TABLE `modulos` (
 
 INSERT INTO `modulos` (`id`, `nombre`, `estado`, `fecha_creacion`, `version`, `desarrollador`) VALUES
 ('admin', 'admin', 1, 1459344759, '1', 'nojuancho@hotmail.com'),
+('direcciones', 'direcciones', 1, 1542116593, '1', 'edgar.ceron@correounivalle.edu.co'),
 ('maestros', 'maestros', 1, 1464791267, '1', 'nojuancho@hotmail.com'),
 ('plugins', 'plugins', 1, 1459344760, '1', 'nojuancho@hotmail.com'),
 ('usuarios', 'usuarios', 1, 1459344761, '1', 'nojuancho@hotmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `opciones`
+--
+
+CREATE TABLE `opciones` (
+  `id` int(11) NOT NULL,
+  `opcion` varchar(32) NOT NULL,
+  `valor` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `opciones`
+--
+
+INSERT INTO `opciones` (`id`, `opcion`, `valor`) VALUES
+(1, 'password', 'dGFrYWdpLm1peVU3OTE4'),
+(2, 'email', 'matsuurahana@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -817,7 +888,8 @@ CREATE TABLE `perfil` (
 --
 
 INSERT INTO `perfil` (`id`, `nombre`, `descripcion`, `fecha_creacion`) VALUES
-(1, 'ADMINISTRADOR', 'Administrador del sistema', 1459345066);
+(1, 'ADMINISTRADOR', 'Administrador del sistema', 1459345066),
+(2, 'cliente', 'Clientes tienda en linea', 1542045810);
 
 -- --------------------------------------------------------
 
@@ -840,21 +912,81 @@ CREATE TABLE `perfil_contenido` (
 --
 
 INSERT INTO `perfil_contenido` (`id`, `modulo`, `controlador`, `accion`, `estado`, `perfil`, `fecha_creacion`) VALUES
-(724, 'admin', 'admin', 'admin', 1, 1, 1527005698),
-(725, 'maestros', 'maestros', 'maestros', 1, 1, 1527005698),
-(726, 'plugins', 'plugins', 'plugins', 1, 1, 1527005698),
-(727, 'plugins', 'plugins', 'index', 1, 1, 1527005698),
-(728, 'plugins', 'plugins', 'registrarplugin', 1, 1, 1527005698),
-(729, 'plugins', 'plugins', 'unregistrarplugin', 1, 1, 1527005698),
-(741, 'usuarios', 'usuarios', 'usuarios', 1, 1, 1527005698),
-(742, 'usuarios', 'usuarios', 'index', 1, 1, 1527005698),
-(743, 'usuarios', 'usuarios', 'view', 1, 1, 1527005698),
-(744, 'usuarios', 'usuarios', 'create', 1, 1, 1527005698),
-(745, 'usuarios', 'usuarios', 'borrar', 1, 1, 1527005698),
-(746, 'usuarios', 'usuarios', 'perfil', 1, 1, 1527005698),
-(747, 'usuarios', 'usuarios', 'verperfil', 1, 1, 1527005698),
-(748, 'usuarios', 'usuarios', 'borrarperfil', 1, 1, 1527005699),
-(749, 'usuarios', 'usuarios', 'grupo', 1, 1, 1527005699);
+(776, 'admin', 'admin', 'admin', 1, 1, 1542054332),
+(777, 'maestros', 'maestros', 'maestros', 1, 1, 1542054332),
+(778, 'plugins', 'plugins', 'plugins', 1, 1, 1542054332),
+(779, 'plugins', 'plugins', 'index', 1, 1, 1542054332),
+(780, 'plugins', 'plugins', 'registrarplugin', 1, 1, 1542054332),
+(781, 'plugins', 'plugins', 'unregistrarplugin', 1, 1, 1542054332),
+(782, 'usuarios', 'usuarios', 'usuarios', 1, 1, 1542054332),
+(783, 'usuarios', 'usuarios', 'index', 1, 1, 1542054332),
+(784, 'usuarios', 'usuarios', 'view', 1, 1, 1542054332),
+(785, 'usuarios', 'usuarios', 'create', 1, 1, 1542054332),
+(786, 'usuarios', 'usuarios', 'borrar', 1, 1, 1542054332),
+(787, 'usuarios', 'usuarios', 'perfil', 1, 1, 1542054332),
+(788, 'usuarios', 'usuarios', 'verperfil', 1, 1, 1542054332),
+(789, 'usuarios', 'usuarios', 'borrarperfil', 1, 1, 1542054332),
+(790, 'usuarios', 'usuarios', 'grupo', 1, 1, 1542054332),
+(791, 'usuarios', 'usuarios', 'restablecer', 1, 1, 1542054332),
+(792, 'usuarios', 'usuarios', 'nuevaContra', 1, 1, 1542054332),
+(793, 'usuarios', 'usuarios', 'recuperar', 1, 1, 1542054332),
+(794, 'usuarios', 'usuarios', 'cambiar', 1, 1, 1542054332),
+(795, 'usuarios', 'usuarios', 'cuenta', 1, 1, 1542054332),
+(796, 'direcciones', 'direcciones', 'index', 1, 1, 1542116594),
+(797, 'direcciones', 'direcciones', 'formulario', 1, 1, 1542116594),
+(798, 'direcciones', 'direcciones', 'guardar', 1, 1, 1542116594),
+(799, 'direcciones', 'direcciones', 'vista', 1, 1, 1542116594),
+(800, 'direcciones', 'direcciones', 'eliminar', 1, 1, 1542119354),
+(801, 'direcciones', 'direcciones', 'direcciones', 1, 2, 1542132789),
+(802, 'direcciones', 'direcciones', 'index', 1, 2, 1542132789),
+(803, 'direcciones', 'direcciones', 'formulario', 1, 2, 1542132789),
+(804, 'direcciones', 'direcciones', 'guardar', 1, 2, 1542132789),
+(805, 'direcciones', 'direcciones', 'vista', 1, 2, 1542132789),
+(806, 'direcciones', 'direcciones', 'eliminar', 1, 2, 1542132789),
+(807, 'usuarios', 'usuarios', 'usuarios', 1, 2, 1542132789),
+(808, 'usuarios', 'usuarios', 'nuevaContra', 1, 2, 1542132789),
+(809, 'usuarios', 'usuarios', 'recuperar', 1, 2, 1542132789),
+(810, 'usuarios', 'usuarios', 'cambiar', 1, 2, 1542132789),
+(811, 'usuarios', 'usuarios', 'cuenta', 1, 2, 1542132789);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recuperar`
+--
+
+CREATE TABLE `recuperar` (
+  `id` int(11) NOT NULL,
+  `url` varchar(10) NOT NULL,
+  `estado` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `recuperar`
+--
+
+INSERT INTO `recuperar` (`id`, `url`, `estado`, `id_usuario`) VALUES
+(1, '1085872461', 0, 3),
+(2, '1300929042', 0, 3),
+(3, '1003153579', 0, 3),
+(4, '1350522829', 0, 3),
+(5, '1160219342', 0, 3),
+(6, '1188914410', 0, 3),
+(7, '1318824353', 0, 3),
+(8, '1123527699', 0, 3),
+(9, '1144514017', 0, 3),
+(10, '1349659349', 0, 3),
+(11, '1294146344', 0, 3),
+(12, '1370845895', 0, 3),
+(13, '1191817705', 0, 10),
+(14, '1294972281', 0, 10),
+(15, '1127357045', 0, 10),
+(16, '1304921073', 0, 10),
+(17, '1227383070', 0, 10),
+(18, '1344065500', 0, 10),
+(19, '1405748007', 0, 10),
+(20, '1407912965', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -864,31 +996,35 @@ INSERT INTO `perfil_contenido` (`id`, `modulo`, `controlador`, `accion`, `estado
 
 CREATE TABLE `sofint_users` (
   `id` int(11) NOT NULL,
-  `nick` varchar(10) NOT NULL,
+  `nick` varchar(40) NOT NULL,
   `password` varchar(50) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `apellido` varchar(20) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `movil` bigint(11) NOT NULL,
-  `email` varchar(40) NOT NULL,
-  `foto` varchar(50) NOT NULL,
-  `direccion` text NOT NULL,
+  `movil` bigint(11) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `direccion` text,
   `perfil` int(11) NOT NULL,
   `estado` int(11) NOT NULL,
   `fecha_creacion` int(11) NOT NULL,
-  `dat1` int(11) NOT NULL,
-  `dat2` varchar(50) NOT NULL,
-  `dat3` varchar(100) NOT NULL,
-  `dat4` varchar(50) NOT NULL,
-  `dat5` text NOT NULL
+  `restablecer` int(11) DEFAULT NULL,
+  `grupo` int(11) DEFAULT NULL,
+  `telefono` int(11) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sofint_users`
 --
 
-INSERT INTO `sofint_users` (`id`, `nick`, `password`, `nombre`, `apellido`, `telefono`, `movil`, `email`, `foto`, `direccion`, `perfil`, `estado`, `fecha_creacion`, `dat1`, `dat2`, `dat3`, `dat4`, `dat5`) VALUES
-(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Edgar Mauricio', 'Ceron Florez', 0, 0, 'edgar.ceron@correounivalle.edu.co', '', '', 1, -1, 1390152537, 1, '1', '+573176483290', '', '');
+INSERT INTO `sofint_users` (`id`, `nick`, `password`, `nombre`, `apellido`, `movil`, `email`, `foto`, `direccion`, `perfil`, `estado`, `fecha_creacion`, `restablecer`, `grupo`, `telefono`, `fecha_nacimiento`) VALUES
+(1, 'admin', 'c4d269375a376158e18a9bc0a32a45c8', 'Edgar Mauricio', 'Ceron Florez', 3176483290, 'edgar.ceron@correounivalle.edu.co', '', '', 1, -1, 1390152537, NULL, NULL, 0, '1993-01-21'),
+(3, 'dann', '84b90ebb62cb2a59d5d525582ded3a9e', 'Daniela', 'Villota', 13316464848, 'edgar.ceron@correounivalle.edu.co', NULL, NULL, 1, 1, 1540151103, 0, NULL, 0, NULL),
+(10, 'maurinin@yahoo.com', '84b90ebb62cb2a59d5d525582ded3a9e', 'Edgar', 'Ceron Florez', 0, '', NULL, NULL, 2, 1, 1542049842, 0, NULL, 0, NULL),
+(11, 'dude@dude.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'Dude', 0, '', NULL, NULL, 2, 1, 1542050045, NULL, NULL, 0, NULL),
+(12, 'dude1@dude.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'Dude', 0, '', NULL, NULL, 2, 1, 1542050076, NULL, NULL, 0, NULL),
+(13, 'dude4@due.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'DED', 0, '', NULL, NULL, 2, 1, 1542050137, NULL, NULL, 0, NULL),
+(14, 'moca@bandori.jp', 'c4d269375a376158e18a9bc0a32a45c8', 'Moca', 'Moca', NULL, NULL, NULL, NULL, 2, 1, 1542132674, NULL, NULL, NULL, '0000-00-00');
 
 --
 -- Índices para tablas volcadas
@@ -913,6 +1049,12 @@ ALTER TABLE `modulos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `perfil`
 --
 ALTER TABLE `perfil`
@@ -923,6 +1065,13 @@ ALTER TABLE `perfil`
 --
 ALTER TABLE `perfil_contenido`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `recuperar`
+--
+ALTER TABLE `recuperar`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `recuperar_ibfk_1` (`id_usuario`);
 
 --
 -- Indices de la tabla `sofint_users`
@@ -944,25 +1093,47 @@ ALTER TABLE `acciones`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=686;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=726;
+
+--
+-- AUTO_INCREMENT de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil_contenido`
 --
 ALTER TABLE `perfil_contenido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=750;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=812;
+
+--
+-- AUTO_INCREMENT de la tabla `recuperar`
+--
+ALTER TABLE `recuperar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sofint_users`
 --
 ALTER TABLE `sofint_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `recuperar`
+--
+ALTER TABLE `recuperar`
+  ADD CONSTRAINT `recuperar_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `sofint_users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
