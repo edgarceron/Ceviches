@@ -13,23 +13,15 @@ class RecuperarAction extends CAction
 			$nick = '';
 		}
 		
-		if(isset($_POST['email'])){
-			$email = trim($_POST['email']);
-		}
-		else{
-			$email = '';
-		}
-		
-		if(isset($_POST['nick']) && isset($_POST['email'])){
-			if($nick != '' && $email != ''){
+		if(isset($_POST['nick'])){
+			if($nick != ''){
 				$criteria = new CDbCriteria;
 				$criteria->compare('nick', $nick);
-				$criteria->compare('email', $email);
 				$usuario = Usuarios::model()->find($criteria);
 				
 				if($usuario != null){
 					if($this->enviarCorreo($usuario)){
-						Yii::app()->user->setFlash('success', 'Se ha enviado un correo a ' . $email . ' con los datos para recuperar su contraseña');
+						Yii::app()->user->setFlash('success', 'Se ha enviado un correo a ' . $nick . ' con los datos para recuperar su contraseña');
 					}
 					else{
 						Yii::app()->user->setFlash('warning', 'Error al enviar el correo');
@@ -44,7 +36,7 @@ class RecuperarAction extends CAction
 			}
 		}
 		   
-		$this->controller->render('formRecuperar', array('nick' => $nick, 'email' => $email));
+		$this->controller->render('formRecuperar', array('nick' => $nick));
     }
 	
 	
@@ -57,7 +49,7 @@ class RecuperarAction extends CAction
 	public function enviarCorreo($usuario){
 		
 		$mail = new PHPMailer;
-		if(filter_var($usuario['email'], FILTER_VALIDATE_EMAIL)){
+		if(filter_var($usuario['nick'], FILTER_VALIDATE_EMAIL)){
 			$codigo = rand(1000000000, 9999999999);
 			$nick = $usuario->nick;
 			$nombre = $usuario->nombre;
@@ -82,11 +74,11 @@ class RecuperarAction extends CAction
 			$mail->SMTPAuth = true;
 			$mail->Username = $this->getOpcion('email');
 			$mail->Password = base64_decode($this->getOpcion('password'));
-			$mail->setFrom($this->getOpcion('email'), 'DonativosNazareno Webmaster');
+			$mail->setFrom($this->getOpcion('email'), 'CevicheYMar Webmaster');
 			$mail->Subject = 'Recuperación de contraseña';
 			$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
 			$mail->msgHTML($adjunto);
-			$mail->AddAddress($usuario['email'], $usuario['nombre']);	
+			$mail->AddAddress($usuario['nick'], $usuario['nombre']);	
 			if(!$mail->send()) {
 			  echo '<br>Message was not sent.<br>';
 			  echo 'Mailer error: ' . $mail->ErrorInfo;

@@ -30,7 +30,7 @@ class Direcciones extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre_direccion, ciudad_direccion, linea1_direccion, linea2_direccion, telefono_direccion, usuario_direccion', 'required'),
+			array('nombre_direccion, ciudad_direccion, linea1_direccion, telefono_direccion, usuario_direccion', 'required'),
 			array('ciudad_direccion, usuario_direccion', 'numerical', 'integerOnly'=>true),
 			array('nombre_direccion', 'length', 'max'=>30),
 			array('linea1_direccion, linea2_direccion', 'length', 'max'=>100),
@@ -59,11 +59,11 @@ class Direcciones extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nombre_direccion' => 'Nombre Direccion',
-			'ciudad_direccion' => 'Ciudad Direccion',
-			'linea1_direccion' => 'Linea1 Direccion',
-			'linea2_direccion' => 'Linea2 Direccion',
-			'telefono_direccion' => 'Telefono Direccion',
+			'nombre_direccion' => 'Nombre de la direccion',
+			'ciudad_direccion' => 'Ciudad',
+			'linea1_direccion' => 'Direccion',
+			'linea2_direccion' => 'Casa/Apto/Depto/Oficina',
+			'telefono_direccion' => 'Telefono',
 			'usuario_direccion' => 'Usuario Direccion',
 		);
 	}

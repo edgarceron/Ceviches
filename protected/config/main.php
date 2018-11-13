@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Sofint New',
+	'name'=>'Tienda Ceviche Y Mar',
         'theme'=>'classic',
         'language'=>'es',
 	// preloading 'log' component

@@ -91,6 +91,10 @@ class DefaultController extends Controller
 	{
 		return array(
 			'index'=>'application.modules.'.$this->module->id.'.controllers.acciones.IndexAction',                            
+			'formulario'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormularioAction',                            
+			'guardar'=>'application.modules.'.$this->module->id.'.controllers.acciones.GuardarAction',                            
+			'vista'=>'application.modules.'.$this->module->id.'.controllers.acciones.VistaAction',                            
+			'eliminar'=>'application.modules.'.$this->module->id.'.controllers.acciones.EliminarAction',                            
 		);
 	}
         
@@ -102,6 +106,22 @@ class DefaultController extends Controller
                                 'actions' => array('index'),
                                 'expression' => array(__CLASS__,'allowIndex'),
                             ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('formulario'),
+                                'expression' => array(__CLASS__,'allowIndex'),
+                            ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('guardar'),
+                                'expression' => array(__CLASS__,'allowIndex'),
+                            ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('vista'),
+                                'expression' => array(__CLASS__,'allowIndex'),
+                            ),	
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('eliminar'),
+                                'expression' => array(__CLASS__,'allowIndex'),
+                            ),	
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

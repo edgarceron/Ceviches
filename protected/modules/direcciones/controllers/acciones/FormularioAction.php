@@ -4,15 +4,17 @@ class FormularioAction extends CAction
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
     {
+		$datos = Ciudades::model()->findAll();
+		$ciudades = CHtml::listData($datos, 'id', 'nombre_ciudad');
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
-			$model = Direeciones::model()->findByPk($id);  
+			$model = Direcciones::model()->findByPk($id);  
 			$texto_boton = 'Guardar';
 			$parametros_get = '?id='.$id;
 			$icono = '/images/edit64.png';
 		}
 		else{
-			$model = new Direeciones;
+			$model = new Direcciones;
 			$texto_boton = 'Crear';
 			$parametros_get = '';
 			$icono = '/images/new64.png';
@@ -22,6 +24,7 @@ class FormularioAction extends CAction
 			'icono' => $icono,
 			'texto_boton' => $texto_boton,
 			'parametros_get' => $parametros_get,
+			'ciudades' => $ciudades,
 			'model' => $model,
         ));
     }

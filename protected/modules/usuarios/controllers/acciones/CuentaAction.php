@@ -3,8 +3,25 @@ class CuentaAction extends CAction
 {
     public function run($id)
     {
-        $usuario = Usuarios::getUsuario($id);  
-                
+        $usuario = Usuarios::getUsuario($id);
+		
+		if(isset($_GET['tab'])){
+			$tab = $_GET['tab'];
+		}
+		else{
+			$tab = 1;
+		}
+		
+		$class_actualizar = '';
+		$class_direcciones = '';
+		
+		if($tab == 1){
+			$class_actualizar .= ' active';
+		}
+		else if($tab == 2){
+			$class_direcciones .= ' active';
+		} 
+		
 		if(isset($_POST['SofintUsers']))
 		{
 			$usuario->setAttributes($_POST['SofintUsers']);                                        
@@ -27,6 +44,8 @@ class CuentaAction extends CAction
 		(
 			'model'=>$usuario, 
 			'direcciones' => $direcciones,
+			'class_actualizar' => $class_actualizar,
+			'class_direcciones' => $class_direcciones,
 		));
     }
 }

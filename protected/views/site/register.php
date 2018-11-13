@@ -24,7 +24,7 @@
 		<?php echo $form->error($model,'nick'); ?>
 	</div>
     </div>
-    <?php if($model->isNewRecord){ ?>
+
     <div class="col-lg-6">
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'password',array('class'=>'label label-success')); ?>
@@ -32,7 +32,14 @@
 		<?php echo $form->error($model,'password'); ?>
 	</div>
     </div>
-    <?php } ?>
+	
+	<div class="col-lg-6">
+	<div class="form-group">
+		<?php echo CHtml::label('Confirmar contraseña *', 'confirmar',array('class'=>'label label-success')); ?>
+		<?php echo CHtml::passwordField('confirmar', '',array('class'=>'form-control', 'id' => 'confirmar')); ?>
+	</div>
+    </div>
+
    <div class="col-lg-6">
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'nombre',array('class'=>'label label-success')); ?>

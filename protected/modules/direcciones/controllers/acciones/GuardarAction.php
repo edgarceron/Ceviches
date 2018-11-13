@@ -3,7 +3,9 @@ class GuardarAction extends CAction
 {
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
-    {                           
+    {               
+		$datos = Ciudades::model()->findAll();
+		$ciudades = CHtml::listData($datos, 'id', 'nombre_ciudad');
 		//Carga del modelo
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
@@ -21,12 +23,13 @@ class GuardarAction extends CAction
 		
 		//Añadiendo datos al modelo
 		$model->attributes=$_POST['Direcciones'];
+		$model->usuario_direccion = Yii::app()->user->id;
 		
 		//Guardado
 		if($model->save()){
 			$id = $model['id'];
 			$this->controller->redirect(array(
-				'vista', 'id' => $id
+				'/usuarios/default/cuenta', 'id' => Yii::app()->user->id, 'tab' => 2,
 			));
 		}
 		else{
@@ -34,6 +37,7 @@ class GuardarAction extends CAction
 				'icono' => $icono,
 				'texto_boton' => $texto_boton,
 				'parametros_get' => $parametros_get,
+				'ciudades' => $ciudades,
 				'model' => $model,
 			));
 		}

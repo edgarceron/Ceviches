@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 ?>
     <ul class="nav nav-tabs" role="tablist">        
-        <li class="nav-item active"><a href="#actualizar" aria-controls="actualizar" role="tab" data-toggle="tab" class="nav-link active"><span class="glyphicon glyphicon-refresh"></span> Actualizar</a></li>
-        <li class="nav-item"><a href="#direcciones" aria-controls="direcciones" role="tab" data-toggle="tab" class="nav-link"><span class="glyphicon glyphicon-book"></span> Direcciones</a></li>        
+        <li class="nav-item active"><a href="#actualizar" aria-controls="actualizar" role="tab" data-toggle="tab" class="<?php echo 'nav-link ' .$class_actualizar ?>"><span class="glyphicon glyphicon-refresh"></span> Actualizar</a></li>
+        <li class="nav-item"><a href="#direcciones" aria-controls="direcciones" role="tab" data-toggle="tab" class="<?php echo 'nav-link ' .$class_direcciones ?>"><span class="glyphicon glyphicon-book"></span> Direcciones</a></li>        
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">              
-        <div role="tabpanel" class="tab-pane active" id="actualizar">
+        <div role="tabpanel" class="<?php echo 'tab-pane ' .$class_actualizar ?>" id="actualizar">
 			<div class="col-lg-12">
 
 				<?php $form=$this->beginWidget('CActiveForm', array(
@@ -72,13 +72,16 @@ $this->breadcrumbs=array(
 
 			</div><!-- form -->
         </div>
-        <div role="tabpanel" class="tab-pane" id="direcciones">			
+        <div role="tabpanel" class="<?php echo 'tab-pane ' .$class_direcciones ?>" id="direcciones">			
 			<div class="card">
 				<div class="card-header">
 					<img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/list64.png' ?>"/>
 				</div>
 				
 				<div class="card-body">
+				
+				<?php echo CHtml::button('Crear una nueva direccioón', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/direcciones/default/formulario'). '"', 'class' => 'btn btn-primary')); ?>
+				<br><br>
 				<?php
 					Yii::app()->controller->widget(
 						'zii.widgets.grid.CGridView', array(	
@@ -93,7 +96,11 @@ $this->breadcrumbs=array(
 							),
 							'columns'=>array(
 								'nombre_direccion',
-								'ciudad_direccion',
+								array(
+									'name' => 'ciudad_direccion',
+									'type' => 'raw',
+									'value' => 'Ciudades::model()->findByPk($data->ciudad_direccion)->nombre_ciudad',
+								),
 								'linea1_direccion',
 								'linea2_direccion',
 								array
@@ -104,19 +111,19 @@ $this->breadcrumbs=array(
 									(
 										'view' => array
 										(
-											'label'=>'Ver el evento',
+											'label'=>'Ver direccion',
 											'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
 											'url'=>'Yii::app()->createUrl("direcciones/default/vista", array("id"=>$data->id))',
 										),
 										'edit' => array
 										(
-											'label'=>'Editar el evento',
+											'label'=>'Editar direccion',
 											'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
 											'url'=>'Yii::app()->createUrl("direcciones/default/formulario", array("id"=>$data->id))',
 										),
 										'delete' => array
 										(
-											'label'=>'Ver el evento',
+											'label'=>'Eliminar direccion',
 											'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
 											'url'=>'Yii::app()->createUrl("direcciones/default/eliminar", 
 												array("id"=>$data->id))',

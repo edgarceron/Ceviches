@@ -4,9 +4,11 @@ class VistaAction extends CAction
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run($id)
     {                           
-        $model = Eventos::model()->findByPk($id); 
+        $model = Direcciones::model()->findByPk($id); 
+		$ciudad = Ciudades::model()->findByPk($model['ciudad_direccion']);
+		$model['ciudad_direccion'] = $ciudad->nombre_ciudad;
 		if($model == null){
-			throw new CHttpException(404,'No se encuentra el evento especificado, quiza fue borrado antes de ingresar a este sitio.');
+			throw new CHttpException(404,'No se encuentra la direccion0 especificada, quiza fue borrada antes de ingresar a este sitio.');
 		}
 		else{
 			$errores = '';

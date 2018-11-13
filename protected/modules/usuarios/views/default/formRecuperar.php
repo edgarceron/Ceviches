@@ -29,14 +29,8 @@ $this->breadcrumbs=array(
 
 				<div class="col-sm-4">
 					<div class="form-group">
-						<?php echo CHtml::label('Nombre de usuario','nick',array('class'=>'label label-success')); ?>
+						<?php echo CHtml::label('Correo electronico','nick',array('class'=>'label label-success')); ?>
 						<?php echo CHtml::textField('nick', '', array('class'=>'form-control')); ?>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<?php echo CHtml::label('Correo electronico','email',array('class'=>'label label-success')); ?>
-						<?php echo CHtml::textField('email', '', array('class'=>'form-control')); ?>
 					</div>
 				</div>
 				

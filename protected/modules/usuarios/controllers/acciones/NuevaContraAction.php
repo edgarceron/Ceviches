@@ -20,7 +20,6 @@ class NuevaContraAction extends CAction
 			$nick = $_GET['nick'];
 			$codigo = $_GET['codigo'];
 			$model = Usuarios::model()->find('nick = "' . $nick . '"');
-			
 			if($model != null){
 				$id = $model['id'];
 				$recuperar = $this->getRecuperacion($id, $codigo);

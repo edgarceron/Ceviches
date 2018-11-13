@@ -36,6 +36,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
+			<!--
 			<?php 
 				foreach(array_keys(Yii::app()->modules) as $modulos){                                               
 					if($modulos != "gii"){
@@ -86,7 +87,7 @@
 						}
 					}
 				}
-			?>
+			?> -->
 			</ul>
 			
 			<ul class="navbar-nav ml-auto">
@@ -112,7 +113,7 @@
 					<?php }else{ ?>
 						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/site/logout") ?>">Logout(<?php echo $nombre ?>)</a>
 						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl('/usuarios/default/cuenta',array('id'=>Yii::app()->user->id)) ?>">Mi Cuenta</a>
-						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/usuarios") ?>">Configuracion</a>
+						<!-- <a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/usuarios") ?>">Configuracion</a> -->
 					<?php } ?>
 					</div>
 				</li>
