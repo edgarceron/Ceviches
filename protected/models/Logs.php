@@ -87,14 +87,14 @@ class Logs extends CActiveRecord
 		));
 	}
         
-        public function logcreate($accion)
-        {
-            $log = new Logs;
-            $log->accion = $accion;
-            $log->usuario = Yii::app()->user->id;
-            $log->save();               
-            
-        }
+	public static function logcreate($accion)
+	{
+		$log = new Logs;
+		$log->accion = $accion;
+		$log->usuario = Yii::app()->user->id;
+		$log->save();               
+		
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.
