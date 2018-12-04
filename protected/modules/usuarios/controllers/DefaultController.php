@@ -2,7 +2,7 @@
 
 class DefaultController extends Controller
 {
-        public function beforeAction() 
+        public function beforeAction($action) 
         {
             
              $acciones = Yii::app()->getController()->actions();
