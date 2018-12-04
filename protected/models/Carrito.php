@@ -153,7 +153,7 @@ class Carrito{
 		Yii::app()->request->cookies['carrito'] = new CHttpCookie('carrito', $items_string);
 	}
 	
-	public function getItems(){
+	public static function getItems(){
 		self::cargarCookieCarrito();
 		return self::$items;
 	}
