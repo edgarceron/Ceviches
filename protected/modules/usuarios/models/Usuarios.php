@@ -13,19 +13,19 @@
  */
 class Usuarios extends SofintUsers
 {        
-    public function getUsuarios()
+    public static function getUsuarios()
     {
         $usuarios = SofintUsers::model()->findAll();
         return $usuarios;
     }
     
-    public function getUsuario($id) 
+    public static function getUsuario($id) 
     {
         $usuario = SofintUsers::model()->findByPk($id);
         return $usuario;
     }
     
-    public function deleteUsuario($id)
+    public static function deleteUsuario($id)
     {
         $usuario = SofintUsers::model()->deleteByPk($id);
         return true;
