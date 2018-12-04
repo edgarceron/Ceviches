@@ -75,6 +75,33 @@ return array(
 			'desplegable' => true,
 			'version'=>1,
 		),
+		
+		'productos'=>array
+		(
+			'nombre'=>'Productos',
+			'modulo'=>'1-5',
+			'padre'=>'maestros',
+			'desplegable' => true,
+			'version'=>1,
+		),
+		
+		'tienda'=>array
+		(
+			'nombre'=>'Tienda',
+			'modulo'=>'1-6',
+			'padre'=>'maestros',
+			'desplegable' => true,
+			'version'=>1,
+		),
+		
+		'catalogos'=>array
+		(
+			'nombre'=>'Catalogos',
+			'modulo'=>'1-7',
+			'padre'=>'maestros',
+			'desplegable' => true,
+			'version'=>1,
+		),
 	),
 
 	// application components

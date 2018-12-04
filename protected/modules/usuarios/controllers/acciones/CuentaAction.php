@@ -14,12 +14,16 @@ class CuentaAction extends CAction
 		
 		$class_actualizar = '';
 		$class_direcciones = '';
+		$class_pedidos = '';
 		
 		if($tab == 1){
 			$class_actualizar .= ' active';
 		}
 		else if($tab == 2){
 			$class_direcciones .= ' active';
+		} 
+		else if($tab == 3){
+			$class_pedidos .= ' active';
 		} 
 		
 		if(isset($_POST['SofintUsers']))
@@ -46,6 +50,7 @@ class CuentaAction extends CAction
 			'direcciones' => $direcciones,
 			'class_actualizar' => $class_actualizar,
 			'class_direcciones' => $class_direcciones,
+			'class_pedidos' => $class_pedidos,
 		));
     }
 }

@@ -90,7 +90,7 @@
 			?> -->
 			</ul>
 			
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ml-sm-2">
 				<li class="nav-item dropleft">
 					<?php
 						$nombre = '';
@@ -119,6 +119,16 @@
 				</li>
 			</ul>
 			
+			<ul class="navbar-nav ml-sm-2">
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarCart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cart32.png">
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarCart" id = "carrito">
+						
+					</div>
+				</li>
+			</ul>
 		</div>
 	</nav>
 	
@@ -149,7 +159,23 @@
 		<?php echo $content ?>
 	</div>
 	
-	
+	<script>
+	function cargarCarrito(){
+		<?php 
+		
+		
+		echo CHtml::ajax(
+			array(
+				'type'=>'GET',
+				'dataType'=>'html',
+				'async'=>'false',
+				'url' => Yii::app()->createAbsoluteUrl('/tienda/default/cargarCarrito'),
+				'update'=>'#carrito',
+			)
+		); ?>
+	}
+	window.onload = cargarCarrito;
+	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>    
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/scripts.js"></script>              

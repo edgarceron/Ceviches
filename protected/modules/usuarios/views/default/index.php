@@ -8,20 +8,11 @@ $this->breadcrumbs=array(
 ?>
 <div>
 
-  <!-- Nav tabs 
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-    <li role="presentation"><a href="#nuevo" aria-controls="nuevo" role="tab" data-toggle="tab" class="btn-success"><span class="glyphicon glyphicon-plus"></span> Nuevo Usuario</a></li>    
-    <li role="presentation"><a href="#nuevo-perfil" aria-controls="nuevo-perfil" role="tab" data-toggle="tab" class="btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Perfil</a></li>    
-	<li role="presentation"><a href="#nuevo-grupo" aria-controls="nuevo-grupo" role="tab" data-toggle="tab" class="btn-danger"><span class="glyphicon glyphicon-plus"></span> Nuevo Grupo</a></li>
-	<li role="presentation"><a href="#nuevo-rol" aria-controls="nuevo-rol" role="tab" data-toggle="tab" class="btn-warning"><span class="glyphicon glyphicon-plus"></span> Nuevo Rol</a></li>
-  </ul>
-	-->
-	<ul class="nav nav-tabs" role="tablist">
-		<li class="nav-item"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="nav-link active btn-primary"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		<li class="nav-item"><a href="#nuevo" aria-controls="nuevo" role="tab" data-toggle="tab" class="nav-link btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Usuario</a></li>    
-		<li class="nav-item"><a href="#nuevo-perfil" aria-controls="nuevo-perfil" role="tab" data-toggle="tab" class="nav-link btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Perfil</a></li>    
-	</ul>
+<ul class="nav nav-tabs" role="tablist">
+	<li class="nav-item"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="nav-link active btn-primary"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+	<li class="nav-item"><a href="#nuevo" aria-controls="nuevo" role="tab" data-toggle="tab" class="nav-link btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Usuario</a></li>    
+	<li class="nav-item"><a href="#nuevo-perfil" aria-controls="nuevo-perfil" role="tab" data-toggle="tab" class="nav-link btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuevo Perfil</a></li>    
+</ul>
 	
   <!-- Tab panes -->
   <div class="tab-content">
@@ -51,8 +42,8 @@ $this->breadcrumbs=array(
                                             <td><?php echo $usuario->nick ?></td>                    
                                             <td class="text-right">                        
                                                 <a href="<?php echo Yii::app()->createUrl('/usuarios/default/view',array('id'=>$usuario->id)) ?>" class="btn btn-warning"><img src="<?php echo Yii::app()->request->baseUrl.'/images/view.png' ?>"/></a> 
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar"><img src="<?php echo Yii::app()->request->baseUrl.'/images/delete.png' ?>"/></button>
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRestablecer"><img src="<?php echo Yii::app()->request->baseUrl.'/images/lock.png' ?>"/></button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar" data-userid="<?php echo $usuario->id ?>"><img src="<?php echo Yii::app()->request->baseUrl.'/images/delete.png' ?>"/></button>
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRestablecer" data-userid="<?php echo $usuario->id ?>"><img src="<?php echo Yii::app()->request->baseUrl.'/images/lock.png' ?>"/></button>
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -113,7 +104,7 @@ $this->breadcrumbs=array(
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <a href="<?php echo Yii::app()->createUrl('/usuarios/default/borrar',array('id'=>$usuario->id)) ?>" class="btn btn-danger">Si</a>
+        <a href="#" class="btn btn-danger" id="linkBorar">Si</a>
       </div>
     </div>
   </div>
@@ -133,7 +124,7 @@ $this->breadcrumbs=array(
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <a href="<?php echo Yii::app()->createUrl('/usuarios/default/restablecer',array('id'=>$usuario->id)) ?>" class="btn btn-danger">Si</a>
+        <a href="#" class="btn btn-danger" id="linkRestablecer">Si</a>
       </div>
     </div>
   </div>
@@ -141,4 +132,23 @@ $this->breadcrumbs=array(
 
 </div>
 
+<script>
+	window.onload = function() {
+		$('#modalBorrar').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var userid = button.data('userid') // Extract info from data-* attributes
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  $("#linkBorar").attr("href", "<?php echo Yii::app()->createUrl('/usuarios/default/borrar')?>/id/" + userid);
+		})
+		
+		$('#modalRestablecer').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var userid = button.data('userid') // Extract info from data-* attributes
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  $("#linkRestablecer").attr("href", "<?php echo Yii::app()->createUrl('/usuarios/default/restablecer')?>/id/" + userid);
+		})
+	}
+</script>
 

@@ -2,7 +2,7 @@
 
 class DefaultController extends Controller
 {
-	public function beforeAction() 
+	public function beforeAction($action) 
 	{
 		$modulo = $this->module->id;
 		$cri_val = new CDbCriteria();
@@ -10,14 +10,14 @@ class DefaultController extends Controller
 		$verificar = Modulos::model()->find($cri_val);
 		if(empty($verificar))
 		{
-			$model = new Modulos;
-			$model->id = $modulo; 
-			$model->nombre = $modulo;
-			$model->estado = 1;
-			$model->fecha_creacion = time();
-			$model->version = 1;
-			$model->desarrollador = "edgar.ceron@correounivalle.edu.co";
-			$model->save();
+			$record = new Modulos;
+			$record->id = $modulo; 
+			$record->nombre = $modulo;
+			$record->estado = 1;
+			$record->fecha_creacion = time();
+			$record->version = 1;
+			$record->desarrollador = "edgar.ceron@correounivalle.edu.co";
+			$record->save();
 		}
 		
 		$acciones = Yii::app()->getController()->actions();
@@ -45,14 +45,14 @@ class DefaultController extends Controller
 		if(!DefaultController::existePermiso($modulo, $accion)){
 			$perfil = 1;
 			$estado = 1;
-			$model = new PerfilContenido;
-			$model->modulo = $modulo;
-			$model->controlador = $modulo;
-			$model->accion = $accion;
-			$model->estado = $estado;
-			$model->perfil = $perfil;
-			$model->fecha_creacion = time();	
-			if($model->save()){
+			$record = new PerfilContenido;
+			$record->modulo = $modulo;
+			$record->controlador = $modulo;
+			$record->accion = $accion;
+			$record->estado = $estado;
+			$record->perfil = $perfil;
+			$record->fecha_creacion = time();	
+			if($record->save()){
 				return true;
 			}
 			else{
@@ -91,6 +91,7 @@ class DefaultController extends Controller
 	{
 		return array(
 			'index'=>'application.modules.'.$this->module->id.'.controllers.acciones.IndexAction',                            
+			'formulario'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormularioAction',                            
 		);
 	}
         
@@ -102,6 +103,10 @@ class DefaultController extends Controller
                                 'actions' => array('index'),
                                 'expression' => array(__CLASS__,'allowIndex'),
                             ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('formulario'),
+                                'expression' => array(__CLASS__,'allowFormulario'),
+                            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -109,10 +114,47 @@ class DefaultController extends Controller
 		);
 	}
         
-    public function allowIndex()
+    public static function allowIndex()
 	{
 		/*
 		$accion = 'index'; //Cambiar esto cada ves que lo copie para una accion diferente
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = '<?php echo $this->moduleID; ?>';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowFormulario()
+	{
+		/*
+		$accion = 'formulario'; 
 		if(Yii::app()->user->name != "Guest"){
 			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
 			$criteria = new CDbCriteria();            

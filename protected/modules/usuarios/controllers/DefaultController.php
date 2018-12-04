@@ -50,6 +50,8 @@ class DefaultController extends Controller
                 'recuperar'=>'application.modules.'.$this->module->id.'.controllers.acciones.RecuperarAction',	
                 'cambiar'=>'application.modules.'.$this->module->id.'.controllers.acciones.CambiarAction',	
                 'cuenta'=>'application.modules.'.$this->module->id.'.controllers.acciones.CuentaAction',	
+                'notificarRegistro'=>'application.modules.'.$this->module->id.'.controllers.acciones.NotificarRegistroAction',	
+                'eliminarCuenta'=>'application.modules.'.$this->module->id.'.controllers.acciones.EliminarCuentaAction',	
             );
         }
         
@@ -109,6 +111,14 @@ class DefaultController extends Controller
                                 'actions' => array('cuenta'),
                                 'expression' => array(__CLASS__,'allowCuenta'),
                             ),
+					array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('notificarRegistro'),
+                                'expression' => array(__CLASS__,'allowNotificarRegistro'),
+                            ),
+					array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('eliminarCuenta'),
+                                'expression' => array(__CLASS__,'allowEliminarCuenta'),
+                            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -116,7 +126,7 @@ class DefaultController extends Controller
 		);
 	}
         
-        public function allowIndex()
+    public function allowIndex()
 	{
             if(Yii::app()->user->name != "Guest"){
                 $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -141,7 +151,7 @@ class DefaultController extends Controller
             }
         }                                      
         
-        public function allowView()
+    public function allowView()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -162,7 +172,7 @@ class DefaultController extends Controller
             }
         } 
         
-        public function allowCreate()
+    public function allowCreate()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -183,7 +193,7 @@ class DefaultController extends Controller
             }
         } 
         
-        public function allowBorrar()
+    public function allowBorrar()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -204,7 +214,7 @@ class DefaultController extends Controller
             }
         } 
         
-        public function allowPerfil()
+    public function allowPerfil()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -225,7 +235,7 @@ class DefaultController extends Controller
             }
         } 
         
-        public function allowVerperfil()
+    public function allowVerperfil()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -247,7 +257,7 @@ class DefaultController extends Controller
 			
         } 
         
-        public function allowBorrarperfil()
+    public function allowBorrarperfil()
 	{
             if(Yii::app()->user->name != "Guest"){
             $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
@@ -340,6 +350,48 @@ class DefaultController extends Controller
             $criteria->compare('perfil', $usuario->perfil);
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'cuenta');
+            $permisos = PerfilContenido::model()->find($criteria);
+            if(count($permisos) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+	
+	public function allowNotificarRegistro()
+	{
+        if(Yii::app()->user->name != "Guest"){
+            $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+            $criteria = new CDbCriteria();            
+            $modulo = 'usuarios';
+            $criteria->compare('perfil', $usuario->perfil);
+            $criteria->compare('modulo', $modulo);
+            $criteria->compare('accion', 'notificarRegistro');
+            $permisos = PerfilContenido::model()->find($criteria);
+            if(count($permisos) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+	
+	public function allowEliminarCuenta()
+	{
+        if(Yii::app()->user->name != "Guest"){
+            $usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+            $criteria = new CDbCriteria();            
+            $modulo = 'usuarios';
+            $criteria->compare('perfil', $usuario->perfil);
+            $criteria->compare('modulo', $modulo);
+            $criteria->compare('accion', 'eliminarCuenta');
             $permisos = PerfilContenido::model()->find($criteria);
             if(count($permisos) == 1)
             {

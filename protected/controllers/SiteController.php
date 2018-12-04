@@ -185,6 +185,7 @@ class SiteController extends Controller
 			
             if($model->save())
             {
+				$nombre = $model->nombre;
                 Yii::app()->user->setFlash('success', "Usuario creado exitosamente!");
 				$identity=new UserIdentity($email,$password);
 				$identity->authenticate();
@@ -192,8 +193,8 @@ class SiteController extends Controller
 				if($identity->errorCode===UserIdentity::ERROR_NONE)
 				{
 					Yii::app()->user->login($identity,$duration);
-				}	
-				$this->redirect(Yii::app()->user->returnUrl);
+				}
+				$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/notificarRegistro', array('mail' => $email, 'nombre' => $nombre)));
             }   
             else
             {
@@ -230,7 +231,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
-                Logs::logcreate(-1);
+        Logs::logcreate(-1);
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}

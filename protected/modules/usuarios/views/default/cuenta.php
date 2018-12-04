@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
     <ul class="nav nav-tabs" role="tablist">        
         <li class="nav-item active"><a href="#actualizar" aria-controls="actualizar" role="tab" data-toggle="tab" class="<?php echo 'nav-link ' .$class_actualizar ?>"><span class="glyphicon glyphicon-refresh"></span> Actualizar</a></li>
         <li class="nav-item"><a href="#direcciones" aria-controls="direcciones" role="tab" data-toggle="tab" class="<?php echo 'nav-link ' .$class_direcciones ?>"><span class="glyphicon glyphicon-book"></span> Direcciones</a></li>        
+        <li class="nav-item"><a href="#pedidos" aria-controls="pedidos" role="tab" data-toggle="tab" class="<?php echo 'nav-link ' .$class_pedidos ?>"><span class="glyphicon glyphicon-book"></span>Pedidos</a></li>        
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">              
@@ -64,6 +65,7 @@ $this->breadcrumbs=array(
 								$id_user = $model['id'];
 								if($id_user == $id_app_user){
 									echo CHtml::button('Cambiar mi contraseña', array('onclick' => 'js:document.location.href="'. Yii::app()->createAbsoluteUrl('/usuarios/default/cambiar', array('id' => $id_user)) . '"', 'class' => 'btn btn-primary')); 
+									echo CHtml::button('Eliminar mi cuenta', array('onclick' => 'js:document.location.href="'. Yii::app()->createAbsoluteUrl('/usuarios/default/eliminarCuenta', array('id' => $id_user)) . '"', 'class' => 'btn btn-primary')); 
 								}
 							?>
 						</div>
@@ -103,6 +105,7 @@ $this->breadcrumbs=array(
 								),
 								'linea1_direccion',
 								'linea2_direccion',
+								'telefono_direccion',
 								array
 								(
 									'class'=>'CButtonColumn',
@@ -138,5 +141,9 @@ $this->breadcrumbs=array(
 				</div>
 			</div>						
 						
-        </div>        
+        </div>     
+
+		<div role="tabpanel" class="<?php echo 'tab-pane ' .$class_pedidos ?>" id="pedidos">		
+		
+		</div>
     </div>
