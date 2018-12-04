@@ -136,7 +136,7 @@ class DefaultController extends Controller
                 $criteria->compare('modulo', $modulo);
                 $criteria->compare('accion', 'index');
                 $permisos = PerfilContenido::model()->find($criteria);
-                if(count($permisos) == 1)
+                if($permisos != null)
                 {
                     return true;
                 }
@@ -161,7 +161,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'view');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -182,7 +182,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'create');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -203,7 +203,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'borrar');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -224,7 +224,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'perfil');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -245,7 +245,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'verperfil');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -267,7 +267,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'borrarperfil');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -288,7 +288,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'grupo');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -309,7 +309,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'restablecer');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -330,7 +330,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'cambiar');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -351,7 +351,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'cuenta');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -372,7 +372,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'notificarRegistro');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
@@ -393,7 +393,7 @@ class DefaultController extends Controller
             $criteria->compare('modulo', $modulo);
             $criteria->compare('accion', 'eliminarCuenta');
             $permisos = PerfilContenido::model()->find($criteria);
-            if(count($permisos) == 1)
+            if($permisos != null)
             {
                 return true;
             }
