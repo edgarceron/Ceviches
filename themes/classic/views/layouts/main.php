@@ -26,7 +26,7 @@
  
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<header class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 4; position:sticky; top:0">
 		<a class="navbar-brand" href="#">
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo_ceviche_y_mar.png" width="100" height="100" class="d-inline-block align-top" alt="">
 		</a>
@@ -130,7 +130,10 @@
 				</li>
 			</ul>
 		</div>
-	</nav>
+	</header>
+	<div id="mensaje_carrito" class="collapse alert alert-success" role="alert" style="position:fixed; z-index:1000; top:130px; right:10px ; width:50%; float:none">
+		
+	</div>
 	
 	<?php if(isset($this->breadcrumbs)):?>
 	<nav aria-label="breadcrumb">

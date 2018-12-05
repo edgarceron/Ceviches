@@ -29,10 +29,12 @@
 				$precio = $producto['precio_producto'];
 				$imagen = $producto['imagenp_producto'];
 				$aumento = 0;
-				
+				$variable_str = "";
 				foreach(array_keys($variables) as $v){
 					$idv = $variables[$v];
 					$vp = VariablesProducto::model()->find("id_producto = $id AND id_tipo_variable = $v AND id_variable= $idv");
+					$var = Variables::model()->findByPk($idv);
+					$variable_str .= $var['descripcion_tipo_variable']. ",";
 					if($vp != null){
 						if($vp['afecta_precio'] == 1){
 							$precio = $vp['precio'];
@@ -42,12 +44,16 @@
 						}
 					}
 				}
+				$variable_str = substr($variable_str, 0, -1);
 				$precio += $aumento;
 				
 			?>	
 				<tr>
 					<td><img src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>"></td>
-					<td><h6 class="my-0"><?php echo $nombre ?></h6></td>
+					<td>
+						<h6 class="my-0"><?php echo $nombre ?></h6>
+						<small class="text-muted"><?php echo $variable_str ?></small>
+					</td>
 					<td>
 						<div class="row">
 							<div class="form-group col-md-2">
@@ -89,7 +95,7 @@
 				
 				setTimeout(function(){
 					location.reload(); 
-				}, 500);
+				}, 300);
 				
 			}
 			
@@ -120,8 +126,10 @@
 						'update'=>'#carrito',
 					)
 				); ?>
-				if(valor < 0){
-					location.reload(); 
+				if(valor <= 0){
+					setTimeout(function(){
+						location.reload(); 
+					}, 300);
 				}
 			}
 		</script>	

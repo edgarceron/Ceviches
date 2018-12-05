@@ -13,7 +13,7 @@ class Carrito{
 	 * @param $variables array con las variables del productos separas como 'id_tipo_variable' => 'id_variable'
 	 * @return bool true si se añadio el item, false en caso contrario
 	 */
-	public static function addItem($id, $variables){
+	public static function addItem($id, $variables, $cantidad = 1){
 		
 		self::cargarCookieCarrito();
 		$item['id'] = $id;
@@ -24,12 +24,12 @@ class Carrito{
 		$existe = false;
 		for($i = 0; $i < count(self::$items); $i++){
 			if(self::$items[$i]['item'] == $item){
-				self::$items[$i]['cantidad']++;
+				self::$items[$i]['cantidad']+= $cantidad;
 				$existe = true;
 				break;
 			}
 		}
-		if(!$existe) array_push(self::$items, array('item' => $item, 'cantidad' => 1));
+		if(!$existe) array_push(self::$items, array('item' => $item, 'cantidad' => $cantidad));
 		self::guardarCookieCarrito();
 	}
 	

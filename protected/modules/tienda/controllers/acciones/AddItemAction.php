@@ -7,9 +7,11 @@ class AddItemAction extends CAction
 		//unset(Yii::app()->request->cookies['carrito']);
         $id = $_GET['id'];
 		unset($_GET['id']);
+		$cantidad = $_GET['cantidad'];
+		unset($_GET['cantidad']);
 		unset($_GET['_']);
 		$variables = $_GET;
-		Carrito::addItem($id, $variables);
+		Carrito::addItem($id, $variables, $cantidad);
 		$this->controller->redirect('cargarCarrito');
     }
 }
