@@ -2,7 +2,7 @@
 
 class DefaultController extends Controller
 {
-	public function beforeAction() 
+	public function beforeAction($action) 
 	{
 		$modulo = $this->module->id;
 		$cri_val = new CDbCriteria();
@@ -129,7 +129,7 @@ class DefaultController extends Controller
 		);
 	}
         
-    public function allowIndex()
+    public static function allowIndex()
 	{
 		/*
 		$accion = 'index'; //Cambiar esto cada ves que lo copie para una accion diferente

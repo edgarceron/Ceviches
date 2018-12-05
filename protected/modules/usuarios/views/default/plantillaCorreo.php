@@ -9,7 +9,7 @@
 			padding: 2%;
 			text-align: center;
 			width: 96%;">
-			<h2><img src="https://cevicheymar.com/wp-content/uploads/2018/03/Imagotipo_Color_RGB_For7uptheme.png" style="width: 100px"/></h2>
+			<h2><img src="https://cevicheymar.com/wp-content/uploads/2018/07/Logotipo-Ceviche-y-Mar@500x-8.png" style="width: 100px"/></h2>
 		</div>
 		<div style="background: none repeat scroll 0 0 #F1F2F2;
 			font-family: arial;
