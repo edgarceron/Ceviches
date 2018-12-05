@@ -89,7 +89,7 @@ $infomodulos = Modulos::model()->findAll();
                     $checked = false;
                     $p2 = PerfilContenido::model()->find('modulo = "'.$infomodulo->nombre.'" and accion = "'.$infoaccion->accion.'" and perfil = '.$perfil->id);
                     
-                    if(count($p2) == 1)
+                    if($p2 != null)
                     {
                         $checked = true;
                     }
