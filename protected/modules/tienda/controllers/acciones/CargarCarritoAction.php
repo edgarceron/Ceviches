@@ -11,7 +11,7 @@ class CargarCarritoAction extends CAction
 			$this->controller->renderPartial('carrito', array('items' => $items));
 		}
 		else{
-			return "Aun no tiene articulos en su carrito de compras";
+			echo '<small class="text-muted">Aun no tiene articulos en su carrito de compras</small>' ;
 		}
     }
 }
