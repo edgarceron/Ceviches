@@ -148,7 +148,7 @@
 				var textP = "#precio" + contador;
 				var textS = "#subtotal" + contador;
 				var precio = parseInt($(textP).text().replace('.','').substr(1)); 
-				var cantidad = parseInt($(textF).val()) - 1;
+				var cantidad = parseInt($(textF).val());
 				var subtotal = cantidad * precio;
 				
 				const formatter = new Intl.NumberFormat('es-ES', {
@@ -171,7 +171,7 @@
 						textF = "#cantidad" + i;
 						textP = "#precio" + i;
 						precio = parseInt($(textP).text().replace('.','').substr(1)); 
-						cantidad = parseInt($(textF).val()) - 1;
+						cantidad = parseInt($(textF).val());
 						subtotal = cantidad * precio;
 						total += subtotal;
 					}
