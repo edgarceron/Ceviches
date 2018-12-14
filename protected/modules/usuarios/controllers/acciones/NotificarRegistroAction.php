@@ -7,10 +7,10 @@ class NotificarRegistroAction extends CAction
     public function run($mail, $nombre)
     {		
 		if($this->enviarCorreo($mail, $nombre)){
-			Yii::app()->user->setFlash('warning', 'Se envio el correo correctamente');   
+			//Yii::app()->user->setFlash('warning', 'Se envio el correo correctamente');   
 		}
 		else{
-			Yii::app()->user->setFlash('warning', 'No se envio el correo correctamente');   
+			//Yii::app()->user->setFlash('warning', 'No se envio el correo correctamente');   
 		}			
 		$this->controller->redirect(Yii::app()->user->returnUrl);
     }

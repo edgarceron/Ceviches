@@ -53,6 +53,7 @@ $this->breadcrumbs=array(
 	<div class="form-group">
 		<?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
 		<?php echo CHtml::button('Olvide mi contraseña', array('onclick' => 'js:document.location.href="'. Yii::app()->createAbsoluteUrl('/usuarios/default/recuperar') . '"', 'class' => 'btn btn-primary')); ?>
+		<?php echo CHtml::button('Registrarse', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/site/register'). '"', 'class' => 'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

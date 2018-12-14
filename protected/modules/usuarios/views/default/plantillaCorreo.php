@@ -21,7 +21,7 @@
 				<h3>Recuperación de contraseña </h3>
 				Sr. <?php echo $nombre; ?> </br>
 				Usted solicito un cambio de contraseña desde la tienda ceviche y mar</br>
-				Ingerese <a href="<?php echo $url; ?>">aquí</a> para proceder con la recuperación: </br>
+				Ingrese <a href="<?php echo $url; ?>">aquí</a> para proceder con la recuperación: </br>
 				
 		</div>
 

@@ -102,6 +102,15 @@ return array(
 			'desplegable' => true,
 			'version'=>1,
 		),
+		
+		'administracion'=>array
+		(
+			'nombre'=>'Administracion',
+			'modulo'=>'1-8',
+			'padre'=>'maestros',
+			'desplegable' => true,
+			'version'=>1,
+		),
 	),
 
 	// application components

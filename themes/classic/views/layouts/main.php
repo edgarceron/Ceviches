@@ -33,7 +33,7 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="<?php echo Yii::app()->createUrl('tienda'); ?>">
 				<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo_ceviche_y_mar.png" width="100" height="100" class="d-inline-block align-top" alt="">
 			</a>
 			<ul class="navbar-nav mr-auto">
@@ -89,11 +89,10 @@
 					}
 				}
 			?> -->
+				
 			</ul>	
-		</div>
-		<div class="navbar navbar-expand-lg">
 			<ul class="navbar-nav ml-sm-2">
-				<li class="nav-item dropleft">
+				<li class="nav-item">
 					<?php
 						$nombre = '';
 						if(!(Yii::app()->user->name == "Guest")) {
@@ -103,6 +102,37 @@
 						}
 					?>
 				</li>
+			</ul>
+		</div>
+		<div class="navbar navbar-expand-lg">
+			<?php
+				if(isset($usuario)) {
+					$id_perfil = $usuario['perfil'];
+					$criteria = new CDbCriteria;
+					$criteria->compare('perfil', $id_perfil);
+					$criteria->compare('modulo', 'administracion');
+					$criteria->compare('accion', 'cargarNotificaciones');
+					$permiso = PerfilContenido::model()->find($criteria);
+					if($permiso != null){
+						
+					
+			?>
+			<ul class="navbar-nav ml-sm-3">
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bell32.png">
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification" style="position:absolute" id = "notificaciones">
+						No hay notificaciones para mostrar
+					</div>
+				</li>
+			</ul>
+			<?php
+					}
+				}
+			?>
+			<ul class="navbar-nav ml-sm-2">
+				
 				<li class="nav-item dropdown">
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/user32.png">
@@ -122,7 +152,7 @@
 			</ul>
 		
 			
-			<ul class="navbar-nav ml-sm-2">
+			<ul class="navbar-nav ml-sm-3">
 				<li class="nav-item dropdown">
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarCart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cart32.png">
@@ -141,7 +171,7 @@
 	<?php if(isset($this->breadcrumbs)):?>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">  
-			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl(Yii::app()->defaultController); ?>">Home</a></li>  
+			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl('tienda'); ?>">Home</a></li>  
 			<!--
 			<?php if(isset($this->breadcrumbs[0]) && isset($this->breadcrumbs[1])) { ?>
 			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl($this->breadcrumbs[0]) ?>"><?php echo $this->breadcrumbs[1] ?></a></li>            
@@ -167,9 +197,7 @@
 	
 	<script>
 	function cargarCarrito(){
-		<?php 
-		
-		
+		<?php 	
 		echo CHtml::ajax(
 			array(
 				'type'=>'GET',
@@ -180,7 +208,35 @@
 			)
 		); ?>
 	}
-	window.onload = cargarCarrito;
+	<?php
+		if(isset($usuario)) {
+			if($permiso != null){
+	?>
+	function cargarNotificaciones(){
+		<?php 	
+		echo CHtml::ajax(
+			array(
+				'type'=>'GET',
+				'dataType'=>'html',
+				'async'=>false,
+				'url' => Yii::app()->createAbsoluteUrl('/administracion/default/cargarNotificaciones'),
+				'update'=>'#notificaciones',
+			)
+		); ?>
+	}
+	<?php
+			}
+		}
+	?>
+	function notificacionesDinamico(){
+		setTimeout( function(){ cargarNotificaciones(); notificacionesDinamico()}, 10000);
+	}
+	
+	window.onload = function() {
+		cargarNotificaciones();
+		cargarCarrito();
+		//notificacionesDinamico();
+	}
 	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>    

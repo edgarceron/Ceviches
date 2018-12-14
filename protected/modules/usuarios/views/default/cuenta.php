@@ -144,6 +144,49 @@ $this->breadcrumbs=array(
         </div>     
 
 		<div role="tabpanel" class="<?php echo 'tab-pane ' .$class_pedidos ?>" id="pedidos">		
-		
+			<div class="card">
+				<div class="card-header">
+					<img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/list64.png' ?>"/>
+				</div>
+				
+				<div class="card-body">
+				<?php
+					Yii::app()->controller->widget(
+						'zii.widgets.grid.CGridView', array(	
+							'id'=>'reporte-grid',
+							'dataProvider'=>$pedidos,
+							'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css'),
+							'cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css',
+							//'data'=>$queue,
+							'itemsCssClass' => 'table table-hover table-striped',
+							'pager'=>array(
+								"internalPageCssClass" => "page-item",
+							),
+							'columns'=>array(
+								'fecha_pedido',
+								'direccion_pedido',
+								'medio_pago_pedido',
+								'estado_pedido',
+								array
+								(
+									'class'=>'CButtonColumn',
+									'template'=>'{view}',
+									'buttons'=>array
+									(
+										'view' => array
+										(
+											'label'=>'Ver direccion',
+											'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
+											'url'=>'Yii::app()->createUrl("tienda/default/verPedido", array("id_pedido"=>$data->id))',
+										),
+									),
+								)
+								
+							),
+						)
+					);			
+				?>
+				</div>
+			</div>	
 		</div>
     </div>

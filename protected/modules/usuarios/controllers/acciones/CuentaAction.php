@@ -43,11 +43,17 @@ class CuentaAction extends CAction
 		$criteria->compare('usuario_direccion', $id);
 		$model = new Direcciones;
 		$direcciones = new CActiveDataProvider($model, array('criteria' => $criteria));
+		
+		$criteria = new CDbCriteria;
+		$criteria->compare('id_usuario_pedido', $id);
+		$model = new Pedidos;
+		$pedidos = new CActiveDataProvider($model, array('criteria' => $criteria));
                 
 		$this->controller->render('cuenta',array
 		(
 			'model'=>$usuario, 
 			'direcciones' => $direcciones,
+			'pedidos' => $pedidos,
 			'class_actualizar' => $class_actualizar,
 			'class_direcciones' => $class_direcciones,
 			'class_pedidos' => $class_pedidos,

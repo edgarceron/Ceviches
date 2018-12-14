@@ -12,8 +12,6 @@
 			<div class="form-group col-md-12">
 			
 				<?php 
-				$data['id'] = $id;
-				$data['cantidad'] = "js:$('#c$id').val()";
 				$lista_variables = array_keys($producto['variables']);
 				foreach($lista_variables as $variable){
 					if(!isset($label)){
@@ -32,7 +30,7 @@
 							$burbujas[$k] = $precio + $producto['variables'][$variable][$k]['precio'];
 						}	
 					}
-					$data[$variable] = "js:$('#v" . $id . "-" . $variable . "').val()";
+					$data[$variable] = "$('#v" . $id . "-" . $variable . "').val()";
 					echo CHtml::label($label, 'v' . $id . "-". $variable); 
 					echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
 					unset($label);
@@ -46,25 +44,61 @@
 		</div>
 	</div>
 	<script>
+	var cont_div = 0;
+	var topc = 130;
+	var className = 'collapse alert alert-success';
+	var he = 0;
 	function add<?php echo $id ?>(){
-		<?php 
-		echo CHtml::ajax(
-			array(
-				'type'=>'GET',
-				'dataType'=>'html',
-				'async'=>'false',
-				'url' => Yii::app()->createAbsoluteUrl('/tienda/default/addItem'),
-				'data' => $data,
-				'update'=>'#carrito',
-			)
-		); ?>
-		
-		$("#mensaje_carrito").html("Se añadio <?php echo $nombre ?> correctamente");
-		$('#mensaje_carrito').collapse('toggle');
-		setTimeout(function(){
-			$('#mensaje_carrito').collapse('toggle');
-		}, 5000);
-		
+		var pos = cont_div;
+		var divname = '#divcar' + cont_div;
+		var iDiv = document.createElement('div');
+		iDiv.id = 'divcar' + cont_div;
+		iDiv.className = className;
+		iDiv.style.position = "fixed";
+		iDiv.style.top = '' + topc + 'px';
+		iDiv.style.right = "10px";
+		iDiv.style.zIndex = "0";
+		iDiv.style.width = "50%";
+		iDiv.style.cssFloat = "none";
+		document.getElementsByTagName('body')[0].appendChild(iDiv);
+		jQuery.ajax(
+			{
+				'type':'GET',
+				'dataType':'html',
+				'async':false,
+				'url':'<?php echo Yii::app()->createUrl('/tienda/default/addItem')?>',
+				'data':{'id':<?php echo $id ?>,'cantidad':<?php echo "$('#c" . $id . "').val()" ?>
+					<?php
+						foreach(array_keys($data) as $d){
+							 echo ",'$d':" . $data[$d];
+						}
+					?>},
+				'cache':false,
+				'error':function(ob, textStatus, error){alert(error);},
+				'success':function(html){
+					jQuery("#carrito").html(html);
+					$(divname).collapse('show');
+					$(divname).html("Se añadio <?php echo $nombre ?> correctamente");
+					$(divname).collapse('show');
+
+					
+					setTimeout(function(){
+						$(divname).collapse('hide');
+						topc = topc - he;
+						var divid = '';
+						var aux = 0;
+						for(var i = pos + 1; i < cont_div; i++){
+							var divid = "divcar" + i;
+							aux =  parseInt(document.getElementById(divid).style.top);
+							document.getElementById(divid).style.top = (aux - h) + "px"; 
+						}
+					}, 5000);
+					cont_div++;
+					topc = topc + he;
+				}
+			}
+		);		
 	}
+	
 	</script>
 </div>

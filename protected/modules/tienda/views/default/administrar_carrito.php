@@ -15,6 +15,7 @@
 			<?php
 			$vars = "\n";
 			$cont = 1;
+			$total = 0;
 			foreach($items as $detalle){
 				$item = $detalle['item'];
 				$jsonitem = json_encode($item);
@@ -28,6 +29,9 @@
 				$nombre = $producto['nombre_producto'];
 				$precio = $producto['precio_producto'];
 				$imagen = $producto['imagenp_producto'];
+				
+				$total += ($cantidad * $precio);
+				
 				$aumento = 0;
 				$variable_str = "";
 				foreach(array_keys($variables) as $v){
@@ -68,18 +72,33 @@
 							</div>
 						</div>
 					</td>
-					<td><span class="text-muted">$<?php echo $precio ?></span></td>
-					<td><span class="text-muted">$<?php echo ($precio * $cantidad)?></span></td>
+					<td><span class="text-muted"><label id="<?php echo "precio" . $cont?>">$<?php echo number_format($precio, 0, ",", ".") ?></label></span></td>
+					<td><span class="text-muted"><label id="<?php echo "subtotal" . $cont?>">$<?php echo number_format(($precio * $cantidad), 0, ",", ".") ?></label></span></td>
 					<td><img src="<?php echo Yii::app()->request->baseUrl."/images/delete2.png" ?>" onclick="quitarProducto(<?php echo "var" . $cont ?>)" ></td>
 				</tr>
 			<?php
 				$cont++;
 			}
 			?>  
+				<tr>
+					<td colspan = 3>
+					
+					</td>
+					<td>
+						Total
+					</td>
+					<td>
+						<label id="total">$<?php echo number_format($total, 0, ",", ".") ?></label>
+					</td>
+					<td>
+					</td>
+				</tr>
 			</tbody>
 		</table>
+		<?php echo CHtml::button('Finalizar pedido', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/tienda/default/finalizarPedido'). '"', 'class' => 'btn btn-primary form-control')); ?>
 		<script>
 			<?php echo $vars ?>
+			
 			function quitarProducto(item){
 				var obj = JSON.parse(item);
 				<?php 	
@@ -87,49 +106,77 @@
 					array(
 						'type'=>'GET',
 						'dataType'=>'html',
-						'async'=>'false',
+						'async'=> false,
 						'url' => Yii::app()->createAbsoluteUrl('/tienda/default/deleteItem'),
 						'data' => 'js:obj',
 					)
 				); ?>
-				
-				setTimeout(function(){
-					location.reload(); 
-				}, 300);
-				
+				location.reload(); 
 			}
 			
-			function aumentar(item, cantidad){
-				var textF = "#cantidad" + cantidad;
-				$(textF).val(parseInt($(textF).val()) + 1);
-				actualizarCantidad(item, cantidad);
+			function aumentar(item, contador){
+				var textF = "#cantidad" + contador;
+				var cantidad = parseInt($(textF).val()) + 1;
+				$(textF).val(cantidad);
+				actualizarCantidad(item, contador);
 			}
 			
-			function disminuir(item, cantidad){
-				var textF = "#cantidad" + cantidad;
-				$(textF).val($(textF).val() - 1);
-				actualizarCantidad(item, cantidad);
+			function disminuir(item, contador){
+				var textF = "#cantidad" + contador;
+				var cantidad = parseInt($(textF).val()) - 1;
+				$(textF).val(cantidad);
+				actualizarCantidad(item, contador);
 			}
 			
-			function actualizarCantidad(item, cantidad){
+			function actualizarCantidad(item, contador){
 				var obj = JSON.parse(item);
-				var textF = "#cantidad" + cantidad;
+				var textF = "#cantidad" + contador;
 				var valor = $(textF).val();
 				<?php 	
 				echo CHtml::ajax(
 					array(
 						'type'=>'GET',
 						'dataType'=>'html',
-						'async'=>'false',
+						'async'=>false,
 						'url' => Yii::app()->createAbsoluteUrl('/tienda/default/cambiarCantidad'),
 						'data' => array('item' => 'js:obj', 'cantidad' => 'js:valor'),
 						'update'=>'#carrito',
 					)
 				); ?>
+				
+				var textF = "#cantidad" + contador;
+				var textP = "#precio" + contador;
+				var textS = "#subtotal" + contador;
+				var precio = parseInt($(textP).text().replace('.','').substr(1)); 
+				var cantidad = parseInt($(textF).val()) - 1;
+				var subtotal = cantidad * precio;
+				
+				const formatter = new Intl.NumberFormat('es-ES', {
+				  style: 'decimal',
+				  minimumFractionDigits: 0
+				});
+						// Just naively convert to string for now
+				var dataString = '$' + formatter.format(subtotal);
+				
+				$(textS).text(dataString);
+				
 				if(valor <= 0){
 					setTimeout(function(){
 						location.reload(); 
-					}, 300);
+					}, 1000000);
+				}
+				else{
+					var total = 0;
+					for(var i = 1; i <= <?php echo count($items) ?>; i++){
+						textF = "#cantidad" + i;
+						textP = "#precio" + i;
+						precio = parseInt($(textP).text().replace('.','').substr(1)); 
+						cantidad = parseInt($(textF).val()) - 1;
+						subtotal = cantidad * precio;
+						total += subtotal;
+					}
+					dataString = '$' + formatter.format(total);
+					$("#total").text(dataString);
 				}
 			}
 		</script>	

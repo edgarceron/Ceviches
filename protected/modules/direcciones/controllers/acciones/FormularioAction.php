@@ -6,7 +6,7 @@ class FormularioAction extends CAction
     {
 		$datos = Ciudades::model()->findAll();
 		$ciudades = CHtml::listData($datos, 'id', 'nombre_ciudad');
-		if(isset($_GET['id'])){
+		if(isset($_GET['id']) && $_GET['id'] != 0){
 			$id = $_GET['id'];
 			$model = Direcciones::model()->findByPk($id);  
 			$texto_boton = 'Guardar';
@@ -20,13 +20,24 @@ class FormularioAction extends CAction
 			$icono = '/images/new64.png';
 		}
 		
-        $this->controller->render('formulario',array(
-			'icono' => $icono,
-			'texto_boton' => $texto_boton,
-			'parametros_get' => $parametros_get,
-			'ciudades' => $ciudades,
-			'model' => $model,
-        ));
+		if(isset($_GET['partial'])){
+			$this->controller->renderPartial('_formulario',array(
+				'icono' => $icono,
+				'texto_boton' => $texto_boton,
+				'parametros_get' => $parametros_get,
+				'ciudades' => $ciudades,
+				'model' => $model,
+			));
+		}
+		else{
+			$this->controller->render('formulario',array(
+				'icono' => $icono,
+				'texto_boton' => $texto_boton,
+				'parametros_get' => $parametros_get,
+				'ciudades' => $ciudades,
+				'model' => $model,
+			));
+		}
     }
 }
 ?>
