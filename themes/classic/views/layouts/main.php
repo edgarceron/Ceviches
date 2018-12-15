@@ -233,7 +233,15 @@
 	}
 	
 	window.onload = function() {
+		<?php
+		if(isset($usuario)) {
+			if($permiso != null){
+		?>
 		cargarNotificaciones();
+		<?php
+				}
+			}
+		?>
 		cargarCarrito();
 		//notificacionesDinamico();
 	}

@@ -2,6 +2,9 @@
 	$imagen = $producto['imagen'];
 	$nombre = $producto['nombre'];
 	$precio = $producto['precio'];
+	for($i = 1;$i<=99;$i++){
+		$cantidades[$i] = "$i";
+	}
 ?>
 <div class="col-sm-3">
 	<div class="card">
@@ -36,7 +39,7 @@
 					unset($label);
 				}
 				echo CHtml::label('Cantidad', 'c' . $id); 
-				echo CHtml::textField('c' . $id, '1', array('id'=>'c' . $id, 'class'=>'form-control', "style" => "text-align:center"));
+				echo CHtml::dropDownList('c' . $id, 1, $cantidades, array('id'=>'c' . $id, 'class'=>'form-control', "style" => "text-align:center"));
 				echo "<br>";
 				echo CHtml::button('Añadir al carrito', array('id' => 'add' . $id, 'class' => 'form-control btn-primary', 'onclick' => 'add' . $id . '()'));	
 				?>
