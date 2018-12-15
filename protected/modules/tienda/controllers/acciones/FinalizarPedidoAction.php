@@ -10,9 +10,8 @@ class FinalizarPedidoAction extends CAction
 			$this->controller->redirect(Yii::app()->createUrl('/site/login'));
 		}
 		else{
-			$carrito = Yii::app()->request->cookies->contains('carrito') ?
-				Yii::app()->request->cookies['carrito']->value : false;
-			if($carrito){
+			$items = Carrito::getItems();
+			if($items != array()){
 				$items = Carrito::getItems();
 				$id_usuario = Yii::app()->user->id;
 				$direcciones = Direcciones::model()->findAll('usuario_direccion = ' . $id_usuario);

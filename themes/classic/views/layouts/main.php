@@ -122,7 +122,7 @@
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bell32.png">
 					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification" style="position:absolute" id = "notificaciones">
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification" style="position:absolute; overflow-y: scroll;" id = "notificaciones">
 						No hay notificaciones para mostrar
 					</div>
 				</li>
