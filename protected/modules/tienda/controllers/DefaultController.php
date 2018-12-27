@@ -99,6 +99,7 @@ class DefaultController extends Controller
 			'deleteItem'=>'application.modules.'.$this->module->id.'.controllers.acciones.DeleteItemAction', 
 			'finalizarPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.FinalizarPedidoAction', 
 			'checkout'=>'application.modules.'.$this->module->id.'.controllers.acciones.CheckoutAction', 
+			'resumen'=>'application.modules.'.$this->module->id.'.controllers.acciones.ResumenAction', 
 			'crearPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.CrearPedidoAction', 
 			'thankYou'=>'application.modules.'.$this->module->id.'.controllers.acciones.ThankYouAction', 
 			'verPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.VerPedidoAction', 
@@ -156,7 +157,11 @@ class DefaultController extends Controller
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('verPedido'),
                                 'expression' => array(__CLASS__,'allowVerPedido'),
-                            ),		
+                            ),	
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('resumen'),
+                                'expression' => array(__CLASS__,'allowResumen'),
+                            ),	
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -572,6 +577,43 @@ class DefaultController extends Controller
 	}
 	
 	public static function allowVerPedido()
+	{
+		/*
+		$accion = 'index'; //Cambiar esto cada ves que lo copie para una accion diferente
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'tienda';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowResumen()
 	{
 		/*
 		$accion = 'index'; //Cambiar esto cada ves que lo copie para una accion diferente

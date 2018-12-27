@@ -7,18 +7,16 @@ class CrearPedidoAction extends CAction
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
     {                           
-        $id_direccion = $_GET['id_direccion'];
-		$medio_pago = $_GET['medio_pago'];
+        $direccion = $_POST['direccion'];
+		$medio_pago = $_POST['medio_pago'];
+		$fecha = $_POST['fecha'];
+		$items_string = $_POST['items_string'];
 		
 		$pedido = new Pedidos;
 		$pedido['id_usuario_pedido'] = Yii::app()->user->id;
 		$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
 		$pedido['estado_pedido'] = "Recibido"; 
-		$direccion = Direcciones::model()->findByPk($id_direccion);
-		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
-		$cadena_direccion = $ciudad['nombre_ciudad'] . ": " . $direccion['linea1_direccion'] . 
-		" " . $direccion['linea2_direccion'] . " Tel:" . $direccion['telefono_direccion']; 
-		$pedido['direccion_pedido'] = $cadena_direccion;
+		$pedido['direccion_pedido'] = $direccion;
 		if($medio_pago == 1){
 			$cadena_medio_pago = "Efectivo";
 		}
@@ -26,11 +24,26 @@ class CrearPedidoAction extends CAction
 			$cadena_medio_pago = "PayU";
 		}
         $pedido['medio_pago_pedido'] = $cadena_medio_pago;
-		$pedido['cookie_pedido'] = Carrito::getItemsString();
-		$items = Carrito::getItems();
+		$pedido['cookie_pedido'] = $items_string;
+		while(true){
+			$luigi = $this->generarCodigoLuigi();
+			$repetido = Pedidos::model()->find('luigi_pedido = "' . $luigi . '"');
+			if($repetido == null){
+				break;
+			}
+		}
+		
+		$pedido['luigi_pedido'] = $luigi;
+		$items = Carrito::cargarPorCadena($items_string);
 		
 		
 		if($pedido->save()){
+			if($fecha){
+				$programacion = new ProgramacionPedido;
+				$programacion['id_pedido'] = $pedido['id'];
+				$programacion['fecha_programada'] = $fecha;
+				$programacion->save();
+			}
 			//Cargar articulos a la table de detalles
 			$total = 0;
 			foreach($items as $d){
@@ -82,6 +95,7 @@ class CrearPedidoAction extends CAction
 			Carrito::borrarCookie();
 			$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
 				'id_pedido' => $pedido['id'],
+				'luigi' => $pedido['luigi_pedido'],
 			)));
 		}
 		else{
@@ -166,6 +180,68 @@ class CrearPedidoAction extends CAction
 			return $record['valor'];
 		}
 		return null;
+	}
+	
+	public function generarCodigoLuigi(){
+		$numero = strtotime(date('Y-m-d H:i:s'));
+		$contador = 0;
+		$resultado = array();
+		while(true){
+			$division = $numero / 36;
+			$residuo = $numero % 36;
+			$numero = floor($division);	
+			$resultado[$contador] = $this->retornarBase36($residuo);
+			$contador++;
+			if($numero < 36) break;
+		}
+		
+		$codigo = "";
+		for($i = count($resultado) - 1;$i >=0; $i--){
+			$codigo = $codigo . $resultado[$i];
+		}
+		
+		return $codigo;
+	}
+	
+	public function retornarBase36($numero){
+		switch($numero){
+			case 0:return 0;break;
+			case 1:return 1;break;
+			case 2:return 2;break;
+			case 3:return 3;break;
+			case 4:return 4;break;
+			case 5:return 5;break;
+			case 6:return 6;break;
+			case 7:return 7;break;
+			case 8:return 8;break;
+			case 9:return 9;break;
+			case 10:return 'A';break;
+			case 11:return 'B';break;
+			case 12:return 'C';break;
+			case 13:return 'D';break;
+			case 14:return 'E';break;
+			case 15:return 'F';break;
+			case 16:return 'G';break;
+			case 17:return 'H';break;
+			case 18:return 'I';break;
+			case 19:return 'J';break;
+			case 20:return 'K';break;
+			case 21:return 'L';break;
+			case 22:return 'M';break;
+			case 23:return 'N';break;
+			case 24:return 'O';break;
+			case 25:return 'P';break;
+			case 26:return 'Q';break;
+			case 27:return 'R';break;
+			case 28:return 'S';break;
+			case 29:return 'T';break;
+			case 30:return 'U';break;
+			case 31:return 'V';break;
+			case 32:return 'W';break;
+			case 33:return 'X';break;
+			case 34:return 'Y';break;
+			case 35:return 'Z';break;
+		}
 	}
 }
 

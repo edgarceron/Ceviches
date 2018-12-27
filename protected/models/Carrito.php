@@ -170,6 +170,7 @@ class Carrito{
 	}
 	
 	public static function procesarCadena($cadena_cookie){
+		self::$items = array();
 		$detalles = explode(";", $cadena_cookie);
 		foreach($detalles as $d){
 			$detalle = explode("*", $d);

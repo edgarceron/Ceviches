@@ -163,6 +163,7 @@ $this->breadcrumbs=array(
 								"internalPageCssClass" => "page-item",
 							),
 							'columns'=>array(
+								'luigi_pedido',
 								'fecha_pedido',
 								'direccion_pedido',
 								'medio_pago_pedido',

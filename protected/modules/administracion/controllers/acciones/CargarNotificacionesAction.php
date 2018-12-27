@@ -19,10 +19,19 @@ class CargarNotificacionesAction extends CAction
 			$notificacion['fecha'] = $pedido['fecha_pedido'];
 			$notificaciones[] = $notificacion;
 		}
+		
 
-        $this->controller->renderPartial('notificaciones',array(
-			'notificaciones' => $notificaciones,
-        ));
+        $html = $this->controller->renderPartial(
+			'notificaciones',
+			array(
+				'notificaciones' => $notificaciones,
+			),
+			true
+		);
+		
+		$numero_notificaciones = count($notificaciones);
+		
+		echo $html . "--" . $numero_notificaciones;
     }
 }
 

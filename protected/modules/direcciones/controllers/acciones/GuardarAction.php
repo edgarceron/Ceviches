@@ -12,7 +12,7 @@ class GuardarAction extends CAction
 			$ciudades = CHtml::listData($datos, 'id', 'nombre_ciudad');
 			
 			//Carga del modelo
-			if(isset($_GET['id'])){
+			if(isset($_GET['id']) && $_GET['id'] != 0){
 				$id = $_GET['id'];
 				$model = Direcciones::model()->findByPk($id); 
 				$icono = '/images/edit64.png';

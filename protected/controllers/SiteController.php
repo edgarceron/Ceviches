@@ -14,11 +14,11 @@ class SiteController extends Controller
 	{
 		return array(	
                 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('error','login','logout', 'register'),
+				'actions'=>array('error','login','logout', 'register', 'index'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','contact'),
+				'actions'=>array('contact'),
 				'users'=>array('@'),
 			),	
 			/*array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
@@ -73,7 +73,21 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->redirect(Yii::app()->createAbsoluteUrl('/tienda/'));
+		$id = Yii::app()->user->id;
+		$user = SofintUsers::model()->findByPk($id);
+		if($user != null){
+			$perfil = $user['perfil'];
+			if($perfil == 1){
+				$url = Yii::app()->createAbsoluteUrl('/administracion/');
+			}
+			else{
+				$url = Yii::app()->createAbsoluteUrl('/tienda/');
+			}
+		}
+		else{
+			$url = Yii::app()->createAbsoluteUrl('/tienda/');
+		}
+		$this->redirect($url);
 	}
 
 	/**
@@ -139,7 +153,8 @@ class SiteController extends Controller
 			{
 				Logs::logcreate(0);
 				$id = Yii::app()->user->id;
-				$restablecer = SofintUsers::model()->findByPk($id)['restablecer'];
+				$user = SofintUsers::model()->findByPk($id);
+				$restablecer = $user['restablecer'];
 				if($restablecer == 1){
 					$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/nuevaContra') . "?id=$id");
 				}

@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'lineas_producto':
  * @property integer $id
  * @property string $nombre_linea_producto
+ * @property string $descripcion_linea_producto
  *
  * The followings are the available model relations:
  * @property Productos[] $productoses
@@ -28,11 +29,11 @@ class LineasProducto extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre_linea_producto', 'required'),
+			array('nombre_linea_producto, descripcion_linea_producto', 'required'),
 			array('nombre_linea_producto', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre_linea_producto', 'safe', 'on'=>'search'),
+			array('id, nombre_linea_producto, descripcion_linea_producto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +57,7 @@ class LineasProducto extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre_linea_producto' => 'Nombre Linea Producto',
+			'descripcion_linea_producto' => 'Descripcion Linea Producto',
 		);
 	}
 
@@ -79,6 +81,7 @@ class LineasProducto extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre_linea_producto',$this->nombre_linea_producto,true);
+		$criteria->compare('descripcion_linea_producto',$this->descripcion_linea_producto,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

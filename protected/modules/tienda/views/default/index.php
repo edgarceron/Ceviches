@@ -12,12 +12,26 @@ $this->breadcrumbs=array(
 	<div class="card">
 		<div class="row">
 		<?php
+		foreach($lineas as $l){
+			$linea = LineasProducto::model()->findByPk($l['id_linea_producto']);
+			$descripcion_linea = $linea['descripcion_linea_producto'];
+			$nombre_linea = $linea['nombre_linea_producto'];
+			?>
+			<div class="col-sm-12">
+				<h2><?php echo $nombre_linea ?></h2>
+				<span class="text-muted"><?php echo $descripcion_linea ?></span>
+			</div>
+			<?php
 			$keys = array_keys($productos_catalogo);
 			foreach($keys as $k){
 				$id = $k;
 				$producto = $productos_catalogo[$k];
-				$this->renderPartial('_producto_catalogo', array('id' => $id, 'producto' => $producto));
+				if($producto['linea'] == $linea['id']){
+					$this->renderPartial('_producto_catalogo', array('id' => $id, 'producto' => $producto));
+					unset($productos_catalogo[$k]);
+				}
 			}
+		}
 		?>
 		</div>
 	</div>

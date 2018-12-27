@@ -11,11 +11,33 @@ class FinalizarPedidoAction extends CAction
 		}
 		else{
 			$items = Carrito::getItems();
+			
+			if(isset($_GET['programacion'])){
+				$programacion = $_GET['programacion'];
+			}
+			else{
+				$programacion = 1;
+			}
+			
+			if(isset($_GET['fecha'])){
+				$fecha = $_GET['fecha'];
+			}
+			else{
+				$fecha = '';
+			}
+			
+			if(isset($_GET['hora'])){
+				$hora = $_GET['hora'];
+			}
+			else{
+				$hora = '';
+			}
+			
 			if($items != array()){
 				$items = Carrito::getItems();
+				$items_string = Carrito::getItemsString();
 				$id_usuario = Yii::app()->user->id;
 				$direcciones = Direcciones::model()->findAll('usuario_direccion = ' . $id_usuario);
-				$lista_direcciones = array();
 				foreach($direcciones as $direccion){
 					$desc = $direccion['nombre_direccion'] . ": " . $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'];
 					if(strlen($desc) >= 30){
@@ -25,7 +47,11 @@ class FinalizarPedidoAction extends CAction
 				}
 				$this->controller->render('finalizar_pedido',array(
 					'items' => $items,
+					'items_string' => $items_string,
 					'lista_direcciones' => $lista_direcciones,
+					'fecha' => $fecha,
+					'hora' => $hora,
+					'programacion' => $programacion,
 				));
 			}
 			else{

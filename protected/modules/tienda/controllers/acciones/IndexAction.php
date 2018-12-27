@@ -8,7 +8,9 @@ class IndexAction extends CAction
 		if($id_catalogo != ''){
 			$catalogo = Catalogos::model()->findByPk($id_catalogo);
 			if($catalogo != null){
-				$criteria = new CDbCriteria;
+				$com = "CALL lineasCatalogo($id_catalogo)";
+				$lineas = Yii::app()->tienda->createCommand($com)->queryAll();
+				
 				$com = "CALL productosCatalogo($id_catalogo)";
 				$productos = Yii::app()->tienda->createCommand($com)->queryAll();
 				$productos_catalogo = $this->crearProductos($productos);
@@ -17,6 +19,7 @@ class IndexAction extends CAction
 
         $this->controller->render('index',array(
 			"productos_catalogo" => $productos_catalogo,
+			"lineas" => $lineas,
         ));
     }
 	
@@ -28,7 +31,8 @@ class IndexAction extends CAction
 				$nombre = $p['nombre_producto'];
 				$precio_p = $p['precio_producto'];
 				$imagen = $p['imagenm_producto'];
-				$productos_catalogo[$id] = array('nombre' => $nombre, 'precio' => $precio_p, 'imagen' => $imagen);
+				$linea = $p['id_linea_producto'];
+				$productos_catalogo[$id] = array('nombre' => $nombre, 'precio' => $precio_p, 'linea'=> $linea, 'imagen' => $imagen);
 			}
 			$nombre_tipo_variable = $p['id_tipo_variable'];
 			$id_variable_producto = $p['id_variable_producto'];

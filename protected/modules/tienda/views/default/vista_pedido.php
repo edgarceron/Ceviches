@@ -1,3 +1,6 @@
+<div class="row">
+	<h2>Código Luigi: <?php echo $pedido['luigi_pedido'] ?></h2>
+</div>
 
 <div class="row">
 	<div class="col-md-6 border border-secondary">

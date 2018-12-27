@@ -12,19 +12,9 @@
 	padding: 2%;
 	text-align: center;
 	width: 96%;">
-	<h3>Sr. <?php echo $nombre ?> su pedido en ceviche y mar</h3>
-	<h4>Dirección</h4>
-		<?php 
-			echo $pedido['direccion_pedido'];
-		?>
-
-	<h4>Medio de pago</h4>
-	<?php echo $pedido['medio_pago_pedido'] ?>
-	
-	<h4>Estado</h4>
-	<?php echo $pedido['estado_pedido'] ?>
-
-
+	<h3>Sr. <?php echo $nombre ?> gracias por su pedido en ceviche y mar</h3>
+	<h2>Puede consultar el estado de su pedido <a href="<?php echo $url?>" style="color:black">aquí</a> </h2>
+	<h2>Resumen del pedido</h2>
 	<table class="table">
 		<thead>
 			<tr>
@@ -80,5 +70,12 @@
 		</tbody>
 	</table>
 	
-	<h2>Puede consultar el estado de su pedido <a href="<?php echo $url?>" style="color:black">aquí</a> </h2>
+	<h4>Dirección de entrega</h4>
+		<?php 
+			echo $pedido['direccion_pedido'];
+		?>
+
+	<h4>Medio de pago</h4>
+	<?php echo $pedido['medio_pago_pedido'] ?>
+	
 </div>
