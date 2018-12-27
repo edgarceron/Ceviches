@@ -13,7 +13,7 @@
 	text-align: center;
 	width: 96%;">
 	<h3>Sr. <?php echo $nombre ?> gracias por su pedido en ceviche y mar</h3>
-	<h2>Puede consultar el estado de su pedido <a href="<?php echo $url?>" style="color:black">aquí</a> </h2>
+	<h2>Puede consultar el estado de su pedido <a href="https://cevicheymar.com/Ceviches<?php echo $url?>" style="color:black">aquí</a> </h2>
 	<h2>Resumen del pedido</h2>
 	<table class="table">
 		<thead>
@@ -38,7 +38,7 @@
 			$total += ($cantidad * $precio);
 		?>	
 			<tr>
-				<td><img src="<?php echo $rutaImagenes.$imagen ?>"></td>
+				<td><img src="https://cevicheymar.com/Ceviches<?php echo $rutaImagenes.$imagen ?>"></td>
 				<td>
 					<h6 class="my-0"><?php echo $nombre ?></h6>
 				</td>
