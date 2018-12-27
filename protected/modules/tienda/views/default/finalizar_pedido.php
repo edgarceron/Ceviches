@@ -194,7 +194,7 @@
 				'type':'GET',
 				'dataType':'html',
 				'async':'false',
-				'url':'http://localhost/Ceviches/index.php/direcciones/default/formulario',
+				'url':'<?php echo Yii::app()->createAbsoluteUrl('/direcciones/default/formulario')?>',
 				'data':{'id':id_dir,'partial':1},
 				'cache':false,
 				'success':function(html){jQuery("#formularioDireccion").html(html)}
