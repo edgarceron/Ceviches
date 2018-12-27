@@ -166,8 +166,7 @@
 			if(ev == 1){
 				var id_dir = $("#direccion").val();
 				var aux = "" + id_dir;
-				alert(aux);
-				if(aux != "" || aux != "0"){
+				if(aux == "null" || aux != "0"){
 					$("#btn-finalizar").prop("disabled", false);
 				}
 				else{
