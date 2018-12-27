@@ -159,55 +159,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<?php echo CHtml::hiddenField('items_string', $items_string); ?>
-		<script>
-		$("#btn-finalizar").prop("disabled", true);
-		function cargarFormulario(ev){
-			if(ev == 1){
-				var id_dir = $("#direccion").val();
-				alert(id_dir);
-				if(id_dir != "0" && id_dir!=null){
-					$("#btn-finalizar").prop("disabled", false);
-				}
-				else{
-					$("#btn-finalizar").prop("disabled", true);
-				}
-			}
-			else{
-				var id_dir = 0;
-			}
-			jQuery.ajax(
-				{
-					'type':'GET',
-					'dataType':'html',
-					'async':'false',
-					'url':'http://localhost/Ceviches/index.php/direcciones/default/formulario',
-					'data':{'id':id_dir,'partial':1},
-					'cache':false,
-					'success':function(html){jQuery("#formularioDireccion").html(html)}
-				}
-			);		
-		}
-			
-		function nombreDireccion(nombre){
-			document.getElementById("nombre_direccion").value =  nombre;
-		}
-		
-		function mostrarTiempo(){
-			var tiempo = $('#tiempo');
-			var programacion = $('#programacion').val();
-			if(programacion == 2){
-				tiempo.collapse('show');
-			}
-			else{
-				tiempo.collapse('hide');
-			}
-		}
-		
-		
-		cargarFormulario(1);
-		
-		</script>	
+		<?php echo CHtml::hiddenField('items_string', $items_string); ?>	
 	</div>
 	
 	
@@ -221,4 +173,51 @@
 	
 	</div>
 </div>
+
+<script>
+	$("#btn-finalizar").prop("disabled", true);
+	function cargarFormulario(ev){
+		if(ev == 1){
+			var id_dir = $("#direccion").val();
+			alert(id_dir);
+			if(id_dir != "0" && id_dir!=null){
+				$("#btn-finalizar").prop("disabled", false);
+			}
+			else{
+				$("#btn-finalizar").prop("disabled", true);
+			}
+		}
+		else{
+			var id_dir = 0;
+		}
+		jQuery.ajax(
+			{
+				'type':'GET',
+				'dataType':'html',
+				'async':'false',
+				'url':'http://localhost/Ceviches/index.php/direcciones/default/formulario',
+				'data':{'id':id_dir,'partial':1},
+				'cache':false,
+				'success':function(html){jQuery("#formularioDireccion").html(html)}
+			}
+		);		
+	}
+		
+	function nombreDireccion(nombre){
+		document.getElementById("nombre_direccion").value =  nombre;
+	}
+	
+	function mostrarTiempo(){
+		var tiempo = $('#tiempo');
+		var programacion = $('#programacion').val();
+		if(programacion == 2){
+			tiempo.collapse('show');
+		}
+		else{
+			tiempo.collapse('hide');
+		}
+	}
+	
+	cargarFormulario(1);	
+</script>
 <?php $this->endWidget(); ?>
