@@ -1,6 +1,6 @@
 
 <div class="row">
-	<div class="col-md-6 border border-secondary">
+	<div class="col-md-12">
 		<div class="alert alert-<?php echo $c?>" role="alert">
 			<?php echo $mensaje?>
 		</div>
