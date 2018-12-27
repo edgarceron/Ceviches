@@ -165,7 +165,7 @@
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarCart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cart32.png">
 					</a>
-					<div class="dropdown-menu dropdown-menu-right table-responsive-md" aria-labelledby="navbarCart" style="min-width: 20rem;" id = "carrito">
+					<div class="dropdown-menu dropdown-menu-right table-responsive-md" aria-labelledby="navbarCart" style="position:absolute; min-width: 20rem;" id = "carrito">
 						No hay productos para mostrar
 					</div>
 				</li>
