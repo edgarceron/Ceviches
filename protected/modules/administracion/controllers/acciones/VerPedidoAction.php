@@ -5,7 +5,7 @@ class VerPedidoAction extends CAction {
 		$pedido = Pedidos::model()->findByPk($id_pedido);
 		$detalles = Detalles::model()->findAll('id_pedido = ' . $id_pedido);
 		
-		$programcion = ProgramacionPedido::model()->find('id_pedido = ' . $pedido['id_pedido']);
+		$programcion = ProgramacionPedido::model()->find('id_pedido = ' . $pedido['id']);
 		if($programcion == null){
 			$c = "danger";
 			$mensaje = "Pedido para ya! Debe llegar en 45 minutos o menos";
