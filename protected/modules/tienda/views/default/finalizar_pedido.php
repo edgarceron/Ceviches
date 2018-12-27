@@ -165,7 +165,7 @@
 		function cargarFormulario(ev){
 			if(ev == 1){
 				var id_dir = $("#direccion").val();
-				if(id_dir != 0){
+				if(id_dir == null || id_dir != 0){
 					$("#btn-finalizar").prop("disabled", false);
 				}
 				else{
