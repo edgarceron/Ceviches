@@ -160,7 +160,7 @@
 				
 				$(textS).text(dataString);
 				
-				if(valor <= 0){
+				if(cantidad <= 0){
 					setTimeout(function(){
 						location.reload(); 
 					}, 1000000);
