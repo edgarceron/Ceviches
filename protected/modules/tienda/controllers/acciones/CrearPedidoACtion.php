@@ -156,9 +156,9 @@ class CrearPedidoAction extends CAction
 	 * @return String con el html de la pagina
 	 */
 	public function construirMensaje($mail, $nombre, $pedido, $detalles){
-		$url = Yii::app()->getBaseUrl() . Yii::app()->createUrl('/tienda/default/verPedido', 
+		$url = Yii::app()->createAbsoluteUrl('/tienda/default/verPedido', 
 			array('id_pedido' => $pedido['id']));
-		$rutaImagenes =  Yii::app()->request->baseUrl."/images/";	
+		$rutaImagenes =  Yii::app()->createAbsoluteUrl('')."/images/";	
 		return $this->controller->renderPartial('plantilla_correo_pedido', 
 			array(
 				'mail' => $mail, 
