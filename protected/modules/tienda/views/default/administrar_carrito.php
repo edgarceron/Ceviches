@@ -161,9 +161,7 @@
 				$(textS).text(dataString);
 				
 				if(cantidad <= 0){
-					setTimeout(function(){
-						location.reload(); 
-					}, 1000000);
+					location.reload(); 
 				}
 				else{
 					var total = 0;
