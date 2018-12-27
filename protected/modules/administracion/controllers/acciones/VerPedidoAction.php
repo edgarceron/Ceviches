@@ -13,7 +13,7 @@ class VerPedidoAction extends CAction {
 		else{
 			$fecha = $programcion['fecha_programada'];
 			$c = "alert";
-			$mensaje = "Pedido para $fecha, atención"
+			$mensaje = "Pedido para $fecha, atención";
 		}
 		
 		if(isset($_POST['Pedidos']['estado_pedido'])){
