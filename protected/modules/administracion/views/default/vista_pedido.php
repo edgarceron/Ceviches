@@ -1,6 +1,11 @@
 
 <div class="row">
 	<div class="col-md-6 border border-secondary">
+		<div class="alert alert-<?php echo $c?>" role="alert">
+			<?php echo $mensaje?>
+		</div>
+	</div>	
+	<div class="col-md-6 border border-secondary">
 		<h4>Dirección</h4>
 		<div class="form-group col-md-12">
 			<?php 

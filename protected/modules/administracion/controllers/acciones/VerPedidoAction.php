@@ -5,6 +5,17 @@ class VerPedidoAction extends CAction {
 		$pedido = Pedidos::model()->findByPk($id_pedido);
 		$detalles = Detalles::model()->findAll('id_pedido = ' . $id_pedido);
 		
+		$programcion = ProgramacionPedido::model()->find('id_pedido = ' . $pedido['id_pedido']);
+		if($programcion == null){
+			$c = "danger";
+			$mensaje = "Pedido para ya! Debe llegar en 45 minutos o menos";
+		}
+		else{
+			$fecha = $programcion['fecha_programada'];
+			$c = "alert";
+			$mensaje = "Pedido para $fecha, atención"
+		}
+		
 		if(isset($_POST['Pedidos']['estado_pedido'])){
 			$pedido['estado_pedido'] = $_POST['Pedidos']['estado_pedido'];
 			$pedido->save();
@@ -18,6 +29,8 @@ class VerPedidoAction extends CAction {
 			'pedido' => $pedido,
 			'detalles' => $detalles,
 			'usuario' => $usuario,
+			'c' => $c,
+			'mensaje' => $mensaje,
 		));
 	}
 	
