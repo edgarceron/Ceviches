@@ -158,7 +158,7 @@
 			</ul>
 		
 			<?php
-			if(Yii::app()->user->name != "Guest" && $perfil != 1){
+			if(Yii::app()->user->name == "Guest" || $perfil != 1){
 			?>
 			<ul class="navbar-nav ml-sm-3">
 				<li class="nav-item dropdown">
