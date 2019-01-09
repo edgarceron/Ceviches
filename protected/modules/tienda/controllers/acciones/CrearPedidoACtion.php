@@ -6,11 +6,26 @@ class CrearPedidoAction extends CAction
 {
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
-    {                           
-        $direccion = $_POST['direccion'];
-		$medio_pago = $_POST['medio_pago'];
-		$fecha = $_POST['fecha'];
-		$items_string = $_POST['items_string'];
+    {
+		$tipo = '';
+		if(isset($_GET['tipo'])){
+			$tipo = $_GET['tipo'];
+			$id_temporal = $_GET['id'];
+		}
+		
+		if($tipo == 'payu'){
+			$temporal = TemporalPedido::model()->findByPk($id_temporal);
+			$direccion = $temporal['direccion'];
+			$medio_pago = $temporal['medio_pago'];
+			$fecha = $temporal['fecha'];
+			$items_string = $temporal['items_string'];
+		}
+		else{
+			$direccion = $_POST['direccion'];
+			$medio_pago = $_POST['medio_pago'];
+			$fecha = $_POST['fecha'];
+			$items_string = $_POST['items_string'];
+		}
 		
 		$pedido = new Pedidos;
 		$pedido['id_usuario_pedido'] = Yii::app()->user->id;
@@ -23,7 +38,7 @@ class CrearPedidoAction extends CAction
 		else{
 			$cadena_medio_pago = "PayU";
 		}
-        $pedido['medio_pago_pedido'] = $cadena_medio_pago;
+		$pedido['medio_pago_pedido'] = $cadena_medio_pago;
 		$pedido['cookie_pedido'] = $items_string;
 		while(true){
 			$luigi = $this->generarCodigoLuigi();
@@ -38,7 +53,7 @@ class CrearPedidoAction extends CAction
 		
 		
 		if($pedido->save()){
-			if($fecha){
+			if($fecha != ''){
 				$programacion = new ProgramacionPedido;
 				$programacion['id_pedido'] = $pedido['id'];
 				$programacion['fecha_programada'] = $fecha;
@@ -59,8 +74,6 @@ class CrearPedidoAction extends CAction
 				$precio = $producto['precio_producto'];
 				$foto = "productos/$id/" . $producto['imagenp_producto'];
 				
-				$total += ($cantidad * $precio);
-				
 				$aumento = 0;
 				$variable_str = "";
 				foreach(array_keys($variables) as $v){
@@ -79,6 +92,8 @@ class CrearPedidoAction extends CAction
 				}
 				$variable_str = substr($variable_str, 0, -1);
 				$precio += $aumento;
+				
+				$total += ($cantidad * $precio);
 				
 				$detalle = new Detalles;
 				$detalle['id_pedido'] = $pedido['id'];
@@ -102,6 +117,7 @@ class CrearPedidoAction extends CAction
 			//Redireccion a una pagina de error
 			print_r($pedido);
 		}
+		
     }
 	
 	/**

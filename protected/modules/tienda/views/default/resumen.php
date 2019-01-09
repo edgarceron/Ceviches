@@ -23,6 +23,7 @@
 			<?php 
 			$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
 			echo CHtml::hiddenField('direccion', $direccion_texto);
+			echo CHtml::hiddenField('telefono', $direccion['telefono_direccion']);
 			echo $direccion_texto;
 			?>
 		</div>	
