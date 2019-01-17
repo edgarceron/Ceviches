@@ -38,7 +38,7 @@ class FinalizarPedidoAction extends CAction
 				$items_string = Carrito::getItemsString();
 				$id_usuario = Yii::app()->user->id;
 				$direcciones = Direcciones::model()->findAll('usuario_direccion = ' . $id_usuario);
-				$lista_direcciones = array(0 => 'Selecciones o cree una dirección');
+				$lista_direcciones = array(0 => 'Seleccione o cree una dirección');
 				foreach($direcciones as $direccion){
 					$desc = $direccion['nombre_direccion'] . ": " . $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'];
 					if(strlen($desc) >= 30){

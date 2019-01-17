@@ -4,10 +4,10 @@
 	}
 	else{
 		$accion = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/';
-		$merchantId = "508029";
-		$apiLogin = "pRRXKOl8ikMmt9u";
-		$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
-		$accountId = "512321";
+		$merchantId = "748835";
+		$apiLogin = "DHY4h8i2wPgX4A7";
+		$apiKey = "O6corlhUaLy6Ui6Fo2MRSRR7eV";
+		$accountId = "754637";
 		$currency = "COP";
 		$referenceCode = "CYM" . $id_pedido;
 	}
