@@ -26,13 +26,14 @@
 	<div class="col-md-5 border border-secondary">
 		<h4>2. Medio de pago</h4>
 			<table>
+			
 			<?php echo CHtml::radioButtonList(
 				'medio_pago', 
 				1, 
 				array(1 => 'Efectivo', 2 => 'PayU'), 
 				array(	
 					'id'=>'medio_pago', 
-					'class'=>'form-control',
+					'class'=>'form-check-input',
 					'template' => 
 								'<tr>
 									<td style="vertical-align: middle;">
@@ -42,6 +43,7 @@
 										<img src="'.Yii::app()->request->baseUrl.'/images/{labelTitle}.png">
 									</td>
 								</tr>',
+					"style" => "margin-left:0",			
 					)); ?>
 			</table>
 	</div>

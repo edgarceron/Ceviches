@@ -135,36 +135,43 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
+		$user_name = Yii::app()->user->name;
+		if($user_name == "Guest"){
+			$model=new LoginForm;
 
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			// if it is ajax validation request
+			if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 			{
-				Logs::logcreate(0);
-				$id = Yii::app()->user->id;
-				$user = SofintUsers::model()->findByPk($id);
-				$restablecer = $user['restablecer'];
-				if($restablecer == 1){
-					$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/nuevaContra') . "?id=$id");
-				}
-				else{
-					$this->redirect(Yii::app()->user->returnUrl);
-				}
-			}				
+				echo CActiveForm::validate($model);
+				Yii::app()->end();
+			}
+
+			// collect user input data
+			if(isset($_POST['LoginForm']))
+			{
+				$model->attributes=$_POST['LoginForm'];
+				// validate user input and redirect to the previous page if valid
+				if($model->validate() && $model->login())
+				{
+					Logs::logcreate(0);
+					$id = Yii::app()->user->id;
+					$user = SofintUsers::model()->findByPk($id);
+					$restablecer = $user['restablecer'];
+					if($restablecer == 1){
+						$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/nuevaContra') . "?id=$id");
+					}
+					else{
+						$this->redirect(Yii::app()->user->returnUrl);
+					}
+				}				
+			}
+			// display the login form
+			$this->render('login',array('model'=>$model));
 		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
+		else{
+			$url = Yii::app()->createAbsoluteUrl('');
+			$this->redirect($url);
+		}
 	}
 	
 	/**
@@ -172,72 +179,79 @@ class SiteController extends Controller
 	 */
 	public function actionRegister()
 	{
-		$model=new SofintUsers;
+		$user_name = Yii::app()->user->name;
+		if($user_name == "Guest"){
+			$model=new SofintUsers;
 
-		// collect user input data
-		if(isset($_POST['SofintUsers']))
-        {
-            $model->setAttributes($_POST['SofintUsers']);
-			$password = $model->password;
-			$cpassword = $_POST['confirmar'];
-			$email = $model->nick;
-			$repetido = SofintUsers::model()->find('nick = "' . $email . '"');
-			$errors = false;
-			if(!filter_var($email, FILTER_VALIDATE_EMAIL) || $repetido){	
-				$model->nick = '';
-			}
-			
-			if($password == $cpassword){
-				$model->password = md5($password);
+			// collect user input data
+			if(isset($_POST['SofintUsers']))
+			{
+				$model->setAttributes($_POST['SofintUsers']);
+				$password = $model->password;
+				$cpassword = $_POST['confirmar'];
+				$email = $model->nick;
+				$repetido = SofintUsers::model()->find('nick = "' . $email . '"');
+				$errors = false;
+				if(!filter_var($email, FILTER_VALIDATE_EMAIL) || $repetido){	
+					$model->nick = '';
+				}
+				
+				if($password == $cpassword){
+					$model->password = md5($password);
+				}
+				else{
+					$model->password = null;
+				}
+				
+				$model->estado = 1;
+				$model->perfil = 2;
+				$model->fecha_creacion = time();
+				
+				if($model->save())
+				{
+					$nombre = $model->nombre;
+					Yii::app()->user->setFlash('success', "Usuario creado exitosamente!");
+					$identity=new UserIdentity($email,$password);
+					$identity->authenticate();
+					$duration = 3600;
+					if($identity->errorCode===UserIdentity::ERROR_NONE)
+					{
+						Yii::app()->user->login($identity,$duration);
+					}
+					$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/notificarRegistro', array('mail' => $email, 'nombre' => $nombre)));
+				}   
+				else
+				{
+					Yii::app()->user->setFlash('warning', "Informacion Incorrecta, verifique nuevamente!");
+					$model->nick = $email;
+					
+					if($password == ''){
+						$model->clearErrors('password');
+						$model->addError('password', 'Contraseña no puede estar vacia');
+					}
+					
+					if($password != $cpassword){
+						$model->clearErrors('password');
+						$model->addError('password', 'Las contraseñas no coinciden');
+					}	
+					if(!filter_var($email, FILTER_VALIDATE_EMAIL)){	
+						$model->clearErrors('nick');
+						$model->addError('nick', 'El correo electronico ingresado no es valido, verifique nuevamente');
+					}
+					if($repetido){
+						$model->clearErrors('nick');
+						$model->addError('nick', 'Ya existe un usuario registrado con el correo ingresado');
+					}
+					$this->render('register',array('model'=>$model));
+				}
 			}
 			else{
-				$model->password = null;
-			}
-            
-			$model->estado = 1;
-			$model->perfil = 2;
-            $model->fecha_creacion = time();
-			
-            if($model->save())
-            {
-				$nombre = $model->nombre;
-                Yii::app()->user->setFlash('success', "Usuario creado exitosamente!");
-				$identity=new UserIdentity($email,$password);
-				$identity->authenticate();
-				$duration = 3600;
-				if($identity->errorCode===UserIdentity::ERROR_NONE)
-				{
-					Yii::app()->user->login($identity,$duration);
-				}
-				$this->redirect(Yii::app()->createAbsoluteUrl('/usuarios/default/notificarRegistro', array('mail' => $email, 'nombre' => $nombre)));
-            }   
-            else
-            {
-                Yii::app()->user->setFlash('warning', "Informacion Incorrecta, verifique nuevamente!");
-				$model->nick = $email;
-				
-				if($password == ''){
-					$model->clearErrors('password');
-					$model->addError('password', 'Contraseña no puede estar vacia');
-				}
-				
-				if($password != $cpassword){
-					$model->clearErrors('password');
-					$model->addError('password', 'Las contraseñas no coinciden');
-				}	
-				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){	
-					$model->clearErrors('nick');
-					$model->addError('nick', 'El correo electronico ingresado no es valido, verifique nuevamente');
-				}
-				if($repetido){
-					$model->clearErrors('nick');
-					$model->addError('nick', 'Ya existe un usuario registrado con el correo ingresado');
-				}
 				$this->render('register',array('model'=>$model));
-            }
-        }
+			}
+		}
 		else{
-			$this->render('register',array('model'=>$model));
+			$url = Yii::app()->createAbsoluteUrl('');
+			$this->redirect($url);
 		}
 	}
 

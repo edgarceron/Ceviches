@@ -21,6 +21,9 @@
     <!-- Bootstrap core CSS -->        
 
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/hover.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/theme.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" rel="stylesheet">   
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
 
@@ -29,6 +32,7 @@
 </head>
  
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
+<audio preload="none" src="<?php echo Yii::app()->request->baseUrl."/sounds/notification.mp3" ?>" style="width: 100%;" id="audioNotificacion"></audio>
 <main role="main" class="flex-shrink-0">
 	<header class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 4; position:sticky; top:0">
 		
@@ -122,13 +126,25 @@
 			?>
 			<ul class="navbar-nav ml-sm-3">
 				<li class="nav-item dropdown">
-					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotificationPreparando" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bell32.png">
 					</a>
 					<div style="position: absolute; bottom: 1px; right: 8px;">
-						<span class="badge badge-danger" id="numeroNotificaciones">0</span>
+						<span class="badge badge-success" id="numeroNotificacionesPreparando">0</span>
 					</div>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotification" style="position:absolute; overflow-y: scroll; max-height:700%" id = "notificaciones">
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotificationPreparando" style="position:absolute; overflow-y: scroll; max-height:700%" id = "notificacionesPreparando">
+						No hay notificaciones para mostrar
+					</div>
+				</li>
+				
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotificationRecibido" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bell32.png">
+					</a>
+					<div style="position: absolute; bottom: 1px; right: 8px;">
+						<span class="badge badge-danger" id="numeroNotificacionesRecibido">0</span>
+					</div>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotificationRecibido" style="position:absolute; overflow-y: scroll; max-height:700%" id = "notificacionesRecibido">
 						No hay notificaciones para mostrar
 					</div>
 				</li>
@@ -210,19 +226,59 @@
 	<footer class="footer mt-auto py-3 bg-light">
 		<div class="container bg-light">
 			<div class="row">
-				<div class="col-md-4">
-					<h4>Acerca de C&M </h4>
-					<audio preload="none" src="<?php echo Yii::app()->request->baseUrl."/sounds/notification.mp3" ?>" style="width: 100%;" id="audioNotificacion"></audio>
-				</div>
-				<div class="col-md-4">
-					<h4>Servicio al cliente</h3>
-				</div>
-				<div class="col-md-4">
-					<h4>Redes sociales </h4>
-				</div>
+				
+					<div class="wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<div class="footer-box">
+										<h2 class="title14 font-bold color-base text-uppercase poppins-font">ACERCA DE C&amp;M</h2>
+										<a class="color-base1" href="https://cevicheymar.com/nosotros/"><i class="white fa fa fa-home" aria-hidden="true"></i> Nosotros</a><br>
+										<a class="color-base1" href="https://cevicheymar.com/politica-tratamiento-de-datos/"><i class="white fa fa-mobile" aria-hidden="true"></i> Política de tratamiento de datos</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<div class="footer-box">
+										<h2 class="title14 font-bold color-base text-uppercase poppins-font">SERVICIO AL CLIENTE</h2>
+										<a class="color-base1" href="https://cevicheymar.com/preguntas-frecuentes/"><i class="white fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</a><br>
+										<a class="color-base1" href="https://cevicheymar.com/contact/"><i class="white fa fa-wpforms" aria-hidden="true"></i> Contacto</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="footer-box wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<h2 class="title14 font-bold color-base text-uppercase poppins-font">REDES SOCIALES</h2>
+
+								</div>
+								<ul class="social-network list-inline-block  ">
+									<li><a class="float-shadow" href="https://www.facebook.com/cevicheymar/"><i class="fa fa-facebook"></i></a></li>
+									<li><a class="float-shadow" href="https://www.instagram.com/cevicheymar/?hl=en"><i class="fa fa-instagram"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div class="vc_row wpb_row vc_inner footer-copyright">
+						<p class="copyright pull-left">© 2018. CevicheyMar. All Rights Reserved</p>
+					</div>
 			</div>
 		</div>
 	</footer>
+	
 	<script>
 	function cargarCarrito(){
 		<?php 	
@@ -241,24 +297,27 @@
 			if($permiso != null){
 	?>
 	
-	function cargarNotificaciones(){
+	function cargarNotificaciones(tipo){
 		jQuery.ajax({
 			'type':'GET',
 			'dataType':'html',
 			'async':false,
-			'url':'<?php echo Yii::app()->createAbsoluteUrl('/administracion/default/cargarNotificaciones') ?>',
+			'url':'<?php echo Yii::app()->createAbsoluteUrl('/administracion/default/cargarNotificaciones/estado/') ?>' + "/" + tipo,
 			'cache':false,
 			'data':jQuery(this).parents("form").serialize(),
 			'success':function(pizza){
 				var porciones = pizza.split('--');
 				var html = porciones[0];
-				var numero = porciones[1];
-				if(numero > 0){
+				var numero = parseInt(porciones[1]);
+				if(numero > 0 && tipo == 'Recibido'){
 					var sound = document.getElementById("audioNotificacion"); 
 					sound.play(); 
 				}
-				jQuery("#notificaciones").html(html);
-				jQuery("#numeroNotificaciones").html(numero);
+				
+				var n = "#notificaciones" + tipo;
+				var nn = "#numeroNotificaciones" + tipo;
+				jQuery(n).html(html);
+				jQuery(nn).html(numero);
 			}
 		});	
 	}
@@ -267,7 +326,7 @@
 		}
 	?>
 	function notificacionesDinamico(){
-		setTimeout( function(){ cargarNotificaciones(); notificacionesDinamico()}, 10000);
+		setTimeout( function(){ cargarNotificaciones('Recibido'); cargarNotificaciones('Preparando'); notificacionesDinamico()}, 10000);
 	}
 	
 	window.onload = function() {
@@ -276,7 +335,8 @@
 			
 			if($permiso != null){
 		?>
-		cargarNotificaciones();
+		cargarNotificaciones('Recibido');
+		cargarNotificaciones('Preparando');
 		<?php
 				}
 			}

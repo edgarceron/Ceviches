@@ -2,11 +2,12 @@
 class CargarNotificacionesAction extends CAction
 {
     //Reemplazar Model por el modelo que corresponda al modulo
-    public function run()
-    {                           
+    public function run($estado)
+    {          
+		
 		$criteria = new CDbCriteria;
 		$criteria->select = 'id, id_usuario_pedido, fecha_pedido';
-		$criteria->addCondition('estado_pedido = "Recibido"');
+		$criteria->addCondition('estado_pedido = "' . $estado . '"');
 		$pedidos = Pedidos::model()->findAll($criteria);
 		
 		$notificaciones = array();

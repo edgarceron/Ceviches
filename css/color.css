@@ -1,0 +1,401 @@
+/*Main Color*/
+/*//*/
+a:hover,
+a:focus {
+  color: #ff72b4;
+}
+.color {
+  color: #ff72b4;
+}
+.bg-color {
+  background: #ff72b4;
+}
+
+.product-price > span,
+.product-price ins {
+  color: #ff72b4;
+}
+
+.language-list li a:hover,
+.list-profile li a:hover,
+.currency-list li a:hover {
+  background: #ff72b4;
+  color: #fff;
+}
+.owl-theme .owl-controls .owl-buttons div:hover {
+  color: #fff;
+  background: #ff72b4;
+}
+.link-btn:hover {
+  border-color: #ff72b4;
+  background-color: #ff72b4;
+}
+.item-service.table .service-icon a {
+  background: #ff72b4;
+  border: 2px solid #ff72b4;
+}
+.item-service.table .service-icon a:hover {
+  background: #fff;
+  color: #ff72b4;
+}
+.title-underline::after {
+  background: #ff72b4;
+}
+.btn-link1:hover {
+  border-color: #ff72b4;
+  background: #ff72b4;
+}
+.collect-control a.active {
+  border: 1px solid #ff72b4;
+}
+.shop-style-slider .owl-theme .owl-controls .owl-buttons div:hover {
+  color: #ff72b4;
+}
+.bxslider .bx-controls-direction > a:hover {
+  background: #ff72b4;
+  color: #fff;
+}
+.percent-sale {
+  background: #ff72b4;
+}
+.owl-theme .owl-controls .owl-page.active span::after {
+  background: #ff72b4;
+}
+.item-brand:hover {
+  border-color: #ff72b4;
+}
+.title-tab1 li.active a {
+  color: #ff72b4;
+}
+.item-product1 .product-extra-link a:hover {
+  color: #ff72b4;
+}
+.post-author a:hover {
+  color: #ff72b4;
+}
+.item-post:hover .post-date {
+  background: #ff72b4;
+  color: #fff;
+}
+.social-network a:hover {
+  color: #fff;
+  border-color: #ff72b4;
+  background: #ff72b4;
+}
+.bg-dark .contact-info-footer a:hover,
+.bg-dark .footer-box .list-none a:hover,
+.bg-dark .footer-box .list-none a:hover::before {
+  color: #ff72b4;
+}
+.shop-style-slider .item a:hover {
+  border: 1px solid #ff72b4;
+}
+.main-nav > ul > li:hover > a {
+  color: #ff72b4;
+}
+.top-info-cart2 .submit-form::after {
+  color: #ff72b4;
+}
+.main-header2 {
+  border-bottom: 5px solid #ff72b4;
+}
+.banner-slider2 .owl-theme .owl-controls .owl-page.active span {
+  background: #ff72b4;
+}
+.title-tab2 li.active a {
+  color: #ff72b4;
+}
+.woocommerce .widget_price_filter .price_slider_amount .button:hover {
+  background: #ff72b4;
+} 
+.woocommerce .widget_price_filter .ui-slider .ui-slider-handle.ui-state-hover, 
+.woocommerce .widget_price_filter .ui-slider .ui-slider-range {
+  background: #ff72b4;
+}
+.product-extra-link2 > a span {
+  background: #ff72b4;
+}
+.border-box {
+  border-top: 5px solid #ff72b4;
+}
+.round-navi.owl-theme .owl-controls .owl-buttons div:hover {
+  background: #ff72b4;
+}
+.title-box4 span::before,
+.title-box4 span::after {
+  background: #ff72b4;
+}
+.item-shop-style .product-info .product-title a {
+  background: #ff72b4;
+}
+.item-shop-style .product-info::before {
+  background: #ff72b4;
+}
+.footer-top.footer-top5 {
+  background: #ff72b4;
+}
+.search-form.search-form6 .submit-form::after {
+  color: #ff72b4;
+}
+.title-upperline::before {
+  background: #ff72b4;
+}
+.days-countdown .time_circles > div > .number {
+  color: #ff72b4;
+}
+.footer-box .list-none a::before {
+  color: #ff72b4;
+}
+.widget-title::after {
+  background: #ff72b4;
+}
+.widget .btn-widget:hover {
+  background: #ff72b4;
+}
+.widget-compare-product .clearall:hover {
+  color: #ff72b4;
+}
+.view-bar > a.active {
+  color: #ff72b4;
+}
+.pagibar > a.current-page,
+.pagibar > a:hover {
+  border-color: #ff72b4;
+  color: #ff72b4;
+}
+.item-product-list .product-extra-link a:hover {
+  color: #ff72b4;
+}
+.item-product-list .product-extra-link .addcart-link {
+  background: #ff72b4;
+}
+.detail-gallery.bxslider .bx-controls-direction > a:hover {
+  background: #ff72b4;
+}
+.title-tab-detail > ul li.active a {
+  color: #ff72b4;
+}
+.review-form > div > input[type="submit"]:hover {
+  background: #ff72b4;
+}
+.detail-gallery .bx-pager a.active {
+  border: 1px solid #ff72b4;
+}
+.wrap-detail-gallery .gallery-control > a:hover {
+  background: #ff72b4;
+  color: #fff;
+}
+.wrap-detail-gallery .gallery-control .carousel li a.active {
+  border: 1px solid #ff72b4;
+}
+.author-avar > a::after {
+  background: rgba(255, 114, 180, 0.2);
+}
+.social-post > a:hover {
+  color: #ff72b4;
+}
+.content-blog-detail blockquote::before {
+  background: #ff72b4;
+}
+.blog-comment-date > li a:hover {
+  color: #ff72b4;
+}
+.post-comment-info .comment-reply {
+  color: #ff72b4;
+}
+.contact-form input[type="submit"]:hover {
+  color: #ff72b4;
+  border-color: #ff72b4;
+}
+.item-post .btn-plus:hover {
+  color: #ff72b4;
+}
+.item-post .btn-plus:hover::before {
+  border-color: #ff72b4;
+}
+.popup-icon {
+  color: #ff72b4;
+}
+.wishlist-button a:last-child {
+  background: #ff72b4;
+}
+.item-contact-info a:hover {
+  color: #ff72b4;
+}
+.item-contact-info .contact-icon:hover::before,
+.item-contact-info .contact-icon:hover i {
+  color: #ff72b4;
+}
+.form-contact input[type="submit"]:hover {
+  background: #ff72b4;
+}
+.about-menu a::after {
+  background: #ff72b4;
+}
+.about-full-protec li > span > span {
+  background: #ff72b4;
+}
+.about-review-thumb a:hover {
+  border-color: #ff72b4;
+}
+.team-social-network a:hover {
+  background: #ff72b4;
+  color: #fff;
+}
+.testimo-avatar::before {
+  background: rgba(255, 114, 180, 0.2);
+}
+.port-btn > a {
+  border: 2px solid #ff72b4;
+  color: #ff72b4;
+}
+.port-btn > a:hover {
+  background: #ff72b4;
+}
+.title-port-tab .list-inline-block li button {
+  color: #ff72b4;
+}
+.title-port-tab .list-inline-block li button.active {
+  background: #ff72b4;
+  border-color: #ff72b4;
+}
+.title-port-tab .list-inline-block li button:hover {
+  border-color: #ff72b4;
+}
+.btn-around.inline-block {
+  background: #ff72b4;
+}
+.item-product1 .product-extra-link2 > a:hover {
+  color: #ff72b4;
+}
+.email-form .submit-form:hover{
+	background: #ff72b4;
+}
+.email-form .submit-form:hover input[type="submit"]{
+  border-color: #ff72b4;
+}
+.main-nav .sub-menu li:hover > a{
+  color: #ff72b4;
+}
+.top-info-cart2 .wishlist-count .fa{
+	color: #ff72b4;
+}
+.top-info-cart2 .mini-cart-icon{
+	color: #ff72b4;
+}
+.top-info-cart2 .profile-link{
+	color: #ff72b4;
+}
+.dropdown-list > li > a:hover{
+	background: #ff72b4;
+}
+.bread-crumb > span{
+	color: #ff72b4;
+}
+.pagi-nav .current {
+  border:1px solid #ff72b4;
+  color: #ff72b4;
+}
+.item-comment .comment-info .reply-button{
+	color:#ff72b4;
+}
+.item-comment .comment-thumb a::after {
+    background: rgba(255, 114, 180, 0.2);
+}
+.content-about .blockquote::after {
+    background: #ff72b4;
+}
+.content-about .blockquote {
+    border: 1px solid #ff72b4;
+}
+.product-detail .detail-info .compare:hover, 
+.detail-info .yith-wcwl-add-to-wishlist:hover {
+	color:#ff72b4;
+}
+.item-product .product-extra-link2 > a.addcart-link:hover{
+	color:#ff72b4;
+}
+#review_form  #commentform  input[type="submit"]:hover{
+	background: #ff72b4;
+}
+.woocommerce div.product form.cart .button.single_add_to_cart_button{
+	background: #ff72b4;
+}
+.adv-final-countdown .clock .number{
+	background: #ff72b4;
+}
+.woocommerce.widget .woocommerce-widget-layered-nav-dropdown__submit:hover,
+.woocommerce #respond input#submit.alt:hover, 
+.woocommerce a.button.alt:hover, 
+.woocommerce button.button.alt:hover, 
+.woocommerce input.button.alt:hover,
+button:hover,
+.woocommerce #respond input#submit.alt:hover, 
+.woocommerce a.button.alt:hover, 
+.woocommerce button.button.alt:hover, 
+.woocommerce input.button.alt:hover
+.woocommerce #respond input#submit:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover{
+    background: #ff72b4;
+}
+.wishlist-popup .popup-icon{
+    color: #ff72b4;
+}
+.wishlist-button a:hover{
+    background: #ff72b4;
+}
+.list-service6 .item-service2 .service-icon .fa{
+	color: #ff72b4;
+}
+.list-service6 .item-service2 a:hover{
+	color: #ff72b4;
+}
+.top-review6  > h3.title18::before,
+.testimo-box6 > h2.title30::before,
+.deal-box6  > h3.title18::before{
+	background: #ff72b4;
+}
+.view-type a.active{
+	color:#ff72b4;  
+}
+.range-filter .slider-range {
+  background: #ff72b4;
+}
+.range-filter .ui-slider-handle.ui-state-default.ui-corner-all:hover {
+  background: #ff72b4;
+}
+.box-attr-filter .attr-color li a.selected,
+.box-attr-filter .attr-label li a.selected{
+	border-color:#ff72b4;  
+}
+.woocommerce-MyAccount-navigation ul li.is-active a, .woocommerce-MyAccount-navigation ul li:hover a{
+	background: #ff72b4;
+	border-color:#ff72b4;  
+}
+.btn-loadmore .loadmore{
+	background: #ff72b4;
+}
+.mini-cart-button a:hover, .woocommerce .mini-cart-button a:hover {
+	background: #ff72b4;
+}
+.main-nav .toggle-mobile-menu span,
+.main-nav .toggle-mobile-menu::before, 
+.main-nav .toggle-mobile-menu::after {
+    background: #ff72b4;
+}
+.box-cat-mega .list-none li a:hover{
+	color: #ff72b4;
+}
+.main-nav  li.current-menu-ancestor > a,
+.main-nav  li.current-menu-item > a{
+	color: #ff72b4;
+}
+.item-shop-style .product-info .product-title a{
+	background: #ff72b4;
+}
+input.button[name="apply_for_vendor_submit"]:hover{
+	background: #ff72b4;
+}

@@ -8,7 +8,7 @@ class VerPedidoAction extends CAction {
 		$programcion = ProgramacionPedido::model()->find('id_pedido = ' . $pedido['id']);
 		if($programcion == null){
 			$c = "danger";
-			$mensaje = "Pedido para ya! Debe llegar en 45 minutos o menos";
+			$mensaje = "Pedido para ya! Debe llegar en 55 minutos o menos";
 		}
 		else{
 			$fecha = $programcion['fecha_programada'];

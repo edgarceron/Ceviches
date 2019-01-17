@@ -11,6 +11,12 @@ class CrearPedidoAction extends CAction
 		if(isset($_GET['tipo'])){
 			$tipo = $_GET['tipo'];
 			$id_temporal = $_GET['id'];
+			$transactionState =  $_GET['transactionState'];
+			
+			if($transactionState != 4){
+				Yii::app()->user->setFlash('warning', 'Hubo un error durante la transacción o la transacción fue anulada');
+				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/finalizarPedido'));
+			}
 		}
 		
 		if($tipo == 'payu'){
@@ -53,7 +59,7 @@ class CrearPedidoAction extends CAction
 		
 		
 		if($pedido->save()){
-			if($fecha != ''){
+			if($fecha != '' && $fecha != '0000-00-00 00:00:00'){
 				$programacion = new ProgramacionPedido;
 				$programacion['id_pedido'] = $pedido['id'];
 				$programacion['fecha_programada'] = $fecha;

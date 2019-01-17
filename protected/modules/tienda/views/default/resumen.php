@@ -1,30 +1,57 @@
 <?php 
 	if($medio_pago == 1){
-		$accion = 'crearPedido';
+		$accion = Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido");
 	}
 	else{
-		$accion = 'checkout';
+		$accion = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/';
+		$merchantId = "508029";
+		$apiLogin = "pRRXKOl8ikMmt9u";
+		$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+		$accountId = "512321";
+		$currency = "COP";
+		$referenceCode = "CYM" . $id_pedido;
 	}
-
+	
 	$form=$this->beginWidget('CActiveForm', array(
 		'id'=>'finalaizar-form',
-		'action'=>Yii::app()->createAbsoluteUrl("/tienda/default/$accion"),
+		'action'=>$accion,
 		// Please note: When you enable ajax validation, make sure the corresponding
 		// controller action is handling ajax validation correctly.
 		// There is a call to performAjaxValidation() commented in generated controller code.
 		// See class documentation of CActiveForm for details on this.
 		'enableAjaxValidation'=>false,
-	)); ?>
+	));
+
+	
+	?>
 <h2>Resumen del pedido</h2>
 <div class="row">
 	<div class="col-md-6 border border-secondary">
 		<h4>1. Dirección</h4>
 		<div class="form-group col-md-12">
 			<?php 
-			$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
-			echo CHtml::hiddenField('direccion', $direccion_texto);
-			echo CHtml::hiddenField('telefono', $direccion['telefono_direccion']);
+			
 			echo $direccion_texto;
+			if($medio_pago == 1){
+				echo CHtml::hiddenField('direccion', $direccion_texto);
+				echo CHtml::hiddenField('telefono', $direccion['telefono_direccion']);
+			}
+			else{
+				echo CHtml::hiddenField('merchantId', $merchantId);
+				echo CHtml::hiddenField('apiLogin', $apiLogin);
+				echo CHtml::hiddenField('accountId', $accountId);
+				echo CHtml::hiddenField('description', "Pedido ceviche y mar " . $id_pedido);
+				echo CHtml::hiddenField('referenceCode', $referenceCode);
+				echo CHtml::hiddenField('currency', $currency);
+				
+				
+				
+				$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
+				echo CHtml::hiddenField('shippingAddress', substr($direccion_texto, 0, 255));
+				echo CHtml::hiddenField('shippingCity', $ciudad['nombre_ciudad']);
+				echo CHtml::hiddenField('shippingCountry', "CO");
+				echo CHtml::hiddenField('telephone', $direccion['telefono_direccion']);
+			}	
 			?>
 		</div>	
 		<div class="col-md-12" id="formularioDireccion">
@@ -143,6 +170,20 @@
 					</td>
 					<td>
 						<label id="total">$<?php echo number_format($total, 0, ",", ".") ?></label>
+						<?php 
+						if($medio_pago == 2){
+							echo CHtml::hiddenField('amount', $total);
+							echo CHtml::hiddenField('tax', 0);
+							echo CHtml::hiddenField('taxReturnBase', 0);
+							echo CHtml::hiddenField('test', 1);
+							echo CHtml::hiddenField('buyerEmail', $email);
+							echo CHtml::hiddenField('buyerFullName', $nombre_completo);
+							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu"));
+							$signature = $apiKey . "~" . $merchantId . "~" . $referenceCode . "~" . $total . "~" . $currency;
+							$md5s = md5($signature);
+							echo CHtml::hiddenField('signature', $md5s);
+						}
+						?>
 					</td>
 				</tr>
 			</tbody>

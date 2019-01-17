@@ -8,6 +8,22 @@ class ResumenAction extends CAction
 		$medio_pago = $_POST['medio_pago'];
 		$programacion = $_POST['programacion'];
 		$items_string = $_POST['items_string'];
+		
+		$direccion = Direcciones::model()->findByPk($id_direccion);
+		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
+		$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
+		$_POST['direccion'] = $direccion_texto;
+		
+		$temporal = new TemporalPedido;
+		$temporal->attributes = $_POST;
+		$temporal->save();
+		$id_pedido = $temporal['id'];
+		
+		$user_id = Yii::app()->user->id;
+		$user = SofintUsers::model()->findByPk($user_id);
+		$email = $user['nick'];
+		$nombre_completo = $user['nombre'] . " " . $user['apellido'];
+			
 		$fecha = '';
 		$hora = '';
 		$fecha_hora = false;
@@ -44,8 +60,6 @@ class ResumenAction extends CAction
 			}
 		}
 		
-		$direccion = Direcciones::model()->findByPk($id_direccion);
-		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
 		$items = Carrito::cargarPorCadena($items_string);
 		$this->controller->render('resumen',array(
 			'direccion' => $direccion,
@@ -55,6 +69,10 @@ class ResumenAction extends CAction
 			'medio_pago' => $medio_pago,
 			'programacion' => $programacion,
 			'fecha' => $fecha . ' ' . $hora,
+			'id_pedido' => $id_pedido,
+			'nombre_completo' => $nombre_completo,
+			'email' => $email,
+			'direccion_texto' => $direccion_texto,
 		));
 		
 			
