@@ -13,9 +13,6 @@
 		jQuery.ajax({
 			'type':'POST',
 			'dataType':'json',
-			'headers': {'Access-Control-Allow-Origin':'*'},
-			crossDomain: true,
-			jsonp: true,
 			'async':false,
 			'url':'https://dev.api.mensajerosurbanos.com/oauth/token',
 			'data':{
