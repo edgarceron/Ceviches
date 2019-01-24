@@ -96,6 +96,7 @@ class DefaultController extends Controller
 			'pedidos'=>'application.modules.'.$this->module->id.'.controllers.acciones.PedidosAction',                            
 			'ciudades'=>'application.modules.'.$this->module->id.'.controllers.acciones.CiudadesAction',                            
 			'reporteUsuarios'=>'application.modules.'.$this->module->id.'.controllers.acciones.ReporteUsuariosAction',                            
+			'autenticacionMU'=>'application.modules.'.$this->module->id.'.controllers.acciones.AutenticacionMUAction',                            
 		);
 	}
         
@@ -126,6 +127,10 @@ class DefaultController extends Controller
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('reporteUsuarios'),
                                 'expression' => array(__CLASS__,'allowReporteUsuarios'),
+                            ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('autenticacionMU'),
+                                'expression' => array(__CLASS__,'allowAutenticacionMU'),
                             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -320,6 +325,43 @@ class DefaultController extends Controller
 	}
 	
 	public static function allowReporteUsuarios()
+	{
+		/*
+		$accion = 'formulario'; 
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'administracion';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowAutenticacionMU()
 	{
 		/*
 		$accion = 'formulario'; 

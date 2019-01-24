@@ -27,7 +27,8 @@ class Opciones extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('opcion, valor', 'required'),
-			array('opcion, valor', 'length', 'max'=>32),
+			array('opcion', 'length', 'max'=>32),
+			array('valor', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, opcion, valor', 'safe', 'on'=>'search'),
