@@ -3,7 +3,7 @@
 		$accion = Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido");
 	}
 	else{
-		$accion = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/';
+		$accion = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu';
 		$merchantId = "508029";
 		$apiLogin = "pRRXKOl8ikMmt9u";
 		$apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
@@ -21,9 +21,7 @@
 		// See class documentation of CActiveForm for details on this.
 		'enableAjaxValidation'=>false,
 	));
-
-	
-	?>
+?>
 <h2>Resumen del pedido</h2>
 <div class="row">
 	<div class="col-md-6 border border-secondary">
