@@ -14,6 +14,7 @@
 			'type':'POST',
 			'dataType':'json',
 			'async':false,
+			'crossDomain': true,
 			'url':'https://dev.api.mensajerosurbanos.com/oauth/token',
 			'data':{
 				'client_id':'5b3d1c49d5608_murbanos',

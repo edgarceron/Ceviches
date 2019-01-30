@@ -64,6 +64,7 @@ class ResumenAction extends CAction
 		$this->controller->render('resumen',array(
 			'direccion' => $direccion,
 			'ciudad' => $ciudad,
+			'id_ciudad' => $direccion['ciudad_direccion'],
 			'items' => $items,
 			'items_string' => $items_string,
 			'medio_pago' => $medio_pago,

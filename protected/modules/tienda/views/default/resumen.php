@@ -32,7 +32,9 @@
 			echo $direccion_texto;
 			if($medio_pago == 1){
 				echo CHtml::hiddenField('direccion', $direccion_texto);
+				echo CHtml::hiddenField('id_direccion', $direccion['id']);
 				echo CHtml::hiddenField('telefono', $direccion['telefono_direccion']);
+				echo CHtml::hiddenField('id_ciudad', $id_ciudad);
 			}
 			else{
 				echo CHtml::hiddenField('merchantId', $merchantId);
@@ -41,10 +43,6 @@
 				echo CHtml::hiddenField('description', "Pedido ceviche y mar " . $id_pedido);
 				echo CHtml::hiddenField('referenceCode', $referenceCode);
 				echo CHtml::hiddenField('currency', $currency);
-				
-				
-				
-				$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
 				echo CHtml::hiddenField('shippingAddress', substr($direccion_texto, 0, 255));
 				echo CHtml::hiddenField('shippingCity', $ciudad['nombre_ciudad']);
 				echo CHtml::hiddenField('shippingCountry', "CO");
@@ -176,7 +174,7 @@
 							echo CHtml::hiddenField('test', 1);
 							echo CHtml::hiddenField('buyerEmail', $email);
 							echo CHtml::hiddenField('buyerFullName', $nombre_completo);
-							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu"));
+							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu/id_ciudad/$id_ciudad/id_direccion/$id_direccion"));
 							$signature = $apiKey . "~" . $merchantId . "~" . $referenceCode . "~" . $total . "~" . $currency;
 							$md5s = md5($signature);
 							echo CHtml::hiddenField('signature', $md5s);
