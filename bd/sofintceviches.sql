@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2018 a las 19:39:36
+-- Tiempo de generación: 01-02-2019 a las 18:33:17
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 5.6.36
 
@@ -60,7 +60,31 @@ INSERT INTO `acciones` (`id`, `modulo`, `accion`, `ruta`) VALUES
 (18, 'direcciones', 'formulario', 'application.modules.direcciones.controllers.acciones.FormularioAction'),
 (19, 'direcciones', 'guardar', 'application.modules.direcciones.controllers.acciones.GuardarAction'),
 (20, 'direcciones', 'vista', 'application.modules.direcciones.controllers.acciones.VistaAction'),
-(21, 'direcciones', 'eliminar', 'application.modules.direcciones.controllers.acciones.EliminarAction');
+(21, 'direcciones', 'eliminar', 'application.modules.direcciones.controllers.acciones.EliminarAction'),
+(22, 'usuarios', 'notificarRegistro', 'application.modules.usuarios.controllers.acciones.NotificarRegistroAction'),
+(23, 'usuarios', 'eliminarCuenta', 'application.modules.usuarios.controllers.acciones.EliminarCuentaAction'),
+(24, 'tienda', 'index', 'application.modules.tienda.controllers.acciones.IndexAction'),
+(25, 'tienda', 'formulario', 'application.modules.tienda.controllers.acciones.FormularioAction'),
+(26, 'tienda', 'addItem', 'application.modules.tienda.controllers.acciones.AddItemAction'),
+(27, 'tienda', 'cargarCarrito', 'application.modules.tienda.controllers.acciones.CargarCarritoAction'),
+(28, 'tienda', 'carrito', 'application.modules.tienda.controllers.acciones.CarritoAction'),
+(29, 'tienda', 'cambiarCantidad', 'application.modules.tienda.controllers.acciones.CambiarCantidadAction'),
+(30, 'tienda', 'deleteItem', 'application.modules.tienda.controllers.acciones.DeleteItemAction'),
+(31, 'tienda', 'finalizarPedido', 'application.modules.tienda.controllers.acciones.FinalizarPedidoAction'),
+(32, 'tienda', 'checkout', 'application.modules.tienda.controllers.acciones.CheckoutAction'),
+(33, 'tienda', 'crearPedido', 'application.modules.tienda.controllers.acciones.CrearPedidoAction'),
+(34, 'tienda', 'thankYou', 'application.modules.tienda.controllers.acciones.ThankYouAction'),
+(35, 'tienda', 'verPedido', 'application.modules.tienda.controllers.acciones.VerPedidoAction'),
+(36, 'administracion', 'index', 'application.modules.administracion.controllers.acciones.IndexAction'),
+(37, 'administracion', 'cargarNotificaciones', 'application.modules.administracion.controllers.acciones.CargarNotificacionesAction'),
+(38, 'administracion', 'verPedido', 'application.modules.administracion.controllers.acciones.VerPedidoAction'),
+(39, 'administracion', 'pedidos', 'application.modules.administracion.controllers.acciones.PedidosAction'),
+(40, 'administracion', 'ciudades', 'application.modules.administracion.controllers.acciones.CiudadesAction'),
+(41, 'tienda', 'resumen', 'application.modules.tienda.controllers.acciones.ResumenAction'),
+(42, 'administracion', 'reporteUsuarios', 'application.modules.administracion.controllers.acciones.ReporteUsuariosAction'),
+(43, 'administracion', 'autenticacionMU', 'application.modules.administracion.controllers.acciones.AutenticacionMUAction'),
+(44, 'productos', 'index', 'application.modules.productos.controllers.acciones.IndexAction'),
+(45, 'productos', 'form', 'application.modules.productos.controllers.acciones.FormAction');
 
 -- --------------------------------------------------------
 
@@ -822,7 +846,82 @@ INSERT INTO `logs` (`ID`, `accion`, `usuario`, `fecha`) VALUES
 (722, -1, 10, '2018-11-13 17:51:59'),
 (723, -1, 14, '2018-11-13 18:12:09'),
 (724, 0, 1, '2018-11-13 18:12:12'),
-(725, -1, 1, '2018-11-13 18:17:32');
+(725, -1, 1, '2018-11-13 18:17:32'),
+(726, 0, 10, '2018-11-13 18:46:29'),
+(727, -1, 10, '2018-11-13 18:58:05'),
+(728, 0, 10, '2018-11-13 18:58:15'),
+(729, -1, 10, '2018-11-13 18:58:37'),
+(730, 0, 10, '2018-11-13 18:58:43'),
+(731, 0, 1, '2018-11-15 19:54:26'),
+(732, -1, 1, '2018-11-15 19:58:29'),
+(733, -1, 15, '2018-11-17 15:08:22'),
+(734, 0, 1, '2018-11-17 15:08:24'),
+(735, -1, 1, '2018-11-17 15:33:27'),
+(736, 0, 1, '2018-11-17 15:33:31'),
+(737, -1, 1, '2018-11-17 15:34:15'),
+(738, 0, 12, '2018-11-17 15:34:21'),
+(739, 0, 1, '2018-11-17 15:34:54'),
+(740, -1, 1, '2018-11-17 15:35:05'),
+(741, 0, 12, '2018-11-17 15:35:08'),
+(742, 0, 1, '2018-11-17 15:40:35'),
+(743, -1, 1, '2018-11-17 15:40:56'),
+(744, 0, 14, '2018-11-17 15:41:00'),
+(745, 0, 1, '2018-11-17 15:42:17'),
+(746, -1, 1, '2018-11-17 15:42:31'),
+(747, 0, 1, '2018-11-22 17:44:32'),
+(748, 0, 1, '2018-12-03 14:12:23'),
+(749, 0, 1, '2018-12-04 19:54:00'),
+(750, 0, 1, '2018-12-09 14:41:18'),
+(751, 0, 1, '2018-12-09 14:43:22'),
+(752, 0, 1, '2018-12-09 14:48:32'),
+(753, -1, 1, '2018-12-09 14:57:10'),
+(754, 0, 1, '2018-12-09 15:00:13'),
+(755, -1, 1, '2018-12-09 15:23:17'),
+(756, -1, 1, '2018-12-11 17:59:14'),
+(757, 0, 1, '2018-12-12 20:07:43'),
+(758, -1, 16, '2018-12-12 20:15:44'),
+(759, 0, 1, '2018-12-12 20:15:47'),
+(760, -1, 1, '2018-12-14 21:24:31'),
+(761, 0, 10, '2018-12-14 21:24:35'),
+(762, -1, 10, '2018-12-14 21:56:51'),
+(763, 0, 1, '2018-12-14 21:56:53'),
+(764, -1, 1, '2018-12-14 22:44:59'),
+(765, 0, 1, '2018-12-14 23:20:20'),
+(766, 0, 1, '2018-12-14 23:21:48'),
+(767, 0, 1, '2018-12-14 23:22:19'),
+(768, 0, 1, '2018-12-14 23:47:42'),
+(769, 0, 1, '2018-12-14 23:48:01'),
+(770, -1, 1, '2018-12-14 23:58:50'),
+(771, 0, 1, '2018-12-15 00:00:02'),
+(772, -1, 1, '2018-12-15 00:00:38'),
+(773, -1, 17, '2018-12-15 00:12:43'),
+(774, -1, 18, '2018-12-15 00:35:11'),
+(775, 0, 1, '2018-12-15 00:35:13'),
+(776, -1, 1, '2018-12-15 00:35:38'),
+(777, 0, 18, '2018-12-15 00:35:50'),
+(778, -1, 18, '2018-12-15 18:11:00'),
+(779, 0, 1, '2018-12-15 18:46:17'),
+(780, -1, 1, '2018-12-26 01:55:49'),
+(781, 0, 1, '2018-12-26 01:57:39'),
+(782, -1, 1, '2018-12-26 20:50:36'),
+(783, 0, 1, '2018-12-26 20:56:09'),
+(784, -1, 1, '2019-01-09 18:24:09'),
+(785, 0, 15, '2019-01-09 18:24:31'),
+(786, -1, 15, '2019-01-09 21:57:33'),
+(787, 0, 1, '2019-01-09 22:08:18'),
+(788, -1, 1, '2019-01-09 22:18:00'),
+(789, 0, 15, '2019-01-09 22:19:24'),
+(790, -1, 15, '2019-01-09 22:38:18'),
+(791, 0, 1, '2019-01-09 22:38:23'),
+(792, -1, 1, '2019-01-09 22:43:01'),
+(793, 0, 15, '2019-01-09 22:43:16'),
+(794, -1, 15, '2019-01-09 23:04:09'),
+(795, 0, 1, '2019-01-09 23:04:17'),
+(796, 0, 15, '2019-01-16 16:39:31'),
+(797, 0, 15, '2019-01-17 13:22:17'),
+(798, 0, 1, '2019-01-24 15:52:51'),
+(799, -1, 1, '2019-01-28 18:44:20'),
+(800, 0, 15, '2019-01-28 18:44:27');
 
 -- --------------------------------------------------------
 
@@ -845,9 +944,12 @@ CREATE TABLE `modulos` (
 
 INSERT INTO `modulos` (`id`, `nombre`, `estado`, `fecha_creacion`, `version`, `desarrollador`) VALUES
 ('admin', 'admin', 1, 1459344759, '1', 'nojuancho@hotmail.com'),
+('administracion', 'administracion', 1, 1544719031, '1', 'edgar.ceron@correounivalle.edu.co'),
 ('direcciones', 'direcciones', 1, 1542116593, '1', 'edgar.ceron@correounivalle.edu.co'),
 ('maestros', 'maestros', 1, 1464791267, '1', 'nojuancho@hotmail.com'),
 ('plugins', 'plugins', 1, 1459344760, '1', 'nojuancho@hotmail.com'),
+('productos', 'productos', 1, 1549032370, '1', 'edgar.ceron@correounivalle.edu.co'),
+('tienda', 'tienda', 1, 1542908684, '1', 'edgar.ceron@correounivalle.edu.co'),
 ('usuarios', 'usuarios', 1, 1459344761, '1', 'nojuancho@hotmail.com');
 
 -- --------------------------------------------------------
@@ -859,7 +961,7 @@ INSERT INTO `modulos` (`id`, `nombre`, `estado`, `fecha_creacion`, `version`, `d
 CREATE TABLE `opciones` (
   `id` int(11) NOT NULL,
   `opcion` varchar(32) NOT NULL,
-  `valor` varchar(32) NOT NULL
+  `valor` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -868,7 +970,15 @@ CREATE TABLE `opciones` (
 
 INSERT INTO `opciones` (`id`, `opcion`, `valor`) VALUES
 (1, 'password', 'dGFrYWdpLm1peVU3OTE4'),
-(2, 'email', 'matsuurahana@gmail.com');
+(2, 'email', 'matsuurahana@gmail.com'),
+(3, 'client_id_mu', '5b3d1c49d5608_murbanos'),
+(4, 'client_secret_mu', '4b51943fda751148483027219396c113c23755d2'),
+(5, 'id_user_mu', '145138'),
+(6, 'usuario_mu', 'dlondono@cevicheymar.com'),
+(7, 'access_token_mu', 'e2e398758936f6cdb09b4397661a3cf5e57282cf'),
+(9, 'ciudad_mu', 'cali'),
+(11, 'ciudad_id_mu', '2'),
+(12, 'valor_domicilio', '4900');
 
 -- --------------------------------------------------------
 
@@ -912,42 +1022,79 @@ CREATE TABLE `perfil_contenido` (
 --
 
 INSERT INTO `perfil_contenido` (`id`, `modulo`, `controlador`, `accion`, `estado`, `perfil`, `fecha_creacion`) VALUES
-(776, 'admin', 'admin', 'admin', 1, 1, 1542054332),
-(777, 'maestros', 'maestros', 'maestros', 1, 1, 1542054332),
-(778, 'plugins', 'plugins', 'plugins', 1, 1, 1542054332),
-(779, 'plugins', 'plugins', 'index', 1, 1, 1542054332),
-(780, 'plugins', 'plugins', 'registrarplugin', 1, 1, 1542054332),
-(781, 'plugins', 'plugins', 'unregistrarplugin', 1, 1, 1542054332),
-(782, 'usuarios', 'usuarios', 'usuarios', 1, 1, 1542054332),
-(783, 'usuarios', 'usuarios', 'index', 1, 1, 1542054332),
-(784, 'usuarios', 'usuarios', 'view', 1, 1, 1542054332),
-(785, 'usuarios', 'usuarios', 'create', 1, 1, 1542054332),
-(786, 'usuarios', 'usuarios', 'borrar', 1, 1, 1542054332),
-(787, 'usuarios', 'usuarios', 'perfil', 1, 1, 1542054332),
-(788, 'usuarios', 'usuarios', 'verperfil', 1, 1, 1542054332),
-(789, 'usuarios', 'usuarios', 'borrarperfil', 1, 1, 1542054332),
-(790, 'usuarios', 'usuarios', 'grupo', 1, 1, 1542054332),
-(791, 'usuarios', 'usuarios', 'restablecer', 1, 1, 1542054332),
-(792, 'usuarios', 'usuarios', 'nuevaContra', 1, 1, 1542054332),
-(793, 'usuarios', 'usuarios', 'recuperar', 1, 1, 1542054332),
-(794, 'usuarios', 'usuarios', 'cambiar', 1, 1, 1542054332),
-(795, 'usuarios', 'usuarios', 'cuenta', 1, 1, 1542054332),
-(796, 'direcciones', 'direcciones', 'index', 1, 1, 1542116594),
-(797, 'direcciones', 'direcciones', 'formulario', 1, 1, 1542116594),
-(798, 'direcciones', 'direcciones', 'guardar', 1, 1, 1542116594),
-(799, 'direcciones', 'direcciones', 'vista', 1, 1, 1542116594),
-(800, 'direcciones', 'direcciones', 'eliminar', 1, 1, 1542119354),
-(801, 'direcciones', 'direcciones', 'direcciones', 1, 2, 1542132789),
-(802, 'direcciones', 'direcciones', 'index', 1, 2, 1542132789),
-(803, 'direcciones', 'direcciones', 'formulario', 1, 2, 1542132789),
-(804, 'direcciones', 'direcciones', 'guardar', 1, 2, 1542132789),
-(805, 'direcciones', 'direcciones', 'vista', 1, 2, 1542132789),
-(806, 'direcciones', 'direcciones', 'eliminar', 1, 2, 1542132789),
-(807, 'usuarios', 'usuarios', 'usuarios', 1, 2, 1542132789),
-(808, 'usuarios', 'usuarios', 'nuevaContra', 1, 2, 1542132789),
-(809, 'usuarios', 'usuarios', 'recuperar', 1, 2, 1542132789),
-(810, 'usuarios', 'usuarios', 'cambiar', 1, 2, 1542132789),
-(811, 'usuarios', 'usuarios', 'cuenta', 1, 2, 1542132789);
+(908, 'direcciones', 'direcciones', 'direcciones', 1, 2, 1544550699),
+(909, 'direcciones', 'direcciones', 'index', 1, 2, 1544550699),
+(910, 'direcciones', 'direcciones', 'formulario', 1, 2, 1544550699),
+(911, 'direcciones', 'direcciones', 'guardar', 1, 2, 1544550699),
+(912, 'direcciones', 'direcciones', 'vista', 1, 2, 1544550699),
+(913, 'direcciones', 'direcciones', 'eliminar', 1, 2, 1544550699),
+(914, 'tienda', 'tienda', 'tienda', 1, 2, 1544550699),
+(915, 'tienda', 'tienda', 'index', 1, 2, 1544550699),
+(916, 'tienda', 'tienda', 'formulario', 1, 2, 1544550699),
+(917, 'tienda', 'tienda', 'addItem', 1, 2, 1544550699),
+(918, 'tienda', 'tienda', 'cargarCarrito', 1, 2, 1544550699),
+(919, 'tienda', 'tienda', 'carrito', 1, 2, 1544550699),
+(920, 'tienda', 'tienda', 'cambiarCantidad', 1, 2, 1544550699),
+(921, 'tienda', 'tienda', 'deleteItem', 1, 2, 1544550699),
+(922, 'tienda', 'tienda', 'finalizarPedido', 1, 2, 1544550699),
+(923, 'usuarios', 'usuarios', 'usuarios', 1, 2, 1544550699),
+(924, 'usuarios', 'usuarios', 'nuevaContra', 1, 2, 1544550699),
+(925, 'usuarios', 'usuarios', 'recuperar', 1, 2, 1544550699),
+(926, 'usuarios', 'usuarios', 'cambiar', 1, 2, 1544550700),
+(927, 'usuarios', 'usuarios', 'cuenta', 1, 2, 1544550700),
+(928, 'usuarios', 'usuarios', 'notificarRegistro', 1, 2, 1544550700),
+(929, 'usuarios', 'usuarios', 'eliminarCuenta', 1, 2, 1544550700),
+(936, 'admin', 'admin', 'admin', 1, 1, 1544719044),
+(937, 'administracion', 'administracion', 'administracion', 1, 1, 1544719044),
+(938, 'administracion', 'administracion', 'index', 1, 1, 1544719044),
+(939, 'administracion', 'administracion', 'cargarNotificaciones', 1, 1, 1544719044),
+(940, 'direcciones', 'direcciones', 'index', 1, 1, 1544719044),
+(941, 'direcciones', 'direcciones', 'formulario', 1, 1, 1544719044),
+(942, 'direcciones', 'direcciones', 'guardar', 1, 1, 1544719044),
+(943, 'direcciones', 'direcciones', 'vista', 1, 1, 1544719044),
+(944, 'direcciones', 'direcciones', 'eliminar', 1, 1, 1544719044),
+(945, 'maestros', 'maestros', 'maestros', 1, 1, 1544719044),
+(946, 'plugins', 'plugins', 'plugins', 1, 1, 1544719044),
+(947, 'plugins', 'plugins', 'index', 1, 1, 1544719044),
+(948, 'plugins', 'plugins', 'registrarplugin', 1, 1, 1544719044),
+(949, 'plugins', 'plugins', 'unregistrarplugin', 1, 1, 1544719044),
+(950, 'tienda', 'tienda', 'tienda', 1, 1, 1544719044),
+(951, 'tienda', 'tienda', 'index', 1, 1, 1544719044),
+(952, 'tienda', 'tienda', 'formulario', 1, 1, 1544719044),
+(953, 'tienda', 'tienda', 'addItem', 1, 1, 1544719044),
+(954, 'tienda', 'tienda', 'cargarCarrito', 1, 1, 1544719044),
+(955, 'tienda', 'tienda', 'carrito', 1, 1, 1544719044),
+(956, 'tienda', 'tienda', 'cambiarCantidad', 1, 1, 1544719044),
+(957, 'tienda', 'tienda', 'deleteItem', 1, 1, 1544719044),
+(958, 'tienda', 'tienda', 'finalizarPedido', 1, 1, 1544719044),
+(959, 'tienda', 'tienda', 'checkout', 1, 1, 1544719044),
+(960, 'tienda', 'tienda', 'crearPedido', 1, 1, 1544719044),
+(961, 'tienda', 'tienda', 'thankYou', 1, 1, 1544719044),
+(962, 'tienda', 'tienda', 'verPedido', 1, 1, 1544719045),
+(963, 'usuarios', 'usuarios', 'usuarios', 1, 1, 1544719045),
+(964, 'usuarios', 'usuarios', 'index', 1, 1, 1544719045),
+(965, 'usuarios', 'usuarios', 'view', 1, 1, 1544719045),
+(966, 'usuarios', 'usuarios', 'create', 1, 1, 1544719045),
+(967, 'usuarios', 'usuarios', 'borrar', 1, 1, 1544719045),
+(968, 'usuarios', 'usuarios', 'perfil', 1, 1, 1544719045),
+(969, 'usuarios', 'usuarios', 'verperfil', 1, 1, 1544719045),
+(970, 'usuarios', 'usuarios', 'borrarperfil', 1, 1, 1544719045),
+(971, 'usuarios', 'usuarios', 'grupo', 1, 1, 1544719045),
+(972, 'usuarios', 'usuarios', 'restablecer', 1, 1, 1544719045),
+(973, 'usuarios', 'usuarios', 'nuevaContra', 1, 1, 1544719045),
+(974, 'usuarios', 'usuarios', 'recuperar', 1, 1, 1544719045),
+(975, 'usuarios', 'usuarios', 'cambiar', 1, 1, 1544719045),
+(976, 'usuarios', 'usuarios', 'cuenta', 1, 1, 1544719045),
+(977, 'usuarios', 'usuarios', 'notificarRegistro', 1, 1, 1544719045),
+(978, 'usuarios', 'usuarios', 'eliminarCuenta', 1, 1, 1544719045),
+(979, 'administracion', 'administracion', 'verPedido', 1, 1, 1544809561),
+(980, 'administracion', 'administracion', 'pedidos', 1, 1, 1544826716),
+(981, 'administracion', 'administracion', 'ciudades', 1, 1, 1544828427),
+(982, 'tienda', 'tienda', 'resumen', 1, 1, 1545836517),
+(983, 'administracion', 'administracion', 'reporteUsuarios', 1, 1, 1545861336),
+(984, 'administracion', 'administracion', 'autenticacionMU', 1, 1, 1548345171),
+(985, 'productos', 'productos', 'index', 1, 1, 1549032370),
+(986, 'productos', 'productos', 'form', 1, 1, 1549032370);
 
 -- --------------------------------------------------------
 
@@ -1020,11 +1167,11 @@ CREATE TABLE `sofint_users` (
 INSERT INTO `sofint_users` (`id`, `nick`, `password`, `nombre`, `apellido`, `movil`, `email`, `foto`, `direccion`, `perfil`, `estado`, `fecha_creacion`, `restablecer`, `grupo`, `telefono`, `fecha_nacimiento`) VALUES
 (1, 'admin', 'c4d269375a376158e18a9bc0a32a45c8', 'Edgar Mauricio', 'Ceron Florez', 3176483290, 'edgar.ceron@correounivalle.edu.co', '', '', 1, -1, 1390152537, NULL, NULL, 0, '1993-01-21'),
 (3, 'dann', '84b90ebb62cb2a59d5d525582ded3a9e', 'Daniela', 'Villota', 13316464848, 'edgar.ceron@correounivalle.edu.co', NULL, NULL, 1, 1, 1540151103, 0, NULL, 0, NULL),
-(10, 'maurinin@yahoo.com', '84b90ebb62cb2a59d5d525582ded3a9e', 'Edgar', 'Ceron Florez', 0, '', NULL, NULL, 2, 1, 1542049842, 0, NULL, 0, NULL),
-(11, 'dude@dude.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'Dude', 0, '', NULL, NULL, 2, 1, 1542050045, NULL, NULL, 0, NULL),
-(12, 'dude1@dude.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'Dude', 0, '', NULL, NULL, 2, 1, 1542050076, NULL, NULL, 0, NULL),
-(13, 'dude4@due.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Dude', 'DED', 0, '', NULL, NULL, 2, 1, 1542050137, NULL, NULL, 0, NULL),
-(14, 'moca@bandori.jp', 'c4d269375a376158e18a9bc0a32a45c8', 'Moca', 'Moca', NULL, NULL, NULL, NULL, 2, 1, 1542132674, NULL, NULL, NULL, '0000-00-00');
+(10, 'maurinin@yahoo.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Edgar', 'Ceron Florez', 0, '', NULL, NULL, 2, 1, 1542049842, 0, NULL, 0, '1993-01-21'),
+(15, 'matsuurahana@gmail.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Edgar', 'Ceron', NULL, NULL, NULL, NULL, 2, 1, 1542311935, NULL, NULL, NULL, '0000-00-00'),
+(16, 'triforceofforest@hotmail.com', 'c4d269375a376158e18a9bc0a32a45c8', 'Edgar', 'Ceron', NULL, NULL, NULL, NULL, 2, 1, 1544553325, NULL, NULL, NULL, '0000-00-00'),
+(17, 'diego.londono@nyfa.edu', '827ccb0eea8a706c4c34a16891f84e7b', 'Diego', 'Londoño', NULL, NULL, NULL, NULL, 2, 1, 1544832090, NULL, NULL, NULL, '0000-00-00'),
+(18, 'dlondono@cevicheymar.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Diego', 'Londoño', NULL, NULL, NULL, NULL, 2, 1, 1544832874, NULL, NULL, NULL, '0000-00-00');
 
 --
 -- Índices para tablas volcadas
@@ -1087,19 +1234,19 @@ ALTER TABLE `sofint_users`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=726;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=801;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
@@ -1111,7 +1258,7 @@ ALTER TABLE `perfil`
 -- AUTO_INCREMENT de la tabla `perfil_contenido`
 --
 ALTER TABLE `perfil_contenido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=812;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=987;
 
 --
 -- AUTO_INCREMENT de la tabla `recuperar`
@@ -1123,7 +1270,7 @@ ALTER TABLE `recuperar`
 -- AUTO_INCREMENT de la tabla `sofint_users`
 --
 ALTER TABLE `sofint_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
