@@ -91,7 +91,7 @@ class DefaultController extends Controller
 	{
 		return array(
 			'index'=>'application.modules.'.$this->module->id.'.controllers.acciones.IndexAction',                            
-			'formulario'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormularioAction',                            
+			'form'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormAction',                            
 		);
 	}
         
@@ -104,8 +104,8 @@ class DefaultController extends Controller
                                 'expression' => array(__CLASS__,'allowIndex'),
                             ),
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
-                                'actions' => array('formulario'),
-                                'expression' => array(__CLASS__,'allowFormulario'),
+                                'actions' => array('form'),
+                                'expression' => array(__CLASS__,'allowForm'),
                             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -151,7 +151,7 @@ class DefaultController extends Controller
 		return true;
 	}
 	
-	public static function allowFormulario()
+	public static function allowForm()
 	{
 		/*
 		$accion = 'formulario'; 

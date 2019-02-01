@@ -3,6 +3,8 @@
 class SubirArchivo extends CModel
 {
 	public $datos;
+	public $datos1;
+	public $datos2;
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -11,8 +13,8 @@ class SubirArchivo extends CModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			//array('ano, mes, punto, zona, indicador, resultado_real, presupuesto, dat1, dat2, dat3, meta, ponderado, calificacion_0, calificacion_1, calificacion_2, calificacion_3, calificacion_4, calificacion_5, calificacion_6, calificacion_7, calificacion_8, calificacion_9, calificacion_10, dat4, dat5, dat6, dat7, dat8, dat9, dat10, dat11, dat12, dat13', 'required'),
-			array('datos', 'file', 'types'=>'csv', 'safe' => true),
+		
+			array('datos, datos1, datos2', 'file', 'types'=>'csv', 'safe' => true),
 		);
 	}
 	
@@ -31,7 +33,18 @@ class SubirArchivo extends CModel
 	public function attributeNames()
 	{
 		return array(
-			'datos' => 'Subir CSV',
+			'datos' => 'Subir imagen grande',
+			'datos1' => 'Subir imagen mediana',
+			'datos2' => 'Subir imagen pequeña',
+		);
+	}
+	
+	public function attributeLabels()
+	{
+		return array(
+			'datos' => 'Subir imagen grande',
+			'datos1' => 'Subir imagen mediana',
+			'datos2' => 'Subir imagen pequeña',
 		);
 	}
 

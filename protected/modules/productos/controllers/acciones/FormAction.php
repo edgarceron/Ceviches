@@ -1,57 +1,81 @@
 <?php
 class FormAction extends CAction
 {
-	public $record;
-	
+    //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
-    {                     
-		if(isset($_GET['id']){
-			$id = $_GET['id'];
-			$this->record = Model::record()->findByPk($id);
-			$parametros_get = '?id=' . $id;
+    {                           
+        if(isset($_GET['id'])){
+			$id = $_GET['id']; 
+			$producto = Productos::model()->findByPk($id);
+			$parametros_get = "/id/" . $producto->id;
 		}
 		else{
-			$this->record = new Model;
-			$parametros_get = '';
+			$producto = new Productos;
+			$parametros_get = "";
 		}
 		
-		if(isset($_POST['Model']){
-			$this->record->attributes=$_POST['Model'];
-			$this->calculoDeErrores();
-			
-			if($this->record->save()){
-				$this->controller->render('vista',array(
-					'record' => $record,
-				));
+		$archivos = new SubirArchivo;
+		$variables = array();
+		
+		if(isset($_POST['Productos'])){
+			$producto->attributes = $_POST['Productos'];
+			if($producto->save()){
+				$id = $producto->id;
+				$parametros_get = "/id/" . $id;
+				$variables = VariablesProducto::model()->findAll('id_producto = ' . $id);
+				if(isset($_POST['SubirArchivo'])){
+					$archivos->attributes = $_POST['SubirArchivo'];
+					
+					if(isset($_POST['SubirArchivo']['datos']))
+						$archivos->datos=CUploadedFile::getInstance($archivos,'datos');
+					if(isset($_POST['SubirArchivo']['datos1']))
+						$archivos->datos1=CUploadedFile::getInstance($archivos,'datos1');
+					if(isset($_POST['SubirArchivo']['datos2']))
+						$archivos->datos2=CUploadedFile::getInstance($archivos,'datos2');
+					
+					$id = $producto->id;
+					$nombre = str_replace(" ","-",$producto->nombre_producto);
+					$ruta = './images/productos/'.$id;
+					
+					if(isset($archivos->datos)){
+						$extension = $archivos->datos->getExtensionName();
+						$nombreg = "$nombre"."500px.$extension";
+						$archivos->datos->saveAs($ruta."/".$nombreg, false);
+						$producto['imageng_producto'] = $nombreg;
+					}
+					
+					if(isset($archivos->datos1)){
+						$extension = $archivos->datos1->getExtensionName();
+						$nombrem = "$nombre"."300px.$extension";
+						$archivos->datos1->saveAs($ruta."/".$nombrem, false);
+						$producto['imagenm_producto'] = $nombrem;
+					}
+					
+					if(isset($archivos->datos2)){
+						$extension = $archivos->datos2->getExtensionName();
+						$nombrep = "$nombre"."70px.$extension";
+						$archivos->datos2->saveAs($ruta."/".$nombrep, false);
+						$producto['imagenp_producto'] = $nombrep;
+					}
+					$producto->save();
+					
+				}
 			}
 		}
 		
-		//Se quitan errores de id que pudieron se consecuencia del escenario error
-		$this->record->clearErrors('id');
-		$this->controller->render('formulario',array(
-			'record' => $record, 'parametros_get' = $parametros_get,
-		));
+		$lineas = CHtml::listData(LineasProducto::model()->findAll(), 'id', 'nombre_linea_producto');
+		$tipos =  CHtml::listData(TiposProducto::model()->findAll(), 'id', 'nombre_tipo_producto');
 		
-    }
-	
-	public function calculoDeErrores(){
-		$errores = false;
 		
-		//Calculo de erroes
-		/* Se usa para validar errores a los que yii no tiene respuesta, los errores se 
-		 * aplican a un attibuto en concreto mediante la funcion addError() ver más en:
-		 * https://www.yiiframework.com/doc/api/1.1/CModel#addErrors-detail
-		 */
-		
-		//Fin del calculo de errores
-		
-		if($erroes){
-			/* Aplico el escenario error el cual obligara al recordo a fallar su validación
-			 * en el campo id.
-			 */
-			$this->record->scenario = 'error';
-		}
-	}
-}
 
+        $this->controller->render('formulario_producto',array(
+			'producto' => $producto,
+			'archivos' => $archivos,
+			'variables' => $variables,
+			'parametros_get' => $parametros_get, 
+			'lineas' => $lineas,
+			'tipos' => $tipos,
+        ));
+    }
+}
 

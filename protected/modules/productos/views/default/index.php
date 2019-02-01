@@ -8,35 +8,25 @@ $this->breadcrumbs=array(
 ?>
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="container row">
-            <div class="col-lg-6 text-left"><img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/icon.png' ?>"/></div>
-            <div class="col-lg-6"></div>
-        </div>
-      
-    </div>
-    <div class="panel-body">
-      <div class="col-lg-12 container">
-          
-      
-    
-    
-        </div>
-    </div>
-</div>
+<div class="col-sm-12">
+	<div class="card">
+		<div class="card-header">
+			Productos
+		</div>
+		
+		<div class="card-body">
+			  
+			<div class="card-body">
+				<table class="table">
+					<tr>
+						<td><?php echo CHtml::button('Lista de productos', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/productos/default/listaProductos/') . '"', 'class' => 'btn btn-primary form-control')); ?></th>
+					</tr>
+					<tr>
+						<td><?php echo CHtml::button('Crear nuevo producto', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/productos/default/form/') . '"', 'class' => 'btn btn-secondary form-control')); ?></th>
+					</tr>
+				</table>
+			</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="container row">
-            <div class="col-lg-6 text-left"><img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/data.png' ?>"/></div>
-            <div class="col-lg-6"></div>
-        </div>
-      
-    </div>
-    <div class="panel-body">
-        <div class="col-lg-12 container">
-    
-        </div>
-    </div>
+		</div>
+	</div>
 </div>

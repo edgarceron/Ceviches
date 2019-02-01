@@ -38,7 +38,7 @@ class Productos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre_producto, descripcion_producto, precio_producto, calorias_producto, imageng_producto, imagenm_producto, imagenp_producto, id_tipo_producto, id_linea_producto', 'required'),
+			array('nombre_producto, descripcion_producto, precio_producto, calorias_producto, id_tipo_producto, id_linea_producto', 'required'),
 			array('calorias_producto, id_tipo_producto, id_linea_producto', 'numerical', 'integerOnly'=>true),
 			array('nombre_producto', 'length', 'max'=>30),
 			array('precio_producto', 'length', 'max'=>10),
