@@ -1,25 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "variables".
+ * This is the model class for table "servicios_mu".
  *
- * The followings are the available columns in table 'variables':
- * @property integer $id
- * @property integer $id_tipo_variable
- * @property string $descripcion_tipo_variable
+ * The followings are the available columns in table 'servicios_mu':
+ * @property integer $id_pedido
+ * @property string $uuid
+ * @property integer $status
+ * @property double $total
+ * @property string $date
+ * @property integer $distance
+ * @property string $error
  *
  * The followings are the available model relations:
- * @property TiposVariable $idTipoVariable
- * @property VariablesProducto[] $variablesProductos
+ * @property Pedidos $idPedido
  */
-class Variables extends CActiveRecord
+class ServiciosMu extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'variables';
+		return 'servicios_mu';
 	}
 
 	/**
@@ -30,12 +33,14 @@ class Variables extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_tipo_variable, descripcion_tipo_variable', 'required'),
-			array('id_tipo_variable', 'numerical', 'integerOnly'=>true),
-			array('descripcion_tipo_variable', 'length', 'max'=>30),
+			array('id_pedido, uuid, status, total, date, distance, error', 'required'),
+			array('id_pedido, status, distance', 'numerical', 'integerOnly'=>true),
+			array('total', 'numerical'),
+			array('uuid', 'length', 'max'=>15),
+			array('error', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_tipo_variable, descripcion_tipo_variable', 'safe', 'on'=>'search'),
+			array('id_pedido, uuid, status, total, date, distance, error', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +52,7 @@ class Variables extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idTipoVariable' => array(self::BELONGS_TO, 'TiposVariable', 'id_tipo_variable'),
-			'variablesProductos' => array(self::HAS_MANY, 'VariablesProducto', 'id_variable'),
+			'idPedido' => array(self::BELONGS_TO, 'Pedidos', 'id_pedido'),
 		);
 	}
 
@@ -58,9 +62,13 @@ class Variables extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'id_tipo_variable' => 'Id Tipo Variable',
-			'descripcion_tipo_variable' => 'Descripcion Tipo Variable',
+			'id_pedido' => 'Id Pedido',
+			'uuid' => 'Uuid',
+			'status' => 'Status',
+			'total' => 'Total',
+			'date' => 'Date',
+			'distance' => 'Distance',
+			'error' => 'Error',
 		);
 	}
 
@@ -82,9 +90,13 @@ class Variables extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('id_tipo_variable',$this->id_tipo_variable);
-		$criteria->compare('descripcion_tipo_variable',$this->descripcion_tipo_variable,true);
+		$criteria->compare('id_pedido',$this->id_pedido);
+		$criteria->compare('uuid',$this->uuid,true);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('total',$this->total);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('distance',$this->distance);
+		$criteria->compare('error',$this->error,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -103,7 +115,7 @@ class Variables extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Variables the static model class
+	 * @return ServiciosMu the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

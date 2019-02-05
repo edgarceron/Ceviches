@@ -2,6 +2,7 @@
 /* @var $this ProductosController */
 /* @var $producto Productos */
 /* @var $form CActiveForm */
+
 ?>
 
 <div class="col-sm-12">
@@ -129,18 +130,108 @@
 
 				<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-				<?php echo $form->errorSummary($producto); ?>
+				<?php if($mensaje != ""){
+					?>
+					<div class="alert alert-danger" role="alert"><?php echo $mensaje ?></div>
+					<?php
+				} ?>
 				<div class="row" id="variables_div">
-					<div class="form-group col-lg-4">
+					<div class="form-group col-lg-6">
+						<?php 
+							$tipos_variable_disponibles = $tipos_variable;
+							foreach($variables as $v){
+								if(isset($tipos_variable_disponibles[$v['id_tipo_variable']])){
+									unset($tipos_variable_disponibles[$v['id_tipo_variable']]);
+								}
+							}
+							echo CHtml::dropDownList('Tipo variable', '', $tipos_variable_disponibles, array('class' => 'form-control', 'id' => 'tipo_variable')); 
+						?>
+					</div>
+					<div class="form-group col-lg-6">
 						<?php echo CHtml::button('Añadir variable',array('class'=>'btn btn-primary', "onclick" => "crearVariable()")); ?>
 					</div>
 				</div>
 				
+				<div class="row">
+					<div class="form-group col-lg-12">
+						<?php echo CHtml::submitButton('Guardar',array('class'=>'btn btn-primary')); ?>
+					</div>
+				</div>
 				<script>
+					var variablesTipo;
 					var variables = <?php echo count($variables) ?>;
-					function crearVariable(){
+					function htmlTipoVariable(tipo){
+						$("#tipo_variable option:selected").remove();
+						var producto = <?php echo $producto['id'] ?>;
 						
+						jQuery.ajax({
+							'type':'GET',
+							'dataType':'html',
+							'async':false,
+							'url':'<?php echo Yii::app()->createAbsoluteUrl('/productos/default/addTipoVariable') ?>',
+							'cache':false,
+							'data':{'tipo': tipo, 'producto': producto},
+							'success':function(html){
+								jQuery("#variables_div").append(html);
+							}
+						});		
 					}
+					
+					function crearVariable(){
+						var tipo = $('#tipo_variable').val();
+						htmlTipoVariable(tipo);
+					}
+					
+					function eliminarVariable(variable, tipo){
+						var div = "#variable" + variable;
+						var div_obj = $(div);
+						
+						var lab = "#label" + variable;
+						var text = $(lab).text();
+						
+						div_obj.remove();
+						
+						sel = "#variables_select" + tipo;
+						sel_obj = $(sel);
+						
+						sel_obj.append(new Option(text, variable));
+						
+						var bot = '#botones' + tipo + '_div';
+						$(bot).css("display", "block");
+					}
+					
+					function nuevoValorTipoVariable(tipo){
+						var div = '#tipovariable' + tipo + '_div';
+						var sel = '#variables_select' + tipo;
+						var div_obj = $(div);
+						var sel_obj = $(sel);
+						var text = $(sel + " option:selected").text();
+						var value = sel_obj.val();
+						div_obj.append('<div class="row" id="variable' + value + '">'
+						+'<div class="form-group col-md-3"><label class="form-control" id="label'+value+'">' + text + '</label></div>'
+						+'<div class="form-group col-md-3"><input class="form-control" type="text" value="0" name="Valor[' + value + ']" id="Valor_' + value + '"></div>'
+						+'<div class="form-group col-md-3"><input class="btn btn-primary" onclick="eliminarVariable('+ value +' , '+ tipo +')" type="button" value="Eliminar variable"></div>' 
+						+'</div>');
+						
+						$(sel + " option:selected").remove();
+						var var_disponibles = $(sel + " option").size();
+						if(var_disponibles == 0){
+							var bot = '#botones' + tipo + '_div';
+							$(bot).css("display", "none");
+						}
+					}
+					
+					$( document ).ready(function() {
+						<?php 
+							$tv = array();
+							foreach($variables as $var){
+								$tv[$var['id_tipo_variable']] = $var['id_tipo_variable'];
+							}
+							foreach($tv as $t){
+								echo "htmlTipoVariable($t);";
+							}
+						?>
+					});
 				</script>
 			<?php $this->endWidget(); ?>
 		</div>

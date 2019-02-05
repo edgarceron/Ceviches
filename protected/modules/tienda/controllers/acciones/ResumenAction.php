@@ -74,6 +74,7 @@ class ResumenAction extends CAction
 			'nombre_completo' => $nombre_completo,
 			'email' => $email,
 			'direccion_texto' => $direccion_texto,
+			'valor_domicilio' => OpcionesTienda::getOpcion('valor_domicilio'),
 		));
 		
 			

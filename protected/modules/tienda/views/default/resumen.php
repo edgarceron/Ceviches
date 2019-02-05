@@ -162,20 +162,32 @@
 					
 					</td>
 					<td>
-						Total
+						Domicilio
 					</td>
 					<td>
-						<label id="total">$<?php echo number_format($total, 0, ",", ".") ?></label>
+						<span class="text-muted"><label id="total">$<?php echo number_format($valor_domicilio, 0, ",", ".") ?></label></span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan = 3>
+					
+					</td>
+					<td>
+						<b>Total</b>
+					</td>
+					<td>
+						<label id="total"><b>$<?php echo number_format($total + $valor_domicilio, 0, ",", ".") ?></b></label>
 						<?php 
 						if($medio_pago == 2){
-							echo CHtml::hiddenField('amount', $total);
+							echo CHtml::hiddenField('amount', $total + $valor_domicilio);
 							echo CHtml::hiddenField('tax', 0);
 							echo CHtml::hiddenField('taxReturnBase', 0);
 							echo CHtml::hiddenField('test', 1);
 							echo CHtml::hiddenField('buyerEmail', $email);
 							echo CHtml::hiddenField('buyerFullName', $nombre_completo);
 							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu/id_ciudad/$id_ciudad/id_direccion/$id_direccion"));
-							$signature = $apiKey . "~" . $merchantId . "~" . $referenceCode . "~" . $total . "~" . $currency;
+							$signature = $apiKey . "~" . $merchantId . "~" . $referenceCode . "~" . ($total + $valor_domicilio) . "~" . $currency;
 							$md5s = md5($signature);
 							echo CHtml::hiddenField('signature', $md5s);
 						}

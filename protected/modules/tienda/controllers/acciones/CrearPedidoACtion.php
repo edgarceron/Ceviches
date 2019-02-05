@@ -51,10 +51,11 @@ class CrearPedidoAction extends CAction
 		}
 		$pedido['medio_pago_pedido'] = $cadena_medio_pago;
 		$pedido['cookie_pedido'] = $items_string;
+		$pedido['domicilio_pedido']  = OpcionesTienda::getOpcion('valor_domicilio');
+		
 		$luigi = $this->generarCodigoLuigi();
-		
-		
 		$pedido['luigi_pedido'] = $luigi;
+		
 		$items = Carrito::cargarPorCadena($items_string);
 		
 		
@@ -65,18 +66,15 @@ class CrearPedidoAction extends CAction
 			
 			//Cargar articulos a la table de detalles
 			$total = $this->crearDetalles($items, $id_pedido);
+			$pedido->save();
 			
 			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
 			$correo = $usuario['nick'];
 			$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 			
-			$resultado = $this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
-			print_r($resultado);
-			exit;
+			$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
 			
 			$this->enviarCorreo($correo, $nombre, $pedido);
-			
-			
 			
 			Carrito::borrarCookie();
 			$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
@@ -225,7 +223,7 @@ class CrearPedidoAction extends CAction
 	 * @return String valor del parametro, null si no existe el parametro
 	 */
 	public function getOpcion($parametro){
-		$record = Opciones::model()->find('opcion = "' . $parametro . '"');
+		$record = OpcionesTienda::model()->find('valor = "' . $parametro . '"');
 		if($record != null){
 			return $record['valor'];
 		}
@@ -347,7 +345,7 @@ class CrearPedidoAction extends CAction
 			$variable_str = substr($variable_str, 0, -1);
 			$precio += $aumento;
 			$productos[] = [
-				"store_id"=> 1189, 
+				"store_id"=> intval(OpcionesTienda::model()->find('descripcion = "store_id"')['valor']), 
 				"sku"=> "1020651",
 				"product_name"=> $nombre ." ".$variable_str, //Nombre del producto
 				"url_img"=> substr(Yii::app()->createAbsoluteUrl(''), 0, -9) . "images/" . $foto, //URL de la image
@@ -369,14 +367,14 @@ class CrearPedidoAction extends CAction
 		$telefono = $record['telefono_direccion'];
 		$correo = $usuario['nick'];
 		$productos = $this->generarProductosMU($items);
-		$access_token = Opciones::model()->find('opcion = "access_token_mu"')['valor'];
+		$access_token = OpcionesTienda::model()->find('descripcion = "access_token_mu"')['valor'];
 		
 		$parametros = [
-			"id_user" => intval(Opciones::model()->find('opcion = "id_user_mu"')['valor']), // ID de usuario
+			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
 			"type_service"=> 4, //Tipo de servicio
 			"roundtrip"=> 0, //1=Ida y vuelta;0=solo ida
 			"declared_value"=> $total, //Valor de productos de domicilio
-			"city"=> intval(Opciones::model()->find('opcion = "ciudad_id_mu"')['valor']),  //Id de ciudad *tabla
+			"city"=> intval(OpcionesTienda::model()->find('descripcion = "ciudad_id_mu"')['valor']),  //Id de ciudad *tabla
 			"start_date"=> date('Y-m-d'), //Fecha
 			"start_time"=> date('H:i:s'), //Hora
 			"observation"=> "CYM" . $id_pedido , //Descripción General
@@ -397,7 +395,7 @@ class CrearPedidoAction extends CAction
 					"client_phone"=> $telefono, //Teléfono
 					"client_email"=> $correo, //correo
 					"products_value"=> $total, //Valor total de productos
-					"domicile_value"=> Opciones::model()->find('opcion = "valor_domicilio"')['valor'], //Valor domicilios
+					"domicile_value"=> OpcionesTienda::model()->find('descripcion = "valor_domicilio"')['valor'], //Valor domicilios
 					"client_document"=> "79170747",//Documento
 					"payment_type"=> $payment_type //TIpo de pago
 				],
@@ -407,8 +405,6 @@ class CrearPedidoAction extends CAction
 		
 		$url = "http://dev.api.mensajerosurbanos.com/delivery/create";
 		$post = json_encode($parametros);
-		echo $post;
-		exit;
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -419,7 +415,16 @@ class CrearPedidoAction extends CAction
 
 		$result=curl_exec ($ch);
 		curl_close($ch);
-		return $result;
+		$obj = json_decode($result, true);
+		
+		$status_code = $obj['status_code'];
+		if($status_code == 200){
+			$data = $obj['data'];
+			$data['id_pedido'] = $id_pedido;
+			$servicio = new ServiciosMu;
+			$servicio->attributes = $data;
+			$servicio->save();
+		}
 	}
 }
 

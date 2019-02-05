@@ -92,6 +92,7 @@ class DefaultController extends Controller
 		return array(
 			'index'=>'application.modules.'.$this->module->id.'.controllers.acciones.IndexAction',                            
 			'form'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormAction',                            
+			'addTipoVariable'=>'application.modules.'.$this->module->id.'.controllers.acciones.AddTipoVariableAction',                            
 		);
 	}
         
@@ -106,6 +107,10 @@ class DefaultController extends Controller
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('form'),
                                 'expression' => array(__CLASS__,'allowForm'),
+                            ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('addTipoVariable'),
+                                'expression' => array(__CLASS__,'allowAddTipoVariable'),
                             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -155,6 +160,43 @@ class DefaultController extends Controller
 	{
 		/*
 		$accion = 'formulario'; 
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'productos';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowAddTipoVariable()
+	{
+		/*
+		$accion = 'addTipoVariable'; 
 		if(Yii::app()->user->name != "Guest"){
 			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
 			$criteria = new CDbCriteria();            

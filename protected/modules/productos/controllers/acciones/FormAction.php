@@ -8,21 +8,22 @@ class FormAction extends CAction
 			$id = $_GET['id']; 
 			$producto = Productos::model()->findByPk($id);
 			$parametros_get = "/id/" . $producto->id;
+			$variables = VariablesProducto::model()->findAll('id_producto = ' . $id);
 		}
 		else{
 			$producto = new Productos;
 			$parametros_get = "";
+			$variables = array();
 		}
-		
+		$mensaje = '';
 		$archivos = new SubirArchivo;
-		$variables = array();
+		
 		
 		if(isset($_POST['Productos'])){
 			$producto->attributes = $_POST['Productos'];
 			if($producto->save()){
 				$id = $producto->id;
 				$parametros_get = "/id/" . $id;
-				$variables = VariablesProducto::model()->findAll('id_producto = ' . $id);
 				if(isset($_POST['SubirArchivo'])){
 					$archivos->attributes = $_POST['SubirArchivo'];
 					
@@ -63,10 +64,51 @@ class FormAction extends CAction
 			}
 		}
 		
+		if(isset($_POST['Afecta'])){
+			$naturaleza = $_POST['Afecta'];
+			$cuentaReemplaza = 0;
+			$ak = array_keys($naturaleza);
+			$tiposReemplazados = array();
+			foreach($ak as $afecta){
+				if($naturaleza[$afecta] == 1){
+					$cuentaReemplaza++;
+					if($cuentaReemplaza > 1){
+						$naturaleza[$afecta] = 0;
+						$tiposReemplazados[] = $afecta;
+					}
+				}
+			}
+			
+			$valores = $_POST['Valor'];
+			$ak = array_keys($valores);
+			
+			$anteriores = VariablesProducto::model()->findAll('id_producto = ' . $id);
+			foreach($anteriores as $borrar){
+				$borrar->delete();
+			}
+			
+			foreach($ak as $key){
+				$variable = Variables::model()->findByPk($key);
+				$record = new VariablesProducto;
+				$record['id_producto'] = $id;
+				$record['id_tipo_variable'] = $variable['id_tipo_variable'];
+				$record['id_variable'] = $key;
+				$record['afecta_precio'] = $naturaleza[$variable['id_tipo_variable']];
+				$record['precio'] = $valores[$key];
+				$record->save();
+			}
+			
+		}
 		$lineas = CHtml::listData(LineasProducto::model()->findAll(), 'id', 'nombre_linea_producto');
 		$tipos =  CHtml::listData(TiposProducto::model()->findAll(), 'id', 'nombre_tipo_producto');
+		$tipos_variable = CHtml::listData(TiposVariable::model()->findAll(), 'id', 'nombre_tipo_variable');
 		
-		
+		if(isset($tiposReemplazados)){
+			foreach($tiposReemplazados as $re){
+				$mensaje .= " Se cambio la naturaleza de la variable \"" . $tipos_variable[$re] 
+				. "\" no pueden haber más de un tipo de variable que reemplace el precio.";
+			}
+		}
 
         $this->controller->render('formulario_producto',array(
 			'producto' => $producto,
@@ -75,7 +117,10 @@ class FormAction extends CAction
 			'parametros_get' => $parametros_get, 
 			'lineas' => $lineas,
 			'tipos' => $tipos,
+			'tipos_variable' => $tipos_variable,
+			'mensaje' => $mensaje,
         ));
     }
+	
 }
 
