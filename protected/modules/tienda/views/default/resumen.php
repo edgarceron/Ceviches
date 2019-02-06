@@ -10,6 +10,7 @@
 		$accountId = "512321";
 		$currency = "COP";
 		$referenceCode = "CYM" . $id_pedido;
+		$id_direccion = $direccion['id'];
 	}
 	
 	$form=$this->beginWidget('CActiveForm', array(
@@ -32,7 +33,7 @@
 			echo $direccion_texto;
 			if($medio_pago == 1){
 				echo CHtml::hiddenField('direccion', $direccion_texto);
-				echo CHtml::hiddenField('id_direccion', $direccion['id']);
+				echo CHtml::hiddenField('id_direccion', $id_direccion);
 				echo CHtml::hiddenField('telefono', $direccion['telefono_direccion']);
 				echo CHtml::hiddenField('id_ciudad', $id_ciudad);
 			}
