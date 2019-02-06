@@ -22,6 +22,23 @@ SET time_zone = "+00:00";
 -- Base de datos: `tienda`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lineasCatalogo` (`id_c` INT)  SELECT p.id_linea_producto, COUNT(*) FROM `productos_catalogo` as pc JOIN productos AS p ON pc.id_producto = p.id WHERE pc.id_catalogo = id_c GROUP BY p.id_linea_producto$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosCatalogo` (IN `c_id` INT)  SELECT pc.id_producto, p.nombre_producto, p.precio_producto, p.imagenm_producto, p.id_linea_producto, 
+	v.id, tv.id AS id_tipo_variable, v.descripcion_tipo_variable, vp.id_variable AS id_variable_producto, 
+	vp.afecta_precio, vp.precio
+FROM `productos_catalogo` AS pc 
+	JOIN productos AS p ON pc.id_producto = p.id 
+	JOIN variables_producto as vp ON vp.id_producto = p.id 
+	JOIN variables AS v ON vp.id_variable = v.id 
+	JOIN tipos_variable AS tv ON tv.id = v.id_tipo_variable 
+WHERE id_catalogo = c_id ORDER BY p.id_linea_producto, pc.id_producto$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
