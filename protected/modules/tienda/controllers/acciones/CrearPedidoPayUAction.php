@@ -13,10 +13,14 @@ class CrearPedidoAction extends CAction
 			$id_temporal = $_GET['id'];
 			$id_ciudad =  $_GET['id_ciudad'];
 			$id_direccion = $_GET['id_direccion'];
-			$transactionState =  $_GET['transactionState'];
-			if($transactionState != 4){
+			$state_pol =  $_POST['state_pol'];
+			if($state_pol != 4){
 				Yii::app()->user->setFlash('warning', 'Hubo un error durante la transacción o la transacción fue anulada');
-				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/finalizarPedido'));
+				//$this->controller->redirect(Yii::app()->createUrl('/tienda/default/finalizarPedido'));
+				$temporal = TemporalPedido::model()->findByPk($id_temporal);
+				$temporal['id_pedido_finalizado'] = 0;
+				$temporal->save();
+				exit;
 			}
 		}
 		
@@ -76,16 +80,23 @@ class CrearPedidoAction extends CAction
 			
 			$this->enviarCorreo($correo, $nombre, $pedido);
 			
-			
-			Carrito::borrarCookie();
-			$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
-				'id_pedido' => $pedido['id'],
-				'luigi' => $pedido['luigi_pedido'],
-			)));
+			if($tipo != 'payu'){
+				Carrito::borrarCookie();
+				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
+					'id_pedido' => $pedido['id'],
+					'luigi' => $pedido['luigi_pedido'],
+				)));
+			}
+			else{
+				$temporal['id_pedido_finalizado'] = $pedido['id'];
+				$temporal->save();
+			}
 		}
 		else{
 			//Redireccion a una pagina de error
-			print_r($pedido);
+			if($tipo != 'payu'){
+				print_r($pedido);
+			}
 		}
     }
 	
