@@ -1,11 +1,11 @@
 <?php
-class FormTipoVariableAction extends CAction
+class FormLineaProductoAction extends CAction
 {
 	public $record;
 	
     public function run()
     {                     
-		if(isset($_GET['id']){
+		if(isset($_GET['id'])){
 			$id = $_GET['id'];
 			$this->record = Model::record()->findByPk($id);
 			$parametros_get = '?id=' . $id;
@@ -15,21 +15,19 @@ class FormTipoVariableAction extends CAction
 			$parametros_get = '';
 		}
 		
-		if(isset($_POST['Model']){
+		if(isset($_POST['Model'])){
 			$this->record->attributes=$_POST['Model'];
 			$this->calculoDeErrores();
 			
 			if($this->record->save()){
-				$this->controller->render('vista',array(
-					'record' => $record,
-				));
+				$parametros_get = '?id=' . $this->record['id'];
 			}
 		}
 		
 		//Se quitan errores de id que pudieron se consecuencia del escenario error
 		$this->record->clearErrors('id');
-		$this->controller->render('formulario',array(
-			'record' => $record, 'parametros_get' = $parametros_get,
+		$this->controller->render('formulario_linea',array(
+			'model' => $this->record, 'parametros_get' => $parametros_get,
 		));
 		
     }
@@ -45,7 +43,7 @@ class FormTipoVariableAction extends CAction
 		
 		//Fin del calculo de errores
 		
-		if($erroes){
+		if($errores){
 			/* Aplico el escenario error el cual obligara al recordo a fallar su validación
 			 * en el campo id.
 			 */
@@ -53,5 +51,3 @@ class FormTipoVariableAction extends CAction
 		}
 	}
 }
-
-

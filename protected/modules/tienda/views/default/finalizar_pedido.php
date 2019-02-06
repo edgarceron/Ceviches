@@ -104,7 +104,7 @@
 				$precio = $producto['precio_producto'];
 				$imagen = $producto['imagenp_producto'];
 				
-				$total += ($cantidad * $precio);
+				
 				
 				$aumento = 0;
 				$variable_str = "";
@@ -124,6 +124,7 @@
 				}
 				$variable_str = substr($variable_str, 0, -1);
 				$precio += $aumento;
+				$total += ($cantidad * $precio);
 				
 			?>	
 				<tr>

@@ -39,6 +39,11 @@
 						<?php echo $form->textField($producto,'precio_producto',array('class'=>'form-control')); ?>
 						<?php echo $form->error($producto,'precio_producto'); ?>
 					</div>
+					<div class="form-group col-lg-4">
+						<?php echo $form->labelEx($producto,'estado_producto',array('class'=>'label label-success')); ?>
+						<?php echo $form->dropDownList($producto,'estado_producto', array(1 => 'Activo', 0 => 'Inactivo'),array('class'=>'form-control')); ?>
+						<?php echo $form->error($producto,'estado_producto'); ?>
+					</div>
 					<div class="form-group col-lg-12">
 						<?php echo $form->labelEx($producto,'descripcion_producto',array('class'=>'label label-success')); ?>
 						<?php echo $form->textArea($producto,'descripcion_producto',array('class'=>'form-control')); ?>
@@ -99,7 +104,7 @@
 						?>
 					</div>
 					<div class="form-group col-lg-12">
-						<?php echo CHtml::submitButton('Guardar',array('class'=>'btn btn-primary')); ?>
+						<?php echo CHtml::submitButton('Guardar datos del producto',array('class'=>'btn btn-primary')); ?>
 					</div>
 				</div>
 			<?php $this->endWidget(); ?>
@@ -154,7 +159,7 @@
 				
 				<div class="row">
 					<div class="form-group col-lg-12">
-						<?php echo CHtml::submitButton('Guardar',array('class'=>'btn btn-primary')); ?>
+						<?php echo CHtml::submitButton('Guardar variables del producto',array('class'=>'btn btn-primary')); ?>
 					</div>
 				</div>
 				<script>

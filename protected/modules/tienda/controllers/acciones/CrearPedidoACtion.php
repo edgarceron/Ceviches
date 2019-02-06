@@ -76,15 +76,23 @@ class CrearPedidoAction extends CAction
 			
 			$this->enviarCorreo($correo, $nombre, $pedido);
 			
-			Carrito::borrarCookie();
-			$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
-				'id_pedido' => $pedido['id'],
-				'luigi' => $pedido['luigi_pedido'],
-			)));
+			if($tipo != 'payu'){
+				Carrito::borrarCookie();
+				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
+					'id_pedido' => $pedido['id'],
+					'luigi' => $pedido['luigi_pedido'],
+				)));
+			}
+			else{
+				$temporal['id_pedido_finalizado'] = $pedido['id'];
+				$temporal->save();
+			}
 		}
 		else{
 			//Redireccion a una pagina de error
-			print_r($pedido);
+			if($tipo != 'payu'){
+				print_r($pedido);
+			}
 		}
     }
 	
@@ -167,8 +175,8 @@ class CrearPedidoAction extends CAction
 			$detalles = Detalles::model()->findAll('id_pedido = ' . $id_pedido);
 			$adjunto = $this->construirMensaje($email, $nombre, $pedido, $detalles);
 			$mail->IsSMTP();
-			$mail->Host = gethostbyname('smtp.gmail.com');
-			$mail->Port = 587;
+			$mail->Host = gethostbyname($this->getOpcion('host'));
+			$mail->Port = intval($this->getOpcion('port'));
 			$mail->CharSet = 'utf-8';
 			//$mail->SMTPDebug = 1;
 			$mail->SMTPOptions = array(
@@ -178,7 +186,7 @@ class CrearPedidoAction extends CAction
 					'allow_self_signed' => true
 				)
 			);
-			$mail->SMTPSecure = "tls";
+			$mail->SMTPSecure = "ssl";
 			$mail->SMTPAuth = true;
 			$mail->Username = $this->getOpcion('email');
 			$mail->Password = base64_decode($this->getOpcion('password'));
@@ -223,7 +231,7 @@ class CrearPedidoAction extends CAction
 	 * @return String valor del parametro, null si no existe el parametro
 	 */
 	public function getOpcion($parametro){
-		$record = OpcionesTienda::model()->find('valor = "' . $parametro . '"');
+		$record = Opciones::model()->find('opcion = "' . $parametro . '"');
 		if($record != null){
 			return $record['valor'];
 		}

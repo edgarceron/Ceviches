@@ -28,11 +28,14 @@ class IndexAction extends CAction
 		foreach($productos as $p){
 			$id = $p['id_producto'];
 			if(!isset($productos_catalogo[$id])){
-				$nombre = $p['nombre_producto'];
-				$precio_p = $p['precio_producto'];
-				$imagen = $p['imagenm_producto'];
-				$linea = $p['id_linea_producto'];
-				$productos_catalogo[$id] = array('nombre' => $nombre, 'precio' => $precio_p, 'linea'=> $linea, 'imagen' => $imagen);
+				$estado_p = Productos::model()->findByPk($id)['estado_producto'];
+				if($estado_p){
+					$nombre = $p['nombre_producto'];
+					$precio_p = $p['precio_producto'];
+					$imagen = $p['imagenm_producto'];
+					$linea = $p['id_linea_producto'];
+					$productos_catalogo[$id] = array('nombre' => $nombre, 'precio' => $precio_p, 'linea'=> $linea, 'imagen' => $imagen);
+				}
 			}
 			$nombre_tipo_variable = $p['id_tipo_variable'];
 			$id_variable_producto = $p['id_variable_producto'];

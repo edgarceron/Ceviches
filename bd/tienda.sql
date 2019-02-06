@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2019 a las 17:07:48
+-- Tiempo de generación: 06-02-2019 a las 22:20:32
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 5.6.36
 
@@ -28,7 +28,15 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `lineasCatalogo` (`id_c` INT)  SELECT p.id_linea_producto, COUNT(*) FROM `productos_catalogo` as pc JOIN productos AS p ON pc.id_producto = p.id WHERE pc.id_catalogo = id_c GROUP BY p.id_linea_producto$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productosCatalogo` (`c_id` INT)  SELECT pc.id_producto, p.nombre_producto, p.precio_producto, p.imagenm_producto, p.id_linea_producto, v.id, tv.id as id_tipo_variable, v.descripcion_tipo_variable, vp.id_variable as id_variable_producto, vp.afecta_precio, vp.precio FROM `productos_catalogo` as pc JOIN productos as p ON pc.id_producto = p.id JOIN variables_producto as vp ON vp.id_producto = p.id JOIN variables as v on vp.id_variable = v.id JOIN tipos_variable as tv ON tv.id = v.id_tipo_varible WHERE id_catalogo = c_id ORDER BY p.id_linea_producto, pc.id_producto$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `productosCatalogo` (IN `c_id` INT)  SELECT pc.id_producto, p.nombre_producto, p.precio_producto, p.imagenm_producto, p.id_linea_producto, 
+	v.id, tv.id AS id_tipo_variable, v.descripcion_tipo_variable, vp.id_variable AS id_variable_producto, 
+	vp.afecta_precio, vp.precio
+FROM `productos_catalogo` AS pc 
+	JOIN productos AS p ON pc.id_producto = p.id 
+	JOIN variables_producto as vp ON vp.id_producto = p.id 
+	JOIN variables AS v ON vp.id_variable = v.id 
+	JOIN tipos_variable AS tv ON tv.id = v.id_tipo_variable 
+WHERE id_catalogo = c_id ORDER BY p.id_linea_producto, pc.id_producto$$
 
 DELIMITER ;
 
@@ -81,9 +89,6 @@ CREATE TABLE `cookies` (
   `fecha_creacion_cookie` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `cookies`
---
 
 
 -- --------------------------------------------------------
@@ -100,7 +105,6 @@ CREATE TABLE `detalles` (
   `foto_detalle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -116,7 +120,6 @@ CREATE TABLE `direcciones` (
   `telefono_direccion` varchar(20) NOT NULL,
   `usuario_direccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 -- --------------------------------------------------------
 
@@ -136,7 +139,9 @@ CREATE TABLE `lineas_producto` (
 
 INSERT INTO `lineas_producto` (`id`, `nombre_linea_producto`, `descripcion_linea_producto`) VALUES
 (1, 'Linea de mariscos', 'Cada porción incluye servilletas, cuchara, sal, pimienta, salsa de ají (por separado), limón y su respectivo paquete personal de Galletas de Sal® de acuerdo al número de porciones que escojas.\r\n\r\nSellado con film de bioseguridad.'),
-(2, 'Linea de pescados', 'Cada porción incluye servilletas, cuchara, sal, pimienta, salsa de ají (por separado), limón y su respectivo paquete personal de Galletas de Sal® de acuerdo al número de porciones que escojas.\r\n\r\nSellado con film de bioseguridad.');
+(2, 'Linea de pescados', 'Cada porción incluye servilletas, cuchara, sal, pimienta, salsa de ají (por separado), limón y su respectivo paquete personal de Galletas de Sal® de acuerdo al número de porciones que escojas.\r\n\r\nSellado con film de bioseguridad.'),
+(3, 'Linea Vegetariana', 'Nuestros ceviches veggie son una opción saludable, vegana y gourmet para tu día a día. Cada porción incluye servilletas, cuchara, sal, pimienta, salsa de ají (por separado), limón y su respectivo paquete personal de Galletas de Sal® de acuerdo al número de porciones que escojas.\r\n\r\nSellado con film de bioseguridad.'),
+(4, 'Kits', 'Cada Kit de Ceviche incluye servilletas, 11 cucharas, 11 copas de 170gr, sal, pimienta, salsa de ají (por separado), limones y 11 paquetes personales de Galletas de Soda.');
 
 -- --------------------------------------------------------
 
@@ -163,7 +168,7 @@ INSERT INTO `opciones` (`id`, `descripcion`, `valor`) VALUES
 (6, 'client_secret_mu', '4b51943fda751148483027219396c113c23755d2'),
 (7, 'id_user_mu', '145138'),
 (8, 'usuario_mu', 'dlondono@cevicheymar.com'),
-(9, 'access_token_mu', '4bcf6446e6b73f6e4936306f1d4cf1d61820d646'),
+(9, 'access_token_mu', '665706b5aa3879881028fb8f574ae360d61f5fd4'),
 (10, 'ciudad_mu', 'cali'),
 (11, 'ciudad_id_mu', '2'),
 (12, 'valor_domicilio', '4900'),
@@ -201,9 +206,20 @@ CREATE TABLE `productos` (
   `imagenm_producto` varchar(255) DEFAULT NULL,
   `imagenp_producto` varchar(255) DEFAULT NULL,
   `id_tipo_producto` int(11) NOT NULL,
-  `id_linea_producto` int(11) NOT NULL
+  `id_linea_producto` int(11) NOT NULL,
+  `estado_producto` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `nombre_producto`, `descripcion_producto`, `precio_producto`, `calorias_producto`, `imageng_producto`, `imagenm_producto`, `imagenp_producto`, `id_tipo_producto`, `id_linea_producto`, `estado_producto`) VALUES
+(1, 'Ceviche del Perú', 'Calamares, Camarones Tigre y trocitos de pescado preparados en leche de tigre. Con cebolla morada, pimentón rojo caramelizado, tomate picado, aceite de oliva extra virgen y cilantro fresco.', '7800', 654, 'Ceviche-Peruano-500px.png', 'Ceviche-Peruano-300px.png', 'Ceviche-Peruano-70px.png', 1, 1, 1),
+(2, 'Ceviche del Perú infiuse coco', 'Nuestra leche de Coco le da un toque único al Ceviche del Perú y sus Calamares, Camarón Tigre y trocitos de pescado. Hecho con nuestra mezcla de cebolla morada, pimentón rojo caramelizado, tomate picado, aceite de oliva extra virgen y cilantro fresco.\r\n\r\nCada porción incluye servilletas, cuchara, sal, pimienta, salsa de ají (por separado), limón y su respectivo paquete personal de Galletas de Sal® de acuerdo al número de porciones que escojas.\r\n\r\nSellado con film de bioseguridad.', '7800', 682, 'Ceviche-Peruano-Infuse-Coco-500px.png', 'Ceviche-Peruano-Infuse-Coco-300px.png', 'Ceviche-Peruano-Infuse-Coco-70px.png', 1, 1, 1),
+(3, 'Ceviche de pescado', 'Pescado Blanco mezclado con gengibre, ají, limón, pimienta molida, cebolla morada, pimentón rojo caramelizado, tomate picado, aceite de oliva extra virgen y cilantro fresco.', '28300', 310, 'Ceviche-de-Pescado-500px.png', 'Ceviche-de-Pescado-300px.png', 'Ceviche-de-Pescado-70px.png', 1, 2, 1);
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `productos_catalogo`
@@ -215,6 +231,14 @@ CREATE TABLE `productos_catalogo` (
   `posicion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `productos_catalogo`
+--
+
+INSERT INTO `productos_catalogo` (`id_catalogo`, `id_producto`, `posicion`) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -226,7 +250,6 @@ CREATE TABLE `programacion_pedido` (
   `id_pedido` int(11) NOT NULL,
   `fecha_programada` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 -- --------------------------------------------------------
 
@@ -253,8 +276,10 @@ CREATE TABLE `temporal_pedido` (
   `direccion` varchar(270) NOT NULL,
   `medio_pago` varchar(30) NOT NULL,
   `items_string` varchar(300) NOT NULL,
-  `fecha` datetime DEFAULT NULL
+  `fecha` datetime DEFAULT NULL,
+  `id_pedido_finalizado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Estructura de tabla para la tabla `tipos_producto`
@@ -270,7 +295,8 @@ CREATE TABLE `tipos_producto` (
 --
 
 INSERT INTO `tipos_producto` (`id`, `nombre_tipo_producto`) VALUES
-(1, 'Ceviche');
+(1, 'Ceviche'),
+(2, 'Acompañamientos');
 
 -- --------------------------------------------------------
 
@@ -299,11 +325,19 @@ INSERT INTO `tipos_variable` (`id`, `nombre_tipo_variable`) VALUES
 
 CREATE TABLE `variables` (
   `id` int(11) NOT NULL,
-  `id_tipo_varible` int(11) NOT NULL,
+  `id_tipo_variable` int(11) NOT NULL,
   `descripcion_tipo_variable` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `variables`
+--
 
+INSERT INTO `variables` (`id`, `id_tipo_variable`, `descripcion_tipo_variable`) VALUES
+(1, 1, '170 Gr.'),
+(2, 1, '340 Gr.'),
+(3, 2, 'Galletas Saltin'),
+(4, 2, 'Platanitos');
 
 -- --------------------------------------------------------
 
@@ -319,6 +353,21 @@ CREATE TABLE `variables_producto` (
   `precio` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `variables_producto`
+--
+
+INSERT INTO `variables_producto` (`id_producto`, `id_tipo_variable`, `id_variable`, `afecta_precio`, `precio`) VALUES
+(1, 1, 1, 1, '16300'),
+(1, 1, 2, 1, '28300'),
+(1, 2, 3, 0, '0'),
+(1, 2, 4, 0, '0'),
+(2, 1, 1, 1, '7800'),
+(2, 1, 2, 1, '13400'),
+(2, 2, 3, 0, '0'),
+(2, 2, 4, 0, '0'),
+(3, 2, 3, 0, '0'),
+(3, 2, 4, 0, '0');
 
 --
 -- Índices para tablas volcadas
@@ -422,7 +471,7 @@ ALTER TABLE `tipos_variable`
 --
 ALTER TABLE `variables`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `variables_ibfk_1` (`id_tipo_varible`);
+  ADD KEY `variables_ibfk_1` (`id_tipo_variable`);
 
 --
 -- Indices de la tabla `variables_producto`
@@ -458,7 +507,7 @@ ALTER TABLE `direcciones`
 -- AUTO_INCREMENT de la tabla `lineas_producto`
 --
 ALTER TABLE `lineas_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones`
@@ -470,7 +519,7 @@ ALTER TABLE `opciones`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -482,13 +531,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `temporal_pedido`
 --
 ALTER TABLE `temporal_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos_producto`
 --
 ALTER TABLE `tipos_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos_variable`
@@ -500,7 +549,7 @@ ALTER TABLE `tipos_variable`
 -- AUTO_INCREMENT de la tabla `variables`
 --
 ALTER TABLE `variables`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -542,7 +591,7 @@ ALTER TABLE `servicios_mu`
 -- Filtros para la tabla `variables`
 --
 ALTER TABLE `variables`
-  ADD CONSTRAINT `variables_ibfk_1` FOREIGN KEY (`id_tipo_varible`) REFERENCES `tipos_variable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `variables_ibfk_1` FOREIGN KEY (`id_tipo_variable`) REFERENCES `tipos_variable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `variables_producto`

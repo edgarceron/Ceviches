@@ -14,10 +14,12 @@
  * @property string $imagenp_producto
  * @property integer $id_tipo_producto
  * @property integer $id_linea_producto
+ * @property integer $estado_producto
  *
  * The followings are the available model relations:
  * @property TiposProducto $idTipoProducto
  * @property LineasProducto $idLineaProducto
+ * @property Catalogos[] $catalogoses
  * @property VariablesProducto[] $variablesProductos
  */
 class Productos extends CActiveRecord
@@ -39,13 +41,13 @@ class Productos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre_producto, descripcion_producto, precio_producto, calorias_producto, id_tipo_producto, id_linea_producto', 'required'),
-			array('calorias_producto, id_tipo_producto, id_linea_producto', 'numerical', 'integerOnly'=>true),
+			array('calorias_producto, id_tipo_producto, id_linea_producto, estado_producto', 'numerical', 'integerOnly'=>true),
 			array('nombre_producto', 'length', 'max'=>30),
 			array('precio_producto', 'length', 'max'=>10),
 			array('imageng_producto, imagenm_producto, imagenp_producto', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre_producto, descripcion_producto, precio_producto, calorias_producto, imageng_producto, imagenm_producto, imagenp_producto, id_tipo_producto, id_linea_producto', 'safe', 'on'=>'search'),
+			array('id, nombre_producto, descripcion_producto, precio_producto, calorias_producto, imageng_producto, imagenm_producto, imagenp_producto, id_tipo_producto, id_linea_producto, estado_producto', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +61,7 @@ class Productos extends CActiveRecord
 		return array(
 			'idTipoProducto' => array(self::BELONGS_TO, 'TiposProducto', 'id_tipo_producto'),
 			'idLineaProducto' => array(self::BELONGS_TO, 'LineasProducto', 'id_linea_producto'),
+			'catalogoses' => array(self::MANY_MANY, 'Catalogos', 'productos_catalogo(id_producto, id_catalogo)'),
 			'variablesProductos' => array(self::HAS_MANY, 'VariablesProducto', 'id_producto'),
 		);
 	}
@@ -79,6 +82,7 @@ class Productos extends CActiveRecord
 			'imagenp_producto' => 'Imagenp Producto',
 			'id_tipo_producto' => 'Id Tipo Producto',
 			'id_linea_producto' => 'Id Linea Producto',
+			'estado_producto' => 'Estado Producto',
 		);
 	}
 
@@ -110,6 +114,7 @@ class Productos extends CActiveRecord
 		$criteria->compare('imagenp_producto',$this->imagenp_producto,true);
 		$criteria->compare('id_tipo_producto',$this->id_tipo_producto);
 		$criteria->compare('id_linea_producto',$this->id_linea_producto);
+		$criteria->compare('estado_producto',$this->estado_producto);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

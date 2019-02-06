@@ -2,9 +2,18 @@
 class ThankYouAction extends CAction {
 	
 	public function run(){
-		
-		$id_pedido = $_GET['id_pedido'];
-		$luigi = $_GET['luigi'];
+		if(isset($_GET['tipo']) && $_GET['tipo'] == 'payu'){
+			sleep(5);
+			$id_temporal = $_GET['id_pedido'];
+			$temporal = TemporalPedido::model()->findByPk($id_temporal);
+			$pedido = Pedidos::model()->findByPk($temporal['id_pedido_finalizado']);
+			$id_pedido = $pedido['id'];
+			$luigi = $pedido['luigi_pedido'];
+		}
+		else{
+			$id_pedido = $_GET['id_pedido'];
+			$luigi = $_GET['luigi'];
+		}
 		$fecha_programada = ProgramacionPedido::model()->find('id_pedido = ' . $id_pedido);
 		if($fecha_programada == null){
 			$mensaje = "Su pedido llegara en 55 minutos o menos";

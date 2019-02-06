@@ -28,8 +28,8 @@ class NotificarRegistroAction extends CAction
 		if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$adjunto = $this->construirMensaje($email, $nombre);
 			$mail->IsSMTP();
-			$mail->Host = gethostbyname('smtp.gmail.com');
-			$mail->Port = 587;
+			$mail->Host = gethostbyname($this->getOpcion('host'));
+			$mail->Port = intval($this->getOpcion('port'));
 			$mail->CharSet = 'utf-8';
 			//$mail->SMTPDebug = 1;
 			$mail->SMTPOptions = array(
@@ -39,7 +39,7 @@ class NotificarRegistroAction extends CAction
 					'allow_self_signed' => true
 				)
 			);
-			$mail->SMTPSecure = "tls";
+			$mail->SMTPSecure = "ssl";
 			$mail->SMTPAuth = true;
 			$mail->Username = $this->getOpcion('email');
 			$mail->Password = base64_decode($this->getOpcion('password'));

@@ -4,8 +4,8 @@ class AutenticacionMUAction extends CAction
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
     {             
-		$client_id = Opciones::model()->find('opcion = "client_id_mu"')['valor'];
-		$client_secret = Opciones::model()->find('opcion = "client_secret_mu"')['valor'];
+		$client_id = OpcionesTienda::model()->find('descripcion = "client_id_mu"')['valor'];
+		$client_secret = OpcionesTienda::model()->find('descripcion = "client_secret_mu"')['valor'];
 		
 		$parametros = [
 			'client_id' => $client_id, 
@@ -29,7 +29,7 @@ class AutenticacionMUAction extends CAction
 		
 		$obj = json_decode($result, true);
 		if(isset($obj['access_token'])){
-			$opcion = Opciones::model()->find('opcion = "access_token_mu"');
+			$opcion = OpcionesTienda::model()->find('descripcion = "access_token_mu"');
 			$opcion['valor'] = $obj['access_token'];
 			$opcion->save();
 			echo 'Token obtenido correctamente';

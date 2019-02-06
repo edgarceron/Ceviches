@@ -105,7 +105,7 @@ class FormAction extends CAction
 		
 		if(isset($tiposReemplazados)){
 			foreach($tiposReemplazados as $re){
-				$mensaje .= " Se cambio la naturaleza de la variable \"" . $tipos_variable[$re] 
+				$mensaje .= " Se cambio el comportamiento de la variable \"" . $tipos_variable[$re] 
 				. "\" no pueden haber más de un tipo de variable que reemplace el precio.";
 			}
 		}

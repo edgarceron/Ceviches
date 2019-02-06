@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2019 a las 18:33:17
+-- Tiempo de generación: 06-02-2019 a las 22:20:52
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 5.6.36
 
@@ -84,7 +84,11 @@ INSERT INTO `acciones` (`id`, `modulo`, `accion`, `ruta`) VALUES
 (42, 'administracion', 'reporteUsuarios', 'application.modules.administracion.controllers.acciones.ReporteUsuariosAction'),
 (43, 'administracion', 'autenticacionMU', 'application.modules.administracion.controllers.acciones.AutenticacionMUAction'),
 (44, 'productos', 'index', 'application.modules.productos.controllers.acciones.IndexAction'),
-(45, 'productos', 'form', 'application.modules.productos.controllers.acciones.FormAction');
+(45, 'productos', 'form', 'application.modules.productos.controllers.acciones.FormAction'),
+(46, 'productos', 'addTipoVariable', 'application.modules.productos.controllers.acciones.AddTipoVariableAction'),
+(47, 'productos', 'list', 'application.modules.productos.controllers.acciones.ListAction'),
+(48, 'productos', 'formLineaProducto', 'application.modules.productos.controllers.acciones.FormLineaProducto'),
+(49, 'productos', 'formTipoProducto', 'application.modules.productos.controllers.acciones.FormTipoProductoAction');
 
 -- --------------------------------------------------------
 
@@ -921,7 +925,19 @@ INSERT INTO `logs` (`ID`, `accion`, `usuario`, `fecha`) VALUES
 (797, 0, 15, '2019-01-17 13:22:17'),
 (798, 0, 1, '2019-01-24 15:52:51'),
 (799, -1, 1, '2019-01-28 18:44:20'),
-(800, 0, 15, '2019-01-28 18:44:27');
+(800, 0, 15, '2019-01-28 18:44:27'),
+(801, -1, 15, '2019-02-04 15:17:18'),
+(802, 0, 1, '2019-02-04 15:17:25'),
+(803, -1, 1, '2019-02-04 15:18:21'),
+(804, 0, 15, '2019-02-04 15:18:28'),
+(805, -1, 15, '2019-02-04 16:04:20'),
+(806, 0, 1, '2019-02-04 16:04:25'),
+(807, -1, 1, '2019-02-04 16:04:48'),
+(808, 0, 1, '2019-02-04 16:12:36'),
+(809, -1, 1, '2019-02-04 16:13:38'),
+(810, 0, 1, '2019-02-04 17:00:20'),
+(811, -1, 1, '2019-02-04 17:02:27'),
+(812, 0, 15, '2019-02-06 16:00:30');
 
 -- --------------------------------------------------------
 
@@ -969,16 +985,10 @@ CREATE TABLE `opciones` (
 --
 
 INSERT INTO `opciones` (`id`, `opcion`, `valor`) VALUES
-(1, 'password', 'dGFrYWdpLm1peVU3OTE4'),
-(2, 'email', 'matsuurahana@gmail.com'),
-(3, 'client_id_mu', '5b3d1c49d5608_murbanos'),
-(4, 'client_secret_mu', '4b51943fda751148483027219396c113c23755d2'),
-(5, 'id_user_mu', '145138'),
-(6, 'usuario_mu', 'dlondono@cevicheymar.com'),
-(7, 'access_token_mu', 'e2e398758936f6cdb09b4397661a3cf5e57282cf'),
-(9, 'ciudad_mu', 'cali'),
-(11, 'ciudad_id_mu', '2'),
-(12, 'valor_domicilio', '4900');
+(1, 'password', 'NH5ZajEmUVVndjkz'),
+(2, 'email', 'webmaster@cevicheymar.com'),
+(3, 'host', 'cevicheymar.com '),
+(4, 'port', '465');
 
 -- --------------------------------------------------------
 
@@ -1094,7 +1104,11 @@ INSERT INTO `perfil_contenido` (`id`, `modulo`, `controlador`, `accion`, `estado
 (983, 'administracion', 'administracion', 'reporteUsuarios', 1, 1, 1545861336),
 (984, 'administracion', 'administracion', 'autenticacionMU', 1, 1, 1548345171),
 (985, 'productos', 'productos', 'index', 1, 1, 1549032370),
-(986, 'productos', 'productos', 'form', 1, 1, 1549032370);
+(986, 'productos', 'productos', 'form', 1, 1, 1549032370),
+(987, 'productos', 'productos', 'addTipoVariable', 1, 1, 1549321687),
+(988, 'productos', 'productos', 'list', 1, 1, 1549480304),
+(989, 'productos', 'productos', 'formLineaProducto', 1, 1, 1549481175),
+(990, 'productos', 'productos', 'formTipoProducto', 1, 1, 1549485288);
 
 -- --------------------------------------------------------
 
@@ -1234,19 +1248,19 @@ ALTER TABLE `sofint_users`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=801;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=813;
 
 --
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `perfil`
@@ -1258,7 +1272,7 @@ ALTER TABLE `perfil`
 -- AUTO_INCREMENT de la tabla `perfil_contenido`
 --
 ALTER TABLE `perfil_contenido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=987;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=991;
 
 --
 -- AUTO_INCREMENT de la tabla `recuperar`

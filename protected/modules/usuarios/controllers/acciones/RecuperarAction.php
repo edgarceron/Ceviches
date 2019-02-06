@@ -59,8 +59,8 @@ class RecuperarAction extends CAction
 			$adjunto = $this->construirMensaje($nick, $nombre, $codigo);
 			
 			$mail->IsSMTP();
-			$mail->Host = gethostbyname('smtp.gmail.com');
-			$mail->Port = 587;
+			$mail->Host = gethostbyname($this->getOpcion('host'));
+			$mail->Port = $this->getOpcion('port');
 			$mail->CharSet = 'utf-8';
 			//$mail->SMTPDebug = 1;
 			$mail->SMTPOptions = array(

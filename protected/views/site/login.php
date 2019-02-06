@@ -30,7 +30,8 @@ $this->breadcrumbs=array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-
+	
+	<?php echo $form->error($model,'password', array('class' => 'alert alert-danger', 'role' => 'alert')); ?>
 
 	<div class="form-group col-md-6">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -41,7 +42,6 @@ $this->breadcrumbs=array(
 	<div class="form-group col-md-6">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password', array('class'=>'form-control')); ?>
-		<?php echo $form->error($model,'password'); ?>
 	</div>
 
 	<div class="form-group col-md-6 rememberMe">
@@ -52,8 +52,12 @@ $this->breadcrumbs=array(
 
 	<div class="form-group">
 		<?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
-		<?php echo CHtml::button('Olvide mi contraseña', array('onclick' => 'js:document.location.href="'. Yii::app()->createAbsoluteUrl('/usuarios/default/recuperar') . '"', 'class' => 'btn btn-primary')); ?>
 		<?php echo CHtml::button('Registrarse', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/site/register'). '"', 'class' => 'btn btn-primary')); ?>
+		
+	</div>
+	
+	<div class="form-group">
+		<?php echo CHtml::link('Olvide mi contraseña','#',array('onclick' => 'js:document.location.href="'. Yii::app()->createAbsoluteUrl('/usuarios/default/recuperar') . '"', 'class' => '')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

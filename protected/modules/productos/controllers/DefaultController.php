@@ -92,6 +92,9 @@ class DefaultController extends Controller
 		return array(
 			'index'=>'application.modules.'.$this->module->id.'.controllers.acciones.IndexAction',                            
 			'form'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormAction',                            
+			'formLineaProducto'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormLineaProductoAction',                            
+			'formTipoProducto'=>'application.modules.'.$this->module->id.'.controllers.acciones.FormTipoProductoAction',                            
+			'list'=>'application.modules.'.$this->module->id.'.controllers.acciones.ListAction',                            
 			'addTipoVariable'=>'application.modules.'.$this->module->id.'.controllers.acciones.AddTipoVariableAction',                            
 		);
 	}
@@ -112,6 +115,18 @@ class DefaultController extends Controller
                                 'actions' => array('addTipoVariable'),
                                 'expression' => array(__CLASS__,'allowAddTipoVariable'),
                             ),
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('list'),
+                                'expression' => array(__CLASS__,'allowList'),
+                            ),				
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('formLineaProducto'),
+                                'expression' => array(__CLASS__,'allowFormLineaProducto'),
+                            ),	
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('formTipoProducto'),
+                                'expression' => array(__CLASS__,'allowFormTipoProducto'),
+                            ),	
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -230,4 +245,114 @@ class DefaultController extends Controller
 		return true;
 	}
 	
+	public static function allowList()
+	{
+		/*
+		$accion = 'list'; 
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'productos';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowFormLineaProducto()
+	{
+		/*
+		$accion = 'formLineaProducto'; 
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'productos';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
+	
+	public static function allowFormTipoProducto()
+	{
+		/*
+		$accion = 'formTipoProducto'; 
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'productos';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
 }
