@@ -6,9 +6,14 @@ class ThankYouAction extends CAction {
 			sleep(5);
 			$id_temporal = $_GET['id_pedido'];
 			$temporal = TemporalPedido::model()->findByPk($id_temporal);
-			$pedido = Pedidos::model()->findByPk($temporal['id_pedido_finalizado']);
-			$id_pedido = $pedido['id'];
-			$luigi = $pedido['luigi_pedido'];
+			if($temporal['id_pedido_finalizado'] != 0){
+				$pedido = Pedidos::model()->findByPk($temporal['id_pedido_finalizado']);
+				$id_pedido = $pedido['id'];
+				$luigi = $pedido['luigi_pedido'];
+			}
+			else{
+				$this->controller->renderText('Ocurrio un error durante la transacción');
+			}
 		}
 		else{
 			$id_pedido = $_GET['id_pedido'];
