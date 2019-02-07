@@ -35,28 +35,30 @@ class FormAction extends CAction
 						$archivos->datos2=CUploadedFile::getInstance($archivos,'datos2');
 					
 					$id = $producto->id;
-					$nombre = str_replace(" ","-",$producto->nombre_producto);
+					$nombre = str_replace(" ","-",utf8_decode($producto->nombre_producto));
 					$ruta = './images/productos/'.$id;
+					if(!file_exists($ruta))
+						mkdir($ruta, 0777, true);
 					
 					if(isset($archivos->datos)){
 						$extension = $archivos->datos->getExtensionName();
 						$nombreg = "$nombre"."500px.$extension";
 						$archivos->datos->saveAs($ruta."/".$nombreg, false);
-						$producto['imageng_producto'] = $nombreg;
+						$producto['imageng_producto'] = utf8_encode($nombreg);
 					}
 					
 					if(isset($archivos->datos1)){
 						$extension = $archivos->datos1->getExtensionName();
 						$nombrem = "$nombre"."300px.$extension";
 						$archivos->datos1->saveAs($ruta."/".$nombrem, false);
-						$producto['imagenm_producto'] = $nombrem;
+						$producto['imagenm_producto'] = utf8_encode($nombrem);
 					}
 					
 					if(isset($archivos->datos2)){
 						$extension = $archivos->datos2->getExtensionName();
 						$nombrep = "$nombre"."70px.$extension";
 						$archivos->datos2->saveAs($ruta."/".$nombrep, false);
-						$producto['imagenp_producto'] = $nombrep;
+						$producto['imagenp_producto'] = utf8_encode($nombrep);
 					}
 					$producto->save();
 					

@@ -27,6 +27,9 @@ $this->breadcrumbs=array(
 					<tr>
 						<td><?php echo CHtml::button('Ver clientes', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/administracion/default/reporteUsuarios/') . '"', 'class' => 'btn btn-primary form-control')); ?></th>
 					</tr>
+					<tr>
+						<td><?php echo CHtml::button('Modulo de productos', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/productos/default/index/') . '"', 'class' => 'btn btn-secondary form-control')); ?></th>
+					</tr>
 				</table>
 			</div>
 
