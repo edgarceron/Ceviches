@@ -54,7 +54,7 @@ class NotificarPedidoAction extends CAction
 		$trasaccion_payu->attributes = $transaction;
 		$trasaccion_payu->save();
 		
-		if($transaction['state_pol'] != 4) exit;
+		if($transaction['state_pol'] != '4') exit;
 		
 		$temporal = TemporalPedido::model()->findByPk($id_temporal);
 		$direccion = $temporal['direccion'];
