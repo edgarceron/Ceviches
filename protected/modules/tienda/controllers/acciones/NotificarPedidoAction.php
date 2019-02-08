@@ -84,6 +84,8 @@ class NotificarPedidoAction extends CAction
 		
 			if($pedido->save()){
 				$id_pedido = $pedido['id'];
+				$temporal['id_pedido_finalizado'] = $id_pedido;
+				$temporal->save();
 				//Crea la programacion para el pedido
 				$this->crearProgramacion($fecha, $id_pedido);
 				
