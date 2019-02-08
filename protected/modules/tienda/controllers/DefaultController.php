@@ -103,6 +103,7 @@ class DefaultController extends Controller
 			'crearPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.CrearPedidoAction', 
 			'thankYou'=>'application.modules.'.$this->module->id.'.controllers.acciones.ThankYouAction', 
 			'verPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.VerPedidoAction', 
+			'notificarPedido'=>'application.modules.'.$this->module->id.'.controllers.acciones.NotificarPedidoAction', 
 		);
 	}
         
@@ -161,6 +162,10 @@ class DefaultController extends Controller
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('resumen'),
                                 'expression' => array(__CLASS__,'allowResumen'),
+                            ),	
+			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
+                                'actions' => array('notificarPedido'),
+                                'expression' => array(__CLASS__,'allowNotificarPedido'),
                             ),	
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -650,4 +655,40 @@ class DefaultController extends Controller
 		return true;
 	}
 	
+	public static function allowNotificarPedido()
+	{
+		/*
+		$accion = 'index'; //Cambiar esto cada ves que lo copie para una accion diferente
+		if(Yii::app()->user->name != "Guest"){
+			$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+			$criteria = new CDbCriteria();            
+			$modulo = 'tienda';
+			$criteria->compare('perfil', $usuario->perfil);
+			$criteria->compare('modulo', $modulo);
+			$criteria->compare('accion', $accion);
+			$permisos = PerfilContenido::model()->find($criteria);
+			if(count($permisos) == 1)
+			{
+				$criteria_log = new CDbCriteria();
+				$criteria_log->compare('modulo', $modulo);
+				$criteria_log->compare('accion', $accion); 
+				$accion_log = Acciones::model()->find($criteria_log);
+				$log = new Logs;
+				$log->accion = $accion_log->id;
+				$log->usuario = Yii::app()->user->id;
+				$log->save();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		*/
+		return true;
+	}
 }

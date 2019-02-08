@@ -13,6 +13,7 @@
 	}
 	
 	$id_direccion = $direccion['id'];
+	$id_usuario = Yii::app()->user->id;
 	
 	$form=$this->beginWidget('CActiveForm', array(
 		'id'=>'finalaizar-form',
@@ -191,7 +192,7 @@
 							echo CHtml::hiddenField('buyerFullName', $nombre_completo);
 							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu/id_ciudad/$id_ciudad/id_direccion/$id_direccion"));
 							//echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/thankYou/id_pedido/$id_pedido/tipo/payu"));
-							//echo CHtml::hiddenField('confirmationUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu/id_ciudad/$id_ciudad/id_direccion/$id_direccion"));
+							echo CHtml::hiddenField('confirmationUrl', Yii::app()->createAbsoluteUrl("/tienda/default/notificarPedido/id/$id_pedido/id_ciudad/$id_ciudad/id_direccion/$id_direccion/id_usuario/$id_usuario"));
 							$signature = $apiKey . "~" . $merchantId . "~" . $referenceCode . "~" . ($total + $valor_domicilio) . "~" . $currency;
 							$md5s = md5($signature);
 							echo CHtml::hiddenField('signature', $md5s);

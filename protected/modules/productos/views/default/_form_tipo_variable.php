@@ -4,6 +4,7 @@
 $id_tipo = $tipo['id'];
 $nombre = $tipo['nombre_tipo_variable'];
 $opciones_precio = array(0 => 'No afecta el precio', 1 => 'Remplaza el precio', 2 => 'Añade valor al precio');
+$afecta = 0;
 foreach($variables_producto as $vp){
 	$afecta = $vp['afecta_precio'];
 	break;

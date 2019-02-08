@@ -198,7 +198,7 @@
 	<?php if(isset($this->breadcrumbs)):?>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">  
-			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl('tienda'); ?>">Home</a></li>  
+			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl(''); ?>">Home</a></li>  
 			<!--
 			<?php if(isset($this->breadcrumbs[0]) && isset($this->breadcrumbs[1])) { ?>
 			<li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl($this->breadcrumbs[0]) ?>"><?php echo $this->breadcrumbs[1] ?></a></li>            

@@ -2,54 +2,77 @@
 use PHPMailer\PHPMailer\PHPMailer;
 require 'vendor/autoload.php';
 
-class CrearPedidoAction extends CAction
+class NotificarPedidoAction extends CAction
 {
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
     {
 		$tipo = '';
-		if(isset($_GET['tipo'])){
-			$tipo = $_GET['tipo'];
-			$id_temporal = $_GET['id'];
-			$id_ciudad =  $_GET['id_ciudad'];
-			$id_direccion = $_GET['id_direccion'];
-			$transactionState =  $_GET['transactionState'];
-			if($transactionState != 4){
-				Yii::app()->user->setFlash('warning', 'Hubo un error durante la transacción o la transacción fue anulada');
-				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/finalizarPedido'));
-			}
-		}
+
+		$id_temporal = $_GET['id'];
+		$id_ciudad =  $_GET['id_ciudad'];
+		$id_direccion = $_GET['id_direccion'];
+		$id_usuario = $_GET['id_usuario'];
 		
-		if($tipo == 'payu'){
-			$temporal = TemporalPedido::model()->findByPk($id_temporal);
-			$direccion = $temporal['direccion'];
-			$medio_pago = $temporal['medio_pago'];
-			$fecha = $temporal['fecha'];
-			$items_string = $temporal['items_string'];
-			$payment_type = 3;
-		}
-		else{
-			$direccion = $_POST['direccion'];
-			$medio_pago = $_POST['medio_pago'];
-			$fecha = $_POST['fecha'];
-			$items_string = $_POST['items_string'];
-			$id_ciudad = $_POST['id_ciudad'];
-			$id_direccion = $_POST['id_direccion'];
-			$payment_type = 1;
-		}
+		$transaction = array();
+		$transaction['id_temporal'] = $id_temporal;
+		if(isset($_POST['state_pol']))
+			$transaction['state_pol'] =  $_POST['state_pol'];
+		if(isset($_POST['response_code_pol']))
+			$transaction['response_code_pol'] = $_POST['response_code_pol'];
+		if(isset($_POST['reference_pol']))
+			$transaction['reference_pol'] = $_POST['reference_pol'];
+		if(isset($_POST['payment_method_type']))
+			$transaction['payment_method_type'] = $_POST['payment_method_type'];
+		if(isset($_POST['value']))
+			$transaction['value'] = $_POST['value'];
+		if(isset($_POST['tax']))
+			$transaction['tax'] = $_POST['tax'];
+		if(isset($_POST['additional_value']))
+			$transaction['additional_value'] = $_POST['additional_value'];
+		if(isset($_POST['transaction_date']))
+			$transaction['transaction_date'] = $_POST['transaction_date'];
+		if(isset($_POST['currency']))
+			$transaction['currency'] = $_POST['currency'];
+		if(isset($_POST['cus']))
+			$transaction['cus'] = $_POST['cus'];
+		if(isset($_POST['test']))
+			$transaction['test'] = $_POST['test'];
+		if(isset($_POST['administrative_fee']))
+			$transaction['administrative_fee'] = $_POST['administrative_fee'];
+		if(isset($_POST['administrative_fee_base']))
+			$transaction['administrative_fee_base'] = $_POST['administrative_fee_base'];
+		if(isset($_POST['administrative_fee_tax']))
+			$transaction['administrative_fee_tax'] = $_POST['administrative_fee_tax'];
+		if(isset($_POST['commision_pol']))
+			$transaction['commision_pol'] = $_POST['commision_pol'];
+		if(isset($_POST['commision_pol_currency']))
+			$transaction['commision_pol_currency'] = $_POST['commision_pol_currency'];
+		$transaction['post'] = print_r($_POST, true);
 		
-		if(isset($temporal) && $temporal['id_pedido_finalizado'] != null){
+		$trasaccion_payu = new TransaccionesPayu;
+		$trasaccion_payu->attributes = $transaction;
+		$trasaccion_payu->save();
+		
+		if($transaction['state_pol'] != 4) exit;
+		
+		$temporal = TemporalPedido::model()->findByPk($id_temporal);
+		$direccion = $temporal['direccion'];
+		$medio_pago = $temporal['medio_pago'];
+		$fecha = $temporal['fecha'];
+		$items_string = $temporal['items_string'];
+		$payment_type = 3;
+		
+		
+		if($temporal['id_pedido_finalizado'] != null){
 			$pedido = new Pedidos;
 			$pedido['id_usuario_pedido'] = Yii::app()->user->id;
 			$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
 			$pedido['estado_pedido'] = "Recibido"; 
 			$pedido['direccion_pedido'] = $direccion;
-			if($medio_pago == 1){
-				$cadena_medio_pago = "Efectivo";
-			}
-			else{
-				$cadena_medio_pago = "PayU";
-			}
+		
+			$cadena_medio_pago = "PayU";
+			
 			$pedido['medio_pago_pedido'] = $cadena_medio_pago;
 			$pedido['cookie_pedido'] = $items_string;
 			$pedido['domicilio_pedido']  = OpcionesTienda::getOpcion('valor_domicilio');
@@ -67,16 +90,12 @@ class CrearPedidoAction extends CAction
 				//Cargar articulos a la table de detalles
 				$total = $this->crearDetalles($items, $id_pedido);
 				
-				$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+				$usuario = SofintUsers::model()->findByPk($id_usuario);
 				$correo = $usuario['nick'];
 				$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 				
-				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
-				
+				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);	
 				$this->enviarCorreo($correo, $nombre, $pedido);
-				
-				
-				Carrito::borrarCookie();
 				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
 					'id_pedido' => $pedido['id'],
 					'luigi' => $pedido['luigi_pedido'],
@@ -86,16 +105,6 @@ class CrearPedidoAction extends CAction
 				//Redireccion a una pagina de error
 				print_r($pedido);
 			}
-		}
-		else{
-			$pedido = Pedidos::model()->findByPk($temporal['id_pedido_finalizado']);
-			$id_pedido = $pedido['id'];
-			$luigi = $pedido['luigi_pedido'];
-			Carrito::borrarCookie();
-			$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
-				'id_pedido' => $pedido['id'],
-				'luigi' => $pedido['luigi_pedido'],
-			)));
 		}
     }
 	
