@@ -11,6 +11,7 @@
  * @property string $date
  * @property integer $distance
  * @property string $error
+ * @property integer $task_id
  *
  * The followings are the available model relations:
  * @property Pedidos $idPedido
@@ -33,14 +34,14 @@ class ServiciosMu extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_pedido, uuid, status, total, date, distance, error', 'required'),
-			array('id_pedido, status, distance', 'numerical', 'integerOnly'=>true),
+			array('id_pedido, uuid, status, total, date, distance, error, task_id', 'required'),
+			array('id_pedido, status, distance, task_id', 'numerical', 'integerOnly'=>true),
 			array('total', 'numerical'),
 			array('uuid', 'length', 'max'=>15),
 			array('error', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pedido, uuid, status, total, date, distance, error', 'safe', 'on'=>'search'),
+			array('id_pedido, uuid, status, total, date, distance, error, task_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +70,7 @@ class ServiciosMu extends CActiveRecord
 			'date' => 'Date',
 			'distance' => 'Distance',
 			'error' => 'Error',
+			'task_id' => 'Task',
 		);
 	}
 
@@ -97,6 +99,7 @@ class ServiciosMu extends CActiveRecord
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('distance',$this->distance);
 		$criteria->compare('error',$this->error,true);
+		$criteria->compare('task_id',$this->task_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

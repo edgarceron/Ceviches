@@ -13,6 +13,23 @@
 				echo $pedido['direccion_pedido'];
 			?>
 		</div>
+		<?php 
+		if($detalle_mu != array()){
+		?>
+		<h4>Detalle mensajeros urbanos</h4>
+		Valor del domicilio(Cobrado a Ceviche y mar): <?php echo $detalle['total_value'] ?><br>
+		Estado del domicilio: <?php echo $detalle['status'] ?><br>
+		Direcciones: <br><?php 
+			foreach($detalle['addresses'] as $address){
+				echo $address['address'] . "<br>";
+			}
+		?><br>
+		Historial: <br><?php
+			foreach($detalle['history'] as $history){
+				echo $history['status'] . ":" . $history['date'] . "<br>";
+			}
+		}
+		?>
 	</div>
 	<div class="col-md-6 border border-secondary">
 		<h4>Medio de pago</h4>
