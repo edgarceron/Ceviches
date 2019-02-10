@@ -38,7 +38,7 @@ class CrearPedidoAction extends CAction
 			$payment_type = 1;
 		}
 		
-		if(isset($temporal) && $temporal['id_pedido_finalizado'] != null){
+		if(!isset($temporal) || $temporal['id_pedido_finalizado'] == null){
 			$pedido = new Pedidos;
 			$pedido['id_usuario_pedido'] = Yii::app()->user->id;
 			$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
