@@ -63,7 +63,7 @@ class NotificarPedidoAction extends CAction
 			$items_string = $temporal['items_string'];
 			$payment_type = 3;
 			
-			if($temporal['id_pedido_finalizado'] != null){
+			if($temporal['id_pedido_finalizado'] == null){
 				$pedido = new Pedidos;
 				$pedido['id_usuario_pedido'] = $id_usuario;
 				$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
