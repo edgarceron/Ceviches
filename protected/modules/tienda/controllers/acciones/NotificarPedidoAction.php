@@ -95,7 +95,7 @@ class NotificarPedidoAction extends CAction
 					$correo = $usuario['nick'];
 					$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 					
-					$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);	
+					$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $id_usuario, $items);	
 					$this->enviarCorreo($correo, $nombre, $pedido);
 				}
 			}
@@ -373,9 +373,9 @@ class NotificarPedidoAction extends CAction
 		return $productos;
 	}
 	
-	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items){
+	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $id_usuario, $items){
 		$record = Direcciones::model()->findByPk($id_direccion);
-		$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+		$usuario = SofintUsers::model()->findByPk($id_usuario);
 		$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 		$direccion = $record['linea1_direccion'] . ' ' . $record['linea2_direccion'];
 		$telefono = $record['telefono_direccion'];
