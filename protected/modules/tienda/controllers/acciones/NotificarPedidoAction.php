@@ -54,50 +54,50 @@ class NotificarPedidoAction extends CAction
 		$trasaccion_payu->attributes = $transaction;
 		$trasaccion_payu->save();
 		
-		if($trasaccion_payu['state_pol'] != '4') exit;
-		
-		$temporal = TemporalPedido::model()->findByPk($id_temporal);
-		$direccion = $temporal['direccion'];
-		$medio_pago = $temporal['medio_pago'];
-		$fecha = $temporal['fecha'];
-		$items_string = $temporal['items_string'];
-		$payment_type = 3;
-		
-		
-		if($temporal['id_pedido_finalizado'] != null){
-			$pedido = new Pedidos;
-			$pedido['id_usuario_pedido'] = $id_usuario;
-			$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
-			$pedido['estado_pedido'] = "Recibido"; 
-			$pedido['direccion_pedido'] = $direccion;
-		
-			$cadena_medio_pago = "PayU";
+		if($trasaccion_payu['state_pol'] == '4' || $trasaccion_payu['state_pol'] == 4){
 			
-			$pedido['medio_pago_pedido'] = $cadena_medio_pago;
-			$pedido['cookie_pedido'] = $items_string;
-			$pedido['domicilio_pedido']  = OpcionesTienda::getOpcion('valor_domicilio');
+			$temporal = TemporalPedido::model()->findByPk($id_temporal);
+			$direccion = $temporal['direccion'];
+			$medio_pago = $temporal['medio_pago'];
+			$fecha = $temporal['fecha'];
+			$items_string = $temporal['items_string'];
+			$payment_type = 3;
 			
-			$luigi = $this->generarCodigoLuigi();
-			$pedido['luigi_pedido'] = $luigi;
+			if($temporal['id_pedido_finalizado'] != null){
+				$pedido = new Pedidos;
+				$pedido['id_usuario_pedido'] = $id_usuario;
+				$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
+				$pedido['estado_pedido'] = "Recibido"; 
+				$pedido['direccion_pedido'] = $direccion;
 			
-			$items = Carrito::cargarPorCadena($items_string);
-		
-			if($pedido->save()){
-				$id_pedido = $pedido['id'];
-				$temporal['id_pedido_finalizado'] = $id_pedido;
-				$temporal->save();
-				//Crea la programacion para el pedido
-				$this->crearProgramacion($fecha, $id_pedido);
+				$cadena_medio_pago = "PayU";
 				
-				//Cargar articulos a la table de detalles
-				$total = $this->crearDetalles($items, $id_pedido);
+				$pedido['medio_pago_pedido'] = $cadena_medio_pago;
+				$pedido['cookie_pedido'] = $items_string;
+				$pedido['domicilio_pedido']  = OpcionesTienda::getOpcion('valor_domicilio');
 				
-				$usuario = SofintUsers::model()->findByPk($id_usuario);
-				$correo = $usuario['nick'];
-				$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
+				$luigi = $this->generarCodigoLuigi();
+				$pedido['luigi_pedido'] = $luigi;
 				
-				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);	
-				$this->enviarCorreo($correo, $nombre, $pedido);
+				$items = Carrito::cargarPorCadena($items_string);
+			
+				if($pedido->save()){
+					$id_pedido = $pedido['id'];
+					$temporal['id_pedido_finalizado'] = $id_pedido;
+					$temporal->save();
+					//Crea la programacion para el pedido
+					$this->crearProgramacion($fecha, $id_pedido);
+					
+					//Cargar articulos a la table de detalles
+					$total = $this->crearDetalles($items, $id_pedido);
+					
+					$usuario = SofintUsers::model()->findByPk($id_usuario);
+					$correo = $usuario['nick'];
+					$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
+					
+					$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);	
+					$this->enviarCorreo($correo, $nombre, $pedido);
+				}
 			}
 		}
     }
