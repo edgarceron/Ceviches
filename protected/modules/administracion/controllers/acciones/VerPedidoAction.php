@@ -96,8 +96,6 @@ class VerPedidoAction extends CAction {
 		
 		if($obj['status_code'] == 200){
 			$data = $obj['data'];
-			print_r($data);
-			exit;
 			$pages = $data['total_pages'];
 			$servicios = $data["result"];
 			$this->asingarTaskId($servicios);
