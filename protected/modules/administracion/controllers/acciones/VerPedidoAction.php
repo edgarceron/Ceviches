@@ -31,7 +31,7 @@ class VerPedidoAction extends CAction {
 				$this->getTaskIdServicios(1);
 			}
 			$task_id = ServiciosMu::model()->findByPk($id_pedido)['task_id'];
-			$detalle_mu = $this->detalleServicio();
+			$detalle_mu = $this->detalleServicio($task_id);
 		}
 		
 		$this->controller->render('vista_pedido', array(
