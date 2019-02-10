@@ -54,7 +54,7 @@ class NotificarPedidoAction extends CAction
 		$trasaccion_payu->attributes = $transaction;
 		$trasaccion_payu->save();
 		
-		if($transaction['state_pol'] != '4') exit;
+		if($trasaccion_payu['state_pol'] != '4') exit;
 		
 		$temporal = TemporalPedido::model()->findByPk($id_temporal);
 		$direccion = $temporal['direccion'];
@@ -66,7 +66,7 @@ class NotificarPedidoAction extends CAction
 		
 		if($temporal['id_pedido_finalizado'] != null){
 			$pedido = new Pedidos;
-			$pedido['id_usuario_pedido'] = Yii::app()->user->id;
+			$pedido['id_usuario_pedido'] = $id_usuario;
 			$pedido['fecha_pedido'] = date('Y-m-d H:i:s');
 			$pedido['estado_pedido'] = "Recibido"; 
 			$pedido['direccion_pedido'] = $direccion;
@@ -98,14 +98,6 @@ class NotificarPedidoAction extends CAction
 				
 				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);	
 				$this->enviarCorreo($correo, $nombre, $pedido);
-				$this->controller->redirect(Yii::app()->createUrl('/tienda/default/thankYou',array(
-					'id_pedido' => $pedido['id'],
-					'luigi' => $pedido['luigi_pedido'],
-				)));
-			}
-			else{
-				//Redireccion a una pagina de error
-				print_r($pedido);
 			}
 		}
     }
