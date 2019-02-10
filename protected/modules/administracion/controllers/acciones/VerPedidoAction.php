@@ -46,6 +46,7 @@ class VerPedidoAction extends CAction {
 	}
 	
 	public function detalleServicio($task_id){
+		$access_token = OpcionesTienda::getOpcion('access_token');
 		$parametros = [
 			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
 			"task_id"=> $task_id, 
@@ -54,13 +55,12 @@ class VerPedidoAction extends CAction {
 		$url = "http://dev.api.mensajerosurbanos.com/task";
 		$post = json_encode($parametros);
 		$ch = curl_init();
-		$access_token = OpcionesTienda::getOpcion('access_token');
 		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post); 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, ["access_token: $access_token", 'Content-Type: application/json']); 
+		curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', "access_token: $access_token"]); 
 		
 		$result=curl_exec ($ch);
 		curl_close($ch);
