@@ -24,13 +24,13 @@ class VerPedidoAction extends CAction {
 		$id_usuario = $pedido['id_usuario_pedido'];
 		$usuario = SofintUsers::model()->findByPk($id_usuario);
 		
-		$servicio_mu = ServiciosMU::model()->findByPk($id_pedido);
+		$servicio_mu = ServiciosMu::model()->findByPk($id_pedido);
 		$detalle_mu = array();
 		if($servicio_mu != null){
 			if($servicio_mu['task_id'] == null){
 				$this->getTaskIdServicios(1);
 			}
-			$task_id = ServiciosMU::model()->findByPk($id_pedido)['task_id'];
+			$task_id = ServiciosMu::model()->findByPk($id_pedido)['task_id'];
 			$detalle_mu = $this->detalleServicio();
 		}
 		
@@ -108,7 +108,7 @@ class VerPedidoAction extends CAction {
 	public function asingarTaskId($servicios){
 		foreach($servicios as $servicio){
 			$uuid = $servicio['uuid'];
-			$servicio_mu = ServiciosMU::model()->find('uuid = "' . $uuid .  '"');
+			$servicio_mu = ServiciosMu::model()->find('uuid = "' . $uuid .  '"');
 			$servicio_mu['task_id'] = $servicio['task_id'];
 			$servicio_mu->save();
 		}
