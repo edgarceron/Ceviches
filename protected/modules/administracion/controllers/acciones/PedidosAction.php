@@ -46,11 +46,19 @@ class PedidosAction extends CAction
 			$telefono = '';
 		}
 		
+		if(isset($_GET['codigo'])){
+			$codigo = $_GET['codigo'];
+		}
+		else{
+			$codigo = '';
+		}
+		
 		$errores = '';
 		$model = new Pedidos;
 		
 		$criteria = new CDbCriteria;
 		$criteria->select = 'id';
+		$criteria->addCondition('luigi_pedido LIKE "%' . $codigo . '%"');
 		
 		if($nombre != ''){
 			$criteria->addCondition('nombre LIKE "%'. $nombre . '%" OR apellido LIKE "%'. $nombre . '%"');
@@ -109,6 +117,7 @@ class PedidosAction extends CAction
 			'minimo' => $minimo,
 			'maximo' => $maximo,
 			'nombre' => $nombre,
+			'codigo' => $codigo,
 			'telefono' => $telefono,
 			'dataProvider' => $reporte,
         ));

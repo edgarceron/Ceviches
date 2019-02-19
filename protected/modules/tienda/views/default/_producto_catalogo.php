@@ -8,7 +8,46 @@
 ?>
 <div class="col-sm-3">
 	<div class="card">
-		<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap">
+		<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap" style="padding-top: 20%;">
+			<?php
+			$variables = $producto['variables'];
+			$contador = 1;
+			$top = 60;
+			$right = 0;
+			$background_color = '#F55500';
+			foreach($variables as $tipo){
+				foreach($tipo as $var){
+					if($contador > 3) break;
+					if($contador == 2){
+						$top = 15;
+						$right = 50;
+						$background_color = '#09B2AC';
+					}
+					if($contador == 3){
+						$top = 0;
+						$right = 118;
+						$background_color = '#F55500';
+					}
+					
+					$precio = $var['precio'];
+					$descripcion = $var['descripcion'];
+					if($var['afecta_precio'] == 1){
+					$contador++;
+					?>
+					<div style="background-color: <?php echo $background_color ?>; 
+					border-radius: 100%; height:60px; width: 60px; position: absolute; 
+					top: <?php echo $top ?>px; 
+					right:<?php echo $right ?>px">
+						<div style="position: relative; top: 15px; text-align:center;  color: white; font-weight: bold; font-size: 14px; line-height: 100%;"> 
+							$<?php echo number_format($precio, 0, ",", ".") ?><br>
+							<?php echo $descripcion ?>
+						</div>
+					</div>
+					<?php
+					}
+				}
+			}
+			?>
 		
 		<div class="card-body">
 			<h6 class="card-title" style="height: 2rem;"><?php echo $nombre ?></h6>
@@ -23,15 +62,8 @@
 					}
 					$ak = array_keys($producto['variables'][$variable]);
 					$opciones = array();
-					$burbujas = array();
 					foreach($ak as $k){
 						$opciones[$k] = $producto['variables'][$variable][$k]['descripcion'];
-						if($producto['variables'][$variable][$k]['afecta_precio'] == 1){
-							$burbujas[$k] = $producto['variables'][$variable][$k]['precio'];
-						}
-						else if($producto['variables'][$variable][$k]['afecta_precio'] == 2){
-							$burbujas[$k] = $precio + $producto['variables'][$variable][$k]['precio'];
-						}	
 					}
 					$data[$variable] = "$('#v" . $id . "-" . $variable . "').val()";
 					echo CHtml::label($label, 'v' . $id . "-". $variable); 

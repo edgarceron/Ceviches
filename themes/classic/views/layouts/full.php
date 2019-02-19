@@ -16,6 +16,9 @@
     <!-- Bootstrap core CSS -->        
 
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/hover.min.css" rel="stylesheet">
+	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/theme.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" rel="stylesheet">   
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
 
@@ -128,16 +131,55 @@
 	<footer class="footer mt-auto py-3 bg-light">
 		<div class="container bg-light">
 			<div class="row">
-				<div class="col-md-4">
-					<h4>Acerca de C&M </h4>
-					<audio preload="none" src="<?php echo Yii::app()->request->baseUrl."/sounds/notification.mp3" ?>" style="width: 100%;" id="audioNotificacion"></audio>
-				</div>
-				<div class="col-md-4">
-					<h4>Servicio al cliente</h3>
-				</div>
-				<div class="col-md-4">
-					<h4>Redes sociales</h4>
-				</div>
+				
+					<div class="wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<div class="footer-box">
+										<h2 class="title14 font-bold color-base text-uppercase poppins-font">ACERCA DE C&amp;M</h2>
+										<a class="color-base1" href="https://cevicheymar.com/nosotros/"><i class="white fa fa fa-home" aria-hidden="true"></i> Nosotros</a><br>
+										<a class="color-base1" href="https://cevicheymar.com/politica-tratamiento-de-datos/"><i class="white fa fa-mobile" aria-hidden="true"></i> Política de tratamiento de datos</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<div class="footer-box">
+										<h2 class="title14 font-bold color-base text-uppercase poppins-font">SERVICIO AL CLIENTE</h2>
+										<a class="color-base1" href="https://cevicheymar.com/preguntas-frecuentes/"><i class="white fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</a><br>
+										<a class="color-base1" href="https://cevicheymar.com/contact/"><i class="white fa fa-wpforms" aria-hidden="true"></i> Contacto</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="footer-box wpb_column column_container col-sm-4">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div class="custom-information  ">
+									<h2 class="title14 font-bold color-base text-uppercase poppins-font">REDES SOCIALES</h2>
+
+								</div>
+								<ul class="social-network list-inline-block  ">
+									<li><a class="float-shadow" href="https://www.facebook.com/cevicheymar/"><i class="fa fa-facebook"></i></a></li>
+									<li><a class="float-shadow" href="https://www.instagram.com/cevicheymar/?hl=en"><i class="fa fa-instagram"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div class="vc_row wpb_row vc_inner footer-copyright">
+						<p class="copyright pull-left">© 2018. CevicheyMar. All Rights Reserved</p>
+					</div>
 			</div>
 		</div>
 	</footer>

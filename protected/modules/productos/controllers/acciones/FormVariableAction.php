@@ -5,33 +5,34 @@ class FormVariableAction extends CAction
 	
     public function run()
     {                     
-		if(isset($_GET['id']){
+		if(isset($_GET['id'])){
 			$id = $_GET['id'];
-			$this->record = Model::record()->findByPk($id);
+			$this->record = Variables::record()->findByPk($id);
 			$parametros_get = '?id=' . $id;
 		}
 		else{
-			$this->record = new Model;
+			$this->record = new Variables;
 			$parametros_get = '';
 		}
 		
-		if(isset($_POST['Model']){
-			$this->record->attributes=$_POST['Model'];
+		if(isset($_POST['Variables'])){
+			$this->record->attributes=$_POST['Variables'];
 			$this->calculoDeErrores();
 			
 			if($this->record->save()){
 				$this->controller->render('vista',array(
-					'record' => $record,
+					'record' => $this->record,
 				));
 			}
 		}
 		
+		$tipos_variable = CHtml::listData(TiposVariable::model()->findAll(), 'id', 'nombre_tipo_variable');
 		//Se quitan errores de id que pudieron se consecuencia del escenario error
 		$this->record->clearErrors('id');
-		$this->controller->render('formulario',array(
-			'record' => $record, 'parametros_get' = $parametros_get,
+		$this->controller->render('formulario_variable',array(
+			'model' => $this->record, 'parametros_get' => $parametros_get,
+			'tipos_variable' => $tipos_variable,
 		));
-		
     }
 	
 	public function calculoDeErrores(){
@@ -45,7 +46,7 @@ class FormVariableAction extends CAction
 		
 		//Fin del calculo de errores
 		
-		if($erroes){
+		if($errores){
 			/* Aplico el escenario error el cual obligara al recordo a fallar su validación
 			 * en el campo id.
 			 */

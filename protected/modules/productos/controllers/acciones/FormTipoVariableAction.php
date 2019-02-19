@@ -1,5 +1,5 @@
 <?php
-class FormLineaProductoAction extends CAction
+class FormTipoVariableAction extends CAction
 {
 	public $record;
 	
@@ -7,16 +7,16 @@ class FormLineaProductoAction extends CAction
     {                     
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
-			$this->record = Model::record()->findByPk($id);
+			$this->record = TiposVariable::model()->findByPk($id);
 			$parametros_get = '?id=' . $id;
 		}
 		else{
-			$this->record = new Model;
+			$this->record = new TiposVariable;
 			$parametros_get = '';
 		}
 		
-		if(isset($_POST['Model'])){
-			$this->record->attributes=$_POST['Model'];
+		if(isset($_POST['TiposVariable'])){
+			$this->record->attributes=$_POST['TiposVariable'];
 			$this->calculoDeErrores();
 			
 			if($this->record->save()){
@@ -26,7 +26,7 @@ class FormLineaProductoAction extends CAction
 		
 		//Se quitan errores de id que pudieron se consecuencia del escenario error
 		$this->record->clearErrors('id');
-		$this->controller->render('formulario_linea',array(
+		$this->controller->render('formulario_tipo_variable',array(
 			'model' => $this->record, 'parametros_get' => $parametros_get,
 		));
 		

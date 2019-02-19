@@ -21,7 +21,7 @@ class FormTipoProductoAction extends CAction
 			
 			if($this->record->save()){
 				$id = $this->record->id;
-				$this->controller->redirect(Yii::app()->createUrl('productos/default/formLineaProducto',  array('id' => $id)));
+				$this->controller->redirect(Yii::app()->createUrl('productos/default/formTipoProducto',  array('id' => $id)));
 			}
 		}
 		

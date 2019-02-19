@@ -9,11 +9,13 @@ class FormAction extends CAction
 			$producto = Productos::model()->findByPk($id);
 			$parametros_get = "/id/" . $producto->id;
 			$variables = VariablesProducto::model()->findAll('id_producto = ' . $id);
+			$nuevo = false;
 		}
 		else{
 			$producto = new Productos;
 			$parametros_get = "";
 			$variables = array();
+			$nuevo = true;
 		}
 		$mensaje = '';
 		$archivos = new SubirArchivo;
@@ -22,8 +24,8 @@ class FormAction extends CAction
 		if(isset($_POST['Productos'])){
 			$producto->attributes = $_POST['Productos'];
 			if($producto->save()){
+				Yii::app()->user->setFlash('success', "Producto guardado exitosamente, puede proceder a crear las variables");
 				$id = $producto->id;
-				$parametros_get = "/id/" . $id;
 				if(isset($_POST['SubirArchivo'])){
 					$archivos->attributes = $_POST['SubirArchivo'];
 					
@@ -60,9 +62,13 @@ class FormAction extends CAction
 						$archivos->datos2->saveAs($ruta."/".$nombrep, false);
 						$producto['imagenp_producto'] = utf8_encode($nombrep);
 					}
-					$producto->save();
-					
 				}
+				if($nuevo){
+					$this->controller->redirect(Yii::app()->createUrl('/productos/default/form/', array('id' => $id)));
+				}
+			}
+			else{
+				Yii::app()->user->setFlash('warning', "Error al crear el producto, por favor diligencie todos los campos con *");
 			}
 		}
 		

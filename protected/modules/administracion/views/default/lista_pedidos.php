@@ -31,11 +31,15 @@ $this->breadcrumbs=array(
 
 				
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-4">
+						<?php echo CHtml::label('Codigo pedido', 'nombre'); ?>
+						<?php echo CHtml::textField('codigo',$codigo,array('id'=>'nombre', 'class'=>'form-control')); ?>
+					</div>	
+					<div class="form-group col-md-4">
 						<?php echo CHtml::label('Nombre cliente', 'nombre'); ?>
 						<?php echo CHtml::textField('nombre',$nombre,array('id'=>'nombre', 'class'=>'form-control')); ?>
 					</div>	
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-4">
 						<?php echo CHtml::label('Telefono cliente', 'telefono'); ?>
 						<?php echo CHtml::textField('telefono',$telefono,array('id'=>'telefono', 'class'=>'form-control')); ?>
 					</div>	
