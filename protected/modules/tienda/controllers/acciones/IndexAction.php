@@ -37,13 +37,19 @@ class IndexAction extends CAction
 					$productos_catalogo[$id] = array('nombre' => $nombre, 'precio' => $precio_p, 'linea'=> $linea, 'imagen' => $imagen);
 				}
 			}
-			$nombre_tipo_variable = $p['id_tipo_variable'];
-			$id_variable_producto = $p['id_variable_producto'];
-			$descripcion = $p['descripcion_tipo_variable'];
-			$afecta = $p['afecta_precio'];
-			$precio_v = $p['precio'];
+			else{
+				$estado_p = Productos::model()->findByPk($id)['estado_producto'];
+			}
 			
-			$productos_catalogo[$id]['variables'][$nombre_tipo_variable][$id_variable_producto] = array('descripcion' => $descripcion, 'afecta_precio' => $afecta, 'precio' => $precio_v);
+			if($estado_p){
+				$nombre_tipo_variable = $p['id_tipo_variable'];
+				$id_variable_producto = $p['id_variable_producto'];
+				$descripcion = $p['descripcion_tipo_variable'];
+				$afecta = $p['afecta_precio'];
+				$precio_v = $p['precio'];
+				
+				$productos_catalogo[$id]['variables'][$nombre_tipo_variable][$id_variable_producto] = array('descripcion' => $descripcion, 'afecta_precio' => $afecta, 'precio' => $precio_v);
+			}
 		}
 		
 		$ak = array_keys($productos_catalogo);
