@@ -17,9 +17,9 @@ $this->breadcrumbs=array(
 			$descripcion_linea = $linea['descripcion_linea_producto'];
 			$nombre_linea = $linea['nombre_linea_producto'];
 			$keys = array_keys($productos_catalogo);
+			$header = 0;
 			foreach($keys as $k){
 				$id = $k;
-				$header = 0;
 				$producto = $productos_catalogo[$k];
 				if($producto['linea'] == $linea['id']){
 					if(!$header){
