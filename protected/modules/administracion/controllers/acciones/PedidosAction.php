@@ -58,7 +58,6 @@ class PedidosAction extends CAction
 		
 		$criteria = new CDbCriteria;
 		$criteria->select = 'id';
-		$criteria->addCondition('luigi_pedido LIKE "%' . $codigo . '%"');
 		
 		if($nombre != ''){
 			$criteria->addCondition('nombre LIKE "%'. $nombre . '%" OR apellido LIKE "%'. $nombre . '%"');
@@ -67,6 +66,7 @@ class PedidosAction extends CAction
 		if($telefono != ''){
 			$criteria->addCondition('telefono LIKE "%'. $telefono . '%"');
 		}
+		
 		$usuarios = SofintUsers::model()->findAll($criteria);
 		$ids = array();
 		foreach($usuarios as $u){
@@ -75,7 +75,7 @@ class PedidosAction extends CAction
 		
 		
 		$criteria = new CDbCriteria;
-		
+		$criteria->addCondition('luigi_pedido LIKE "%' . $codigo . '%"');
 		if($desde != '' && $hasta != ''){
 			$criteria->addCondition('fecha_pedido  BETWEEN "'.$desde.'" AND DATE_ADD("'.$hasta.'", INTERVAL 1 DAY)');
 		}
