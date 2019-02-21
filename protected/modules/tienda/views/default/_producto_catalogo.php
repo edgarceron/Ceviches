@@ -7,7 +7,7 @@
 	}
 ?>
 <div class="col-sm-3">
-	<div class="card">
+	<div class="card" style="border:0">
 		<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap" style="padding-top: 20%;">
 			<?php
 			$variables = $producto['variables'];
