@@ -103,6 +103,7 @@ $this->breadcrumbs=array(
 						"internalPageCssClass" => "page-item",
 					),
 					'columns'=>array(
+						'luigi_pedido',
 						array(
 							'name' => 'id_usuario_pedido',
 							'type' => 'raw',

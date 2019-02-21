@@ -3,19 +3,12 @@ class ReporteUsuariosAction extends CAction
 {
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
-    {                           
-        if(isset($_GET['desde'])){
-			$desde = $_GET['desde'];
+    {    
+		if(isset($_GET['mes'])){
+			$mes = $_GET['mes'];
 		}
 		else{
-			$desde = '';
-		}
-		
-		if(isset($_GET['hasta'])){
-			$hasta = $_GET['hasta'];
-		}
-		else{
-			$hasta = '';
+			$mes = '';
 		}
 		
 		if(isset($_GET['ciudad'])){
@@ -31,6 +24,11 @@ class ReporteUsuariosAction extends CAction
 		else{
 			$reporte = '';
 		}
+		
+		$meses = array(1=>"enero","febrero","marzo","abril","mayo","junio","julio",
+					"agosto","septiembre","octubre","noviembre","diciembre");
+		$meses[''] = "Cualquier mes";
+		ksort($meses);
 		
 		if($ciudad != ''){
 			$criteria = new CDbCriteria;
@@ -49,26 +47,19 @@ class ReporteUsuariosAction extends CAction
 			$criteria->addInCondition('id', $ids);
 		}
 		
-		if($desde != '' && $hasta != ''){
-			$criteria->addCondition('fecha_pedido  BETWEEN "'.$desde.'" AND DATE_ADD("'.$hasta.'", INTERVAL 1 DAY)');
+		if(isset($mes) && $mes != ''){
+			$criteria->addCondition("MONTH(fecha_nacimiento) = $mes");
 		}
-		else if($desde != ''){
-			$criteria->addCondition('fecha_pedido  > "'.$desde.'"');
-		}
-		else if($hasta != ''){
-			$criteria->addCondition('fecha_pedido  < "'.$hasta.'"');
-		}
+				
 		if($reporte == ''){
-			
-		
 			$dataProvider = new CActiveDataProvider(new SofintUsers, array('criteria' => $criteria));
 			$lista_ciudades = CHtml::listData(Ciudades::model()->findAll(), 'id', 'nombre_ciudad');
 			$inicial[''] = 'Cualquier ciudad';
 			$ciudades = array_merge($inicial, $lista_ciudades);
 			$this->controller->render('lista_usuarios',array(
 				'dataProvider' => $dataProvider,
-				'desde' => $desde,
-				'hasta' => $hasta,
+				'mes' => $mes,
+				'meses' => $meses,
 				'ciudad' => $ciudad,
 				'ciudades' => $ciudades,
 			));

@@ -8,7 +8,9 @@
 ?>
 <div class="col-sm-3">
 	<div class="card" style="border:0">
-		<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap" style="padding-top: 20%;">
+		<a href="<?php echo Yii::app()->createUrl('/tienda/default/verProducto', array('id' => $id)) ?>">
+			<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap" style="padding-top: 20%;">
+		</a>
 			<?php
 			$variables = $producto['variables'];
 			$contador = 1;
@@ -50,7 +52,7 @@
 			?>
 		
 		<div class="card-body">
-			<h6 class="card-title" style="height: 2rem;"><?php echo $nombre ?></h6>
+			<h6 class="card-title" style="height: 2rem;"><a href="<?php echo Yii::app()->createUrl('/tienda/default/verProducto', array('id' => $id)) ?>"><?php echo $nombre ?></a></h6>
 			<div class="form-group col-md-12">
 			
 				<?php 

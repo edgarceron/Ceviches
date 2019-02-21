@@ -62,6 +62,7 @@ class FormAction extends CAction
 						$archivos->datos2->saveAs($ruta."/".$nombrep, false);
 						$producto['imagenp_producto'] = utf8_encode($nombrep);
 					}
+					$producto->save();
 				}
 				if($nuevo){
 					$this->controller->redirect(Yii::app()->createUrl('/productos/default/form/', array('id' => $id)));

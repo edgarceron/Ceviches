@@ -31,13 +31,8 @@ $this->breadcrumbs=array(
 				
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<?php echo CHtml::label('Fecha de cumpleaños desde', 'desde'); ?>
-						<?php echo CHtml::dateField('desde',$desde,array('id'=>'desde', 'class'=>'form-control')); ?>
-					</div>	
-					
-					<div class="form-group col-md-4">
-						<?php echo CHtml::label('hasta', 'hasta'); ?>
-						<?php echo CHtml::dateField('hasta',$hasta,array('id'=>'hasta', 'class'=>'form-control')); ?>
+						<?php echo CHtml::label('Mes fecha de cumpleaños', 'mes'); ?>
+						<?php echo CHtml::dropDownList('mes',$mes,$meses, array('id'=>'mes', 'class'=>'form-control')); ?>
 					</div>	
 					
 					<div class="form-group col-md-4">
@@ -100,8 +95,7 @@ $this->breadcrumbs=array(
 			'Descargar csv', 
 			Yii::app()->createUrl("/administracion/default/reporteUsuarios", array(
 				'ciudad' => $ciudad,
-				'desde' => $desde,
-				'hasta' => $hasta,
+				'mes' => $mes,
 				'reporte' => 'csv',
 			)), 
 			array(
