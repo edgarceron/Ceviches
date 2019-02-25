@@ -5,8 +5,11 @@ class IndexAction extends CAction
     public function run()
     {                           
         $id_catalogo = OpcionesTienda::getOpcion('CATALAGO_PRINCIPAL');
+		$productos_catalogo = array();
+		$tipo_catalogo = 0;
 		if($id_catalogo != ''){
 			$catalogo = Catalogos::model()->findByPk($id_catalogo);
+			$tipo_catalogo = $catalogo->orden_catalogo;
 			if($catalogo != null){
 				$com = "CALL lineasCatalogo($id_catalogo)";
 				$lineas = Yii::app()->tienda->createCommand($com)->queryAll();
@@ -19,6 +22,7 @@ class IndexAction extends CAction
 
         $this->controller->render('index',array(
 			"productos_catalogo" => $productos_catalogo,
+			"tipo_catalogo" => $tipo_catalogo,
 			"lineas" => $lineas,
         ));
     }
