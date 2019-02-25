@@ -98,7 +98,7 @@ $this->breadcrumbs=array(
 					),
 					'columns'=>array(
 						array(
-							'name' => 'valor_donacion',
+							'name' => 'Imagen',
 							'type' => 'raw',
 							'value' => 'CHtml::image(Yii::app()->request->baseUrl."/images/productos/".$data->id."/".$data->imagenp_producto, "No se cargo la imagen",array("class" => "img-thumbnail"))'
 						),

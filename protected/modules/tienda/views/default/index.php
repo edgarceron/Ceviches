@@ -32,6 +32,7 @@ $this->breadcrumbs=array(
 						$header = 1;
 					}
 					$this->renderPartial('_producto_catalogo', array('id' => $id, 'producto' => $producto));
+					//echo "----";
 					unset($productos_catalogo[$k]);
 				}
 			}

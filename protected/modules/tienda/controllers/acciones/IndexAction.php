@@ -42,21 +42,24 @@ class IndexAction extends CAction
 			}
 			
 			if($estado_p){
-				$nombre_tipo_variable = $p['id_tipo_variable'];
-				$id_variable_producto = $p['id_variable_producto'];
-				$descripcion = $p['descripcion_tipo_variable'];
-				$afecta = $p['afecta_precio'];
-				$precio_v = $p['precio'];
-				
-				$productos_catalogo[$id]['variables'][$nombre_tipo_variable][$id_variable_producto] = array('descripcion' => $descripcion, 'afecta_precio' => $afecta, 'precio' => $precio_v);
+				if( $p['id_tipo_variable'] != null){
+					$nombre_tipo_variable = $p['id_tipo_variable'];
+					$id_variable_producto = $p['id_variable_producto'];
+					$descripcion = $p['descripcion_tipo_variable'];
+					$afecta = $p['afecta_precio'];
+					$precio_v = $p['precio'];
+					$productos_catalogo[$id]['variables'][$nombre_tipo_variable][$id_variable_producto] = array('descripcion' => $descripcion, 'afecta_precio' => $afecta, 'precio' => $precio_v);
+				}
 			}
 		}
 		
 		$ak = array_keys($productos_catalogo);
 		foreach($ak as $k){
-			 ksort($productos_catalogo[$k]['variables']);
-			 $akv = array_keys($productos_catalogo[$k]['variables']);
-			 foreach($akv as $v) ksort($productos_catalogo[$k]['variables'][$v]);
+			if(isset($productos_catalogo[$k]['variables'])){
+			    ksort($productos_catalogo[$k]['variables']);
+				$akv = array_keys($productos_catalogo[$k]['variables']);
+				foreach($akv as $v) ksort($productos_catalogo[$k]['variables'][$v]);
+			}
 		}
 		
 		return $productos_catalogo;

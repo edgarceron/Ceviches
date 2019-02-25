@@ -33,7 +33,7 @@ class ListAction extends CAction
 			$estado = $_GET['estado'];
 		}
 		else{
-			$estado = '';
+			$estado = 1;
 		}
 		
 		if(isset($_GET['tipo'])){

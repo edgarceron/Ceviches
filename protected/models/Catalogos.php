@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'catalogos':
  * @property integer $id
  * @property string $nombre_catalogo
+ * @property integer $orden_catalogo
  *
  * The followings are the available model relations:
  * @property Productos[] $productoses
@@ -29,10 +30,11 @@ class Catalogos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre_catalogo', 'required'),
+			array('orden_catalogo', 'numerical', 'integerOnly'=>true),
 			array('nombre_catalogo', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nombre_catalogo', 'safe', 'on'=>'search'),
+			array('id, nombre_catalogo, orden_catalogo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +58,7 @@ class Catalogos extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre_catalogo' => 'Nombre Catalogo',
+			'orden_catalogo' => 'Forma de ordenamiento',
 		);
 	}
 
@@ -79,6 +82,7 @@ class Catalogos extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre_catalogo',$this->nombre_catalogo,true);
+		$criteria->compare('orden_catalogo',$this->orden_catalogo);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

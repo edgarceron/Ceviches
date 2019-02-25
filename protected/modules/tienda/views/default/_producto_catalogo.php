@@ -12,7 +12,12 @@
 			<img class="card-img-top" src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>?text=<?php echo $nombre ?>" alt="Card image cap" style="padding-top: 20%;">
 		</a>
 			<?php
-			$variables = $producto['variables'];
+			if(isset($producto['variables'])){
+				$variables = $producto['variables'];
+			}
+			else{
+				$variables = array();
+			}
 			$contador = 1;
 			$top = 60;
 			$right = 0;
@@ -56,7 +61,13 @@
 			<div class="form-group col-md-12">
 			
 				<?php 
-				$lista_variables = array_keys($producto['variables']);
+				if(isset($producto['variables'])){
+					$lista_variables = array_keys($producto['variables']);
+				}
+				else{
+					$lista_variables = array();
+				}
+				$data = array();
 				foreach($lista_variables as $variable){
 					if(!isset($label)){
 						$record = TiposVariable::model()->findByPk($variable);
