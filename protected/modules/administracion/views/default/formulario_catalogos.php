@@ -16,7 +16,7 @@ $this->breadcrumbs=array(
 		<div class="card-body">
 			<?php $form=$this->beginWidget('CActiveForm', array(
 				'id'=>'eventos-eventos-form',
-				'action'=>Yii::app()->createAbsoluteUrl('/administracion/default/formCatalogo'),
+				'action'=>Yii::app()->createAbsoluteUrl('/administracion/default/formCatalogo', array("id" => $id)),
 				'method'=>'post',
 				// Please note: When you enable ajax validation, make sure the corresponding
 				// controller action is handling ajax validation correctly.
