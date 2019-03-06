@@ -1,30 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "temporal_pedido".
+ * This is the model class for table "codigos_promocionales".
  *
- * The followings are the available columns in table 'temporal_pedido':
+ * The followings are the available columns in table 'codigos_promocionales':
  * @property integer $id
- * @property string $direccion
- * @property string $medio_pago
- * @property string $items_string
- * @property string $fecha
- * @property integer $codigo_promocional_id
- * @property integer $id_codigo_pedido
- * @property integer $id_pedido_finalizado
+ * @property string $codigo
+ * @property integer $tipo
+ * @property double $valor
+ * @property string $mensaje
+ * @property string $valido_desde
+ * @property string $valido_hasta
  *
  * The followings are the available model relations:
- * @property CodigosPromocionales $codigoPromocional
- * @property CodigosPromocionales $idCodigoPedido
+ * @property Pedidos[] $pedidoses
+ * @property TemporalPedido[] $temporalPedidos
  */
-class TemporalPedido extends CActiveRecord
+class CodigosPromocionales extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'temporal_pedido';
+		return 'codigos_promocionales';
 	}
 
 	/**
@@ -35,15 +34,18 @@ class TemporalPedido extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('direccion, medio_pago, items_string', 'required'),
-			array('codigo_promocional_id, id_codigo_pedido, id_pedido_finalizado', 'numerical', 'integerOnly'=>true),
-			array('direccion', 'length', 'max'=>270),
-			array('medio_pago', 'length', 'max'=>30),
-			array('items_string', 'length', 'max'=>300),
-			array('fecha', 'safe'),
+			array('codigo, tipo, valor, mensaje, valido_desde, valido_hasta', 'required'),
+			array('tipo', 'numerical', 'integerOnly'=>true),
+			array('valor', 'numerical'),
+			array('codigo', 'length', 'max'=>30),
+			array('mensaje', 'length', 'max'=>280),
+			array('valor', 'compare', 'compareValue' => 0, 'operator' => '>='),
+			array('valido_hasta', 'compare', 'compareAttribute' => 'valido_desde', 'operator' => '>=', 'message' => 'Valido hasta debe ser mayor que valido desde'),
+			array('valor', 'compare', 'compareValue' => 100, 'operator' => '<=', 
+				'message' => 'Si el tipo es porcentaje, el valor debe ser menor o igual que 100', 'on'=>'porcentaje'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, direccion, medio_pago, items_string, fecha, codigo_promocional_id, id_codigo_pedido, id_pedido_finalizado', 'safe', 'on'=>'search'),
+			array('id, codigo, tipo, valor, mensaje, valido_desde, valido_hasta', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,8 +57,8 @@ class TemporalPedido extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'codigoPromocional' => array(self::BELONGS_TO, 'CodigosPromocionales', 'codigo_promocional_id'),
-			'idCodigoPedido' => array(self::BELONGS_TO, 'CodigosPromocionales', 'id_codigo_pedido'),
+			'pedidoses' => array(self::HAS_MANY, 'Pedidos', 'id_codigo_pedido'),
+			'temporalPedidos' => array(self::HAS_MANY, 'TemporalPedido', 'id_codigo_pedido'),
 		);
 	}
 
@@ -67,13 +69,12 @@ class TemporalPedido extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'direccion' => 'Direccion',
-			'medio_pago' => 'Medio Pago',
-			'items_string' => 'Items String',
-			'fecha' => 'Fecha',
-			'codigo_promocional_id' => 'Codigo Promocional',
-			'id_codigo_pedido' => 'Id Codigo Pedido',
-			'id_pedido_finalizado' => 'Id Pedido Finalizado',
+			'codigo' => 'Codigo',
+			'tipo' => 'Tipo',
+			'valor' => 'Valor',
+			'mensaje' => 'Mensaje',
+			'valido_desde' => 'Valido Desde',
+			'valido_hasta' => 'Valido Hasta',
 		);
 	}
 
@@ -96,13 +97,12 @@ class TemporalPedido extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('direccion',$this->direccion,true);
-		$criteria->compare('medio_pago',$this->medio_pago,true);
-		$criteria->compare('items_string',$this->items_string,true);
-		$criteria->compare('fecha',$this->fecha,true);
-		$criteria->compare('codigo_promocional_id',$this->codigo_promocional_id);
-		$criteria->compare('id_codigo_pedido',$this->id_codigo_pedido);
-		$criteria->compare('id_pedido_finalizado',$this->id_pedido_finalizado);
+		$criteria->compare('codigo',$this->codigo,true);
+		$criteria->compare('tipo',$this->tipo);
+		$criteria->compare('valor',$this->valor);
+		$criteria->compare('mensaje',$this->mensaje,true);
+		$criteria->compare('valido_desde',$this->valido_desde,true);
+		$criteria->compare('valido_hasta',$this->valido_hasta,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -116,12 +116,15 @@ class TemporalPedido extends CActiveRecord
 	{
 		return Yii::app()->tienda;
 	}
-
+	
+	public static function getTipos(){
+		return array(1 => "Porcentaje", 2 => "Valor");
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return TemporalPedido the static model class
+	 * @return CodigosPromocionales the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

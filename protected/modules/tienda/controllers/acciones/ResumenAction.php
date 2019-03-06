@@ -8,11 +8,21 @@ class ResumenAction extends CAction
 		$medio_pago = $_POST['medio_pago'];
 		$programacion = $_POST['programacion'];
 		$items_string = $_POST['items_string'];
+		$codigo_promocional = trim($_POST['codigo']);
 		
 		$direccion = Direcciones::model()->findByPk($id_direccion);
 		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
 		$direccion_texto = $direccion['linea1_direccion'] . " " . $direccion['linea2_direccion'] . " Telefono: " . $direccion['telefono_direccion'] . " Ciudad: " . $ciudad['nombre_ciudad'];
 		$_POST['direccion'] = $direccion_texto;
+		
+		$codigo = CodigosPromocionales::model()->find("codigo = \"$codigo_promocional\"");
+		unset($_POST['codigo']);
+		if($codigo != null){
+			$_POST['codigo_promocional_id'] = $codigo['id'];
+		}
+		else{
+			$_POST['codigo_promocional_id'] = null;
+		}
 		
 		$temporal = new TemporalPedido;
 		$temporal->attributes = $_POST;
@@ -59,7 +69,6 @@ class ResumenAction extends CAction
 				array('programacion' => $programacion, 'fecha' => $fecha, 'hora' => $hora)));
 			}
 		}
-		
 		$items = Carrito::cargarPorCadena($items_string);
 		$this->controller->render('resumen',array(
 			'direccion' => $direccion,
@@ -74,6 +83,7 @@ class ResumenAction extends CAction
 			'nombre_completo' => $nombre_completo,
 			'email' => $email,
 			'direccion_texto' => $direccion_texto,
+			'codigo' => $codigo,
 			'valor_domicilio' => OpcionesTienda::getOpcion('valor_domicilio'),
 		));
 		

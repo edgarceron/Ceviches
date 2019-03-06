@@ -65,7 +65,23 @@
 				$medios_pago = array(1 => 'Efectivo', 2 => 'PayU');
 				$meido_pago_texto = $medios_pago[$medio_pago];
 				echo CHtml::hiddenField('medio_pago', $medio_pago);
-				echo $meido_pago_texto;
+				$codigo_promocional_id = '';
+			?>
+			<table>
+				<tr>
+					<td>
+						<img src="<?php echo Yii::app()->request->baseUrl.'/images/' . $meido_pago_texto . '.png'?>">
+					</td>
+				</tr>
+			</table>
+		<br>	
+			<?php
+				if($codigo != null){
+					echo "Codigo promocional: <b>" . $codigo['codigo'] . "</b><br>";
+					echo $codigo['mensaje'];
+					$codigo_promocional_id = $codigo['id'];
+				}
+				echo CHtml::hiddenField('codigo_promocional_id', $codigo_promocional_id);
 			?>
 	</div>
 </div>
@@ -160,6 +176,17 @@
 			<?php
 				$cont++;
 			}
+			if($codigo != null){
+				$tipo = $codigo['tipo'];
+				if($tipo == 1){
+					$descuento = ($total * ($valor / 100));
+				}
+				else if($tipo == 2){
+					$descuento = $valor;
+				}
+				$total = $total - $descuento;
+				if($total < 0) $total = 0;
+			}
 			?>  
 				<tr>
 					<td colspan = 3>
@@ -172,7 +199,19 @@
 						<span class="text-muted"><label id="total">$<?php echo number_format($valor_domicilio, 0, ",", ".") ?></label></span>
 					</td>
 				</tr>
-				
+			<?php if($codigo != null){ ?>	
+				<tr>
+					<td colspan = 3>
+					
+					</td>
+					<td>
+						Codigo promocional: <b><?php echo $codigo['codigo'] ?></b>
+					</td>
+					<td>
+						<span class="text-muted"><label id="total">-$<?php echo number_format($descuento, 0, ",", ".") ?></label></span>
+					</td>
+				</tr>
+			<?php } ?>
 				<tr>
 					<td colspan = 3>
 					

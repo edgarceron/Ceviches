@@ -11,8 +11,11 @@
  * @property string $direccion_pedido
  * @property string $medio_pago_pedido
  * @property string $cookie_pedido
+ * @property string $codigo_promocional_pedido
+ * @property double $descuento_pedido
  * @property string $luigi_pedido
  * @property double $domicilio_pedido
+ * @property integer $id_codigo_pedido
  *
  * The followings are the available model relations:
  * @property Detalles[] $detalles
@@ -37,16 +40,16 @@ class Pedidos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, luigi_pedido', 'required'),
-			array('id_usuario_pedido', 'numerical', 'integerOnly'=>true),
-			array('domicilio_pedido', 'numerical'),
-			array('estado_pedido, medio_pago_pedido', 'length', 'max'=>30),
+			array('id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, descuento_pedido, luigi_pedido', 'required'),
+			array('id_usuario_pedido, id_codigo_pedido', 'numerical', 'integerOnly'=>true),
+			array('descuento_pedido, domicilio_pedido', 'numerical'),
+			array('estado_pedido, medio_pago_pedido, codigo_promocional_pedido', 'length', 'max'=>30),
 			array('direccion_pedido', 'length', 'max'=>220),
 			array('cookie_pedido', 'length', 'max'=>300),
 			array('luigi_pedido', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, luigi_pedido, domicilio_pedido', 'safe', 'on'=>'search'),
+			array('id, id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, codigo_promocional_pedido, descuento_pedido, luigi_pedido, domicilio_pedido, id_codigo_pedido', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,8 +80,11 @@ class Pedidos extends CActiveRecord
 			'direccion_pedido' => 'Direccion Pedido',
 			'medio_pago_pedido' => 'Medio Pago Pedido',
 			'cookie_pedido' => 'Cookie Pedido',
+			'codigo_promocional_pedido' => 'Codigo Promocional Pedido',
+			'descuento_pedido' => 'Descuento Pedido',
 			'luigi_pedido' => 'Luigi Pedido',
 			'domicilio_pedido' => 'Domicilio Pedido',
+			'id_codigo_pedido' => 'Id Codigo Pedido',
 		);
 	}
 
@@ -107,8 +113,11 @@ class Pedidos extends CActiveRecord
 		$criteria->compare('direccion_pedido',$this->direccion_pedido,true);
 		$criteria->compare('medio_pago_pedido',$this->medio_pago_pedido,true);
 		$criteria->compare('cookie_pedido',$this->cookie_pedido,true);
+		$criteria->compare('codigo_promocional_pedido',$this->codigo_promocional_pedido,true);
+		$criteria->compare('descuento_pedido',$this->descuento_pedido);
 		$criteria->compare('luigi_pedido',$this->luigi_pedido,true);
 		$criteria->compare('domicilio_pedido',$this->domicilio_pedido);
+		$criteria->compare('id_codigo_pedido',$this->id_codigo_pedido);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

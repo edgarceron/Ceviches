@@ -26,6 +26,7 @@ class CrearPedidoAction extends CAction
 			$medio_pago = $temporal['medio_pago'];
 			$fecha = $temporal['fecha'];
 			$items_string = $temporal['items_string'];
+			$codigo_promocional_id = $temporal['codigo_promocional_id'];
 			$payment_type = 3;
 		}
 		else{
@@ -35,6 +36,7 @@ class CrearPedidoAction extends CAction
 			$items_string = $_POST['items_string'];
 			$id_ciudad = $_POST['id_ciudad'];
 			$id_direccion = $_POST['id_direccion'];
+			$codigo_promocional_id = $_POST['codigo_promocional_id'];
 			$payment_type = 1;
 		}
 		
@@ -70,6 +72,22 @@ class CrearPedidoAction extends CAction
 				$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
 				$correo = $usuario['nick'];
 				$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
+				
+				if($codigo_promocional_id != '' && $codigo_promocional_id != null){
+					$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
+					$pedido['codigo_promocional_pedido']  = $codigo['codigo'];
+					$tipo =  $codigo['tipo'];
+					$valor =  $codigo['valor'];
+					if($tipo == 1){
+						$descuento = ($total * ($valor / 100));
+					}
+					else if($tipo == 2){
+						$descuento = $valor;
+					}
+					$total = $total - $descuento;
+					if($total < 0) $total = 0;
+					$pedido['descuento_pedido']  = $descuento;
+				}
 				
 				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
 				

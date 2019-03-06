@@ -36,6 +36,12 @@ $this->breadcrumbs=array(
 					<tr>
 						<td><?php echo CHtml::button('Crear un Nuevo Catalogo', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/administracion/default/formCatalogo/') . '"', 'class' => 'btn btn-secondary form-control')); ?></th>
 					</tr>
+					<tr>
+						<td><?php echo CHtml::button('Lista de Códigos Prmocionales', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/administracion/default/listCodigos/') . '"', 'class' => 'btn btn-primary form-control')); ?></th>
+					</tr>
+					<tr>
+						<td><?php echo CHtml::button('Crear un Nuevo Código Promocional', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/administracion/default/formCodigo/') . '"', 'class' => 'btn btn-secondary form-control')); ?></th>
+					</tr>
 				</table>
 			</div>
 
