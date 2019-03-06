@@ -45,21 +45,21 @@ class FormAction extends CAction
 					if(isset($archivos->datos)){
 						$extension = $archivos->datos->getExtensionName();
 						$nombreg = "$nombre"."500px.$extension";
-						$archivos->datos->saveAs($ruta."/".$nombreg, false);
+						$archivos->datos->saveAs($ruta."/".utf8_encode($nombreg), false);
 						$producto['imageng_producto'] = utf8_encode($nombreg);
 					}
 					
 					if(isset($archivos->datos1)){
 						$extension = $archivos->datos1->getExtensionName();
 						$nombrem = "$nombre"."300px.$extension";
-						$archivos->datos1->saveAs($ruta."/".$nombrem, false);
+						$archivos->datos1->saveAs($ruta."/".utf8_encode($nombrem), false);
 						$producto['imagenm_producto'] = utf8_encode($nombrem);
 					}
 					
 					if(isset($archivos->datos2)){
 						$extension = $archivos->datos2->getExtensionName();
 						$nombrep = "$nombre"."70px.$extension";
-						$archivos->datos2->saveAs($ruta."/".$nombrep, false);
+						$archivos->datos2->saveAs($ruta."/".utf8_encode($nombrep), false);
 						$producto['imagenp_producto'] = utf8_encode($nombrep);
 					}
 					$producto->save();
