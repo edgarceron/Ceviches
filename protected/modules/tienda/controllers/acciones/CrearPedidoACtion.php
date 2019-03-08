@@ -432,7 +432,7 @@ class CrearPedidoAction extends CAction
 			)]
 		];
 		
-		$url = "http://dev.api.mensajerosurbanos.com/delivery/create";
+		$url = "http://dev.api.mensajerosurbanos.com/Create-services";
 		$post = json_encode($parametros);
 		$ch = curl_init();
 

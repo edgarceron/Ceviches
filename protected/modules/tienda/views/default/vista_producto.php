@@ -60,21 +60,29 @@
 						
 						<?php 
 						echo CHtml::label($producto['descripcion'], null); 
+						echo CHtml::label('Calorias: '. $producto['calorias_producto'], null); 
 						$lista_variables = array_keys($producto['variables']);
-						foreach($lista_variables as $variable){
-							if(!isset($label)){
-								$record = TiposVariable::model()->findByPk($variable);
-								$label = $record['nombre_tipo_variable'];
+						if($lista_variables != array()){
+							foreach($lista_variables as $variable){
+								if(!isset($label)){
+									$record = TiposVariable::model()->findByPk($variable);
+									$label = $record['nombre_tipo_variable'];
+								}
+								$ak = array_keys($producto['variables'][$variable]);
+								$opciones = array();
+								foreach($ak as $k){
+									$opciones[$k] = $producto['variables'][$variable][$k]['descripcion'];
+								}
+								$data[$variable] = "$('#v" . $id . "-" . $variable . "').val()";
+								echo CHtml::label($label, 'v' . $id . "-". $variable); 
+								echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
+								unset($label);
 							}
-							$ak = array_keys($producto['variables'][$variable]);
-							$opciones = array();
-							foreach($ak as $k){
-								$opciones[$k] = $producto['variables'][$variable][$k]['descripcion'];
-							}
-							$data[$variable] = "$('#v" . $id . "-" . $variable . "').val()";
-							echo CHtml::label($label, 'v' . $id . "-". $variable); 
-							echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
-							unset($label);
+						}
+						else{
+							?>
+						<h5><?php echo $producto['precio'] ?></h5>
+							<?php
 						}
 						echo CHtml::label('Cantidad', 'c' . $id); 
 						echo CHtml::dropDownList('c' . $id, 1, $cantidades, array('id'=>'c' . $id, 'class'=>'form-control', "style" => "text-align:center"));

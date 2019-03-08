@@ -112,10 +112,22 @@
 					
 					</td>
 					<td>
+						Descuento, Codigo promocional: <b><?php echo $pedido["codigo_promocional_pedido"] ?></b>
+					</td>
+					<td>
+						<span class="text-muted"><label id="total">$-<?php echo number_format($pedido['descuento_pedido'], 0, ",", ".") ?></label></span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan = 3>
+					
+					</td>
+					<td>
 						<b>Total</b>
 					</td>
 					<td>
-						<label id="total"><b>$<?php echo number_format($total + $pedido['domicilio_pedido'], 0, ",", ".") ?></b></label>
+						<label id="total"><b>$<?php echo number_format($total + $pedido['domicilio_pedido'] - $pedido['descuento_pedido'], 0, ",", ".") ?></b></label>
 					</td>
 				</tr>
 			</tbody>

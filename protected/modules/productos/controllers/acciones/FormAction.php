@@ -88,13 +88,21 @@ class FormAction extends CAction
 				}
 			}
 			
-			$valores = $_POST['Valor'];
-			$ak = array_keys($valores);
+			
 			
 			$anteriores = VariablesProducto::model()->findAll('id_producto = ' . $id);
 			foreach($anteriores as $borrar){
 				$borrar->delete();
 			}
+            
+            if(isset($_POST['Valor'])){
+                $valores = $_POST['Valor'];
+            }
+            else{
+                $valores = array();.
+            }
+			
+            $ak = array_keys($valores);
 			
 			foreach($ak as $key){
 				$variable = Variables::model()->findByPk($key);
