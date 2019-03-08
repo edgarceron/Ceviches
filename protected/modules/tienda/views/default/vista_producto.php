@@ -60,7 +60,7 @@
 						
 						<?php 
 						echo CHtml::label($producto['descripcion'], null); 
-						echo CHtml::label('Calorias: '. $producto['calorias_producto'], null); 
+						echo CHtml::label('Calorias: '. Productos::model()->findByPk($producto['id'])['calorias_producto'], null); 
 						$lista_variables = array_keys($producto['variables']);
 						if($lista_variables != array()){
 							foreach($lista_variables as $variable){
