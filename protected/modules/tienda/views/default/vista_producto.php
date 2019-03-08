@@ -62,7 +62,7 @@
 						border-radius: 100%; height:100px; width: 100px; position: absolute; 
 						top: <?php echo $top ?>px; 
 						right:<?php echo $right ?>px">
-							<div style="position: relative; top: 35px; text-align:center;  color: white; font-weight: bold; font-size: 16px; line-height: 100%;"> 
+							<div style="position: relative; top: 40px; text-align:center;  color: white; font-weight: bold; font-size: 16px; line-height: 100%;"> 
 								$<?php echo number_format($precio, 0, ",", ".") ?><br>
 							</div>
 						</div>
