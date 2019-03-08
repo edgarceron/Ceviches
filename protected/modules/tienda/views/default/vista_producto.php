@@ -64,7 +64,6 @@
 						right:<?php echo $right ?>px">
 							<div style="position: relative; top: 30px; text-align:center;  color: white; font-weight: bold; font-size: 16px; line-height: 100%;"> 
 								$<?php echo number_format($precio, 0, ",", ".") ?><br>
-								<?php echo $descripcion ?>
 							</div>
 						</div>
 					<?php
