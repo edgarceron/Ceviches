@@ -2,6 +2,7 @@
 	$imagen = $producto['imagen'];
 	$nombre = $producto['nombre'];
 	$precio = $producto['precio'];
+	$variable_define_precio = false;
 	for($i = 1;$i<=99;$i++){
 		$cantidades[$i] = "$i";
 	}
@@ -37,6 +38,7 @@
 						$precio = $var['precio'];
 						$descripcion = $var['descripcion'];
 						if($var['afecta_precio'] == 1){
+						$variable_define_precio = true;
 						$contador++;
 						?>
 						<div style="background-color: <?php echo $background_color ?>; 
@@ -51,6 +53,21 @@
 						<?php
 						}
 					}
+				}
+				
+				if(!$variable_define_precio){
+					$precio = $producto['precio'];
+					?>
+						<div style="background-color: <?php echo $background_color ?>; 
+						border-radius: 100%; height:100px; width: 100px; position: absolute; 
+						top: <?php echo $top ?>px; 
+						right:<?php echo $right ?>px">
+							<div style="position: relative; top: 30px; text-align:center;  color: white; font-weight: bold; font-size: 16px; line-height: 100%;"> 
+								$<?php echo number_format($precio, 0, ",", ".") ?><br>
+								<?php echo $descripcion ?>
+							</div>
+						</div>
+					<?php
 				}
 				?>
 				</div>
@@ -79,11 +96,6 @@
 								echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
 								unset($label);
 							}
-						}
-						else{
-							?>
-						<h5><?php echo $producto['precio'] ?></h5>
-							<?php
 						}
 						echo CHtml::label('Cantidad', 'c' . $id); 
 						echo CHtml::dropDownList('c' . $id, 1, $cantidades, array('id'=>'c' . $id, 'class'=>'form-control', "style" => "text-align:center"));
