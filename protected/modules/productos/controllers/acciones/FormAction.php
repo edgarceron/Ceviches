@@ -99,7 +99,7 @@ class FormAction extends CAction
                 $valores = $_POST['Valor'];
             }
             else{
-                $valores = array();.
+                $valores = array();
             }
 			
             $ak = array_keys($valores);
