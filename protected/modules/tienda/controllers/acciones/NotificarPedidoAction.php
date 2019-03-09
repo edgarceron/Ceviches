@@ -61,6 +61,10 @@ class NotificarPedidoAction extends CAction
 			$medio_pago = $temporal['medio_pago'];
 			$fecha = $temporal['fecha'];
 			$items_string = $temporal['items_string'];
+			$codigo_promocional_id = $temporal['codigo_promocional_id'];
+			if($codigo_promocional_id == null){
+				$codigo_promocional_id = 0;
+			}
 			$payment_type = 3;
 			
 			if($temporal['id_pedido_finalizado'] == null){
@@ -91,6 +95,19 @@ class NotificarPedidoAction extends CAction
 					//Cargar articulos a la table de detalles
 					$total = $this->crearDetalles($items, $id_pedido);
 					
+					$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
+					if($codigo != null){
+						$pedido['codigo_promocional_pedido'] = $codigo['codigo'];
+						$tipo = $codigo['tipo'];
+						if($tipo == 1){
+							$descuento = $total * $valor/100;
+						}
+						else if($tipo == 2){
+							$descuento = $valor;
+						}
+						$pedido['descuento_pedido'] = $descuento;
+						$pedido->save();
+					}	
 					$usuario = SofintUsers::model()->findByPk($id_usuario);
 					$correo = $usuario['nick'];
 					$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];

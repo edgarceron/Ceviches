@@ -17,11 +17,13 @@ class ResumenAction extends CAction
 		
 		$codigo = CodigosPromocionales::model()->find("codigo = \"$codigo_promocional\"");
 		unset($_POST['codigo']);
+		$_POST['codigo_promocional_id'] = null;
 		if($codigo != null){
-			$_POST['codigo_promocional_id'] = $codigo['id'];
-		}
-		else{
-			$_POST['codigo_promocional_id'] = null;
+			$valido_desde = date($codigo['valido_desde']);
+			$valido_hasta = date($codigo['valido_hasta']);
+			if($valido_desde < date() && $valido_hasta > date()){
+				$_POST['codigo_promocional_id'] = $codigo['id'];
+			}
 		}
 		
 		$temporal = new TemporalPedido;
