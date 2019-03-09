@@ -176,9 +176,10 @@
 			<?php
 				$cont++;
 			}
+			
 			if($codigo != null){
 				$tipo = $codigo['tipo'];
-				$valor = $codigo['tipo'];
+				$valor = $codigo['valor'];
 				if($tipo == 1){
 					$descuento = ($total * ($valor / 100));
 				}
