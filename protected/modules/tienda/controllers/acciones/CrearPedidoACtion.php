@@ -75,8 +75,9 @@ class CrearPedidoAction extends CAction
 				
 				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
 				$pedido['descuento_pedido']  = 0;
-				if($codigo_promocional_id != '' && $codigo_promocional_id != null){
-					$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
+
+				$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
+				if($codigo != null){
 					$pedido['codigo_promocional_pedido']  = $codigo['codigo'];
 					$tipo =  $codigo['tipo'];
 					$valor =  $codigo['valor'];
@@ -90,6 +91,7 @@ class CrearPedidoAction extends CAction
 					if($total < 0) $total = 0;
 					$pedido['descuento_pedido']  = $descuento;
 				}
+				
 				$pedido->save();
 				$this->enviarCorreo($correo, $nombre, $pedido);
 				
