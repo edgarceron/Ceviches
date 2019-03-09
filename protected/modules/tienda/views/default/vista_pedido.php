@@ -79,7 +79,7 @@
 						Descuento, Codigo promocional: <b><?php echo $pedido["codigo_promocional_pedido"] ?></b>
 					</td>
 					<td>
-						<span class="text-muted"><label id="total">$-<?php echo number_format($pedido['descuento_pedido'], 0, ",", ".") ?></label></span>
+						<span class="text-muted"><label id="total">$<?php echo number_format((-1 * $pedido['descuento_pedido']), 0, ",", ".") ?></label></span>
 					</td>
 				</tr>
 				
