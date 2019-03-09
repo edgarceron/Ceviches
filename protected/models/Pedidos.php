@@ -39,7 +39,7 @@ class Pedidos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, descuento_pedido, luigi_pedido', 'required'),
+			array('id_usuario_pedido, fecha_pedido, estado_pedido, direccion_pedido, medio_pago_pedido, cookie_pedido, luigi_pedido', 'required'),
 			array('id_usuario_pedido', 'numerical', 'integerOnly'=>true),
 			array('descuento_pedido, domicilio_pedido', 'numerical'),
 			array('estado_pedido, medio_pago_pedido, codigo_promocional_pedido', 'length', 'max'=>30),
