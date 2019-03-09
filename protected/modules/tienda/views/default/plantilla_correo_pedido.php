@@ -64,7 +64,7 @@
 					Domicilio
 				</td>
 				<td>
-					<label id="descuento">$<?php echo number_format($valor_domicilio, 0, ",", ".") ?></label>
+					<label id="domicilio">$<?php echo number_format($pedido['domicilio_pedido'], 0, ",", ".") ?></label>
 				</td>
 			</tr>
 			<tr>
@@ -86,7 +86,7 @@
 					Total
 				</td>
 				<td>
-					<label id="total">$<?php echo number_format(($total + $valor_domicilio - $pedido['descuento_pedido']), 0, ",", ".") ?></label>
+					<label id="total">$<?php echo number_format(($total + $pedido['domicilio_pedido'] - $pedido['descuento_pedido']), 0, ",", ".") ?></label>
 				</td>
 			</tr>
 		</tbody>

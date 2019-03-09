@@ -245,7 +245,6 @@ class NotificarPedidoAction extends CAction
 				'pedido' => $pedido, 
 				'detalles' => $detalles, 
 				'url' => $url, 
-				'valor_domicilio' => OpcionesTienda::getOpcion('valor_domicilio'),
 				'rutaImagenes' => $rutaImagenes), true);
 	}
 		
