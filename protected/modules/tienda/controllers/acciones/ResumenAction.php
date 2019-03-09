@@ -16,6 +16,7 @@ class ResumenAction extends CAction
 		$_POST['direccion'] = $direccion_texto;
 		
 		$codigo = CodigosPromocionales::model()->find("codigo = \"$codigo_promocional\"");
+		unset($_POST['id_codigo_pedido']);
 		unset($_POST['codigo']);
 		if($codigo != null){
 			$_POST['codigo_promocional_id'] = $codigo['id'];
