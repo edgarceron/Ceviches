@@ -21,7 +21,7 @@ class ResumenAction extends CAction
 		if($codigo != null){
 			$valido_desde = date($codigo['valido_desde']);
 			$valido_hasta = date($codigo['valido_hasta']);
-			if($valido_desde < date() && $valido_hasta > date()){
+			if($valido_desde < date('Y-m-d') && $valido_hasta > date('Y-m-d')){
 				$_POST['codigo_promocional_id'] = $codigo['id'];
 			}
 		}
