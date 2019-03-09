@@ -9,12 +9,8 @@
  * @property string $medio_pago
  * @property string $items_string
  * @property string $fecha
+ * @property integer $id_pedido_finalizado
  * @property integer $codigo_promocional_id
- * @property integer $id_codigo_pedido
- *
- * The followings are the available model relations:
- * @property CodigosPromocionales $codigoPromocional
- * @property CodigosPromocionales $idCodigoPedido
  */
 class TemporalPedido extends CActiveRecord
 {
@@ -35,14 +31,14 @@ class TemporalPedido extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('direccion, medio_pago, items_string', 'required'),
-			array('codigo_promocional_id, id_codigo_pedido', 'numerical', 'integerOnly'=>true),
+			array('id_pedido_finalizado, codigo_promocional_id', 'numerical', 'integerOnly'=>true),
 			array('direccion', 'length', 'max'=>270),
 			array('medio_pago', 'length', 'max'=>30),
 			array('items_string', 'length', 'max'=>300),
 			array('fecha', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, direccion, medio_pago, items_string, fecha, codigo_promocional_id, id_codigo_pedido', 'safe', 'on'=>'search'),
+			array('id, direccion, medio_pago, items_string, fecha, id_pedido_finalizado, codigo_promocional_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,8 +50,6 @@ class TemporalPedido extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'codigoPromocional' => array(self::BELONGS_TO, 'CodigosPromocionales', 'codigo_promocional_id'),
-			'idCodigoPedido' => array(self::BELONGS_TO, 'CodigosPromocionales', 'id_codigo_pedido'),
 		);
 	}
 
@@ -70,8 +64,8 @@ class TemporalPedido extends CActiveRecord
 			'medio_pago' => 'Medio Pago',
 			'items_string' => 'Items String',
 			'fecha' => 'Fecha',
+			'id_pedido_finalizado' => 'Id Pedido Finalizado',
 			'codigo_promocional_id' => 'Codigo Promocional',
-			'id_codigo_pedido' => 'Id Codigo Pedido',
 		);
 	}
 
@@ -98,8 +92,8 @@ class TemporalPedido extends CActiveRecord
 		$criteria->compare('medio_pago',$this->medio_pago,true);
 		$criteria->compare('items_string',$this->items_string,true);
 		$criteria->compare('fecha',$this->fecha,true);
+		$criteria->compare('id_pedido_finalizado',$this->id_pedido_finalizado);
 		$criteria->compare('codigo_promocional_id',$this->codigo_promocional_id);
-		$criteria->compare('id_codigo_pedido',$this->id_codigo_pedido);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
