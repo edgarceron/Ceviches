@@ -11,7 +11,6 @@
  * @property string $fecha
  * @property integer $codigo_promocional_id
  * @property integer $id_codigo_pedido
- * @property integer $id_pedido_finalizado
  *
  * The followings are the available model relations:
  * @property CodigosPromocionales $codigoPromocional
@@ -36,14 +35,14 @@ class TemporalPedido extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('direccion, medio_pago, items_string', 'required'),
-			array('codigo_promocional_id, id_codigo_pedido, id_pedido_finalizado', 'numerical', 'integerOnly'=>true),
+			array('codigo_promocional_id, id_codigo_pedido', 'numerical', 'integerOnly'=>true),
 			array('direccion', 'length', 'max'=>270),
 			array('medio_pago', 'length', 'max'=>30),
 			array('items_string', 'length', 'max'=>300),
 			array('fecha', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, direccion, medio_pago, items_string, fecha, codigo_promocional_id, id_codigo_pedido, id_pedido_finalizado', 'safe', 'on'=>'search'),
+			array('id, direccion, medio_pago, items_string, fecha, codigo_promocional_id, id_codigo_pedido', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,7 +72,6 @@ class TemporalPedido extends CActiveRecord
 			'fecha' => 'Fecha',
 			'codigo_promocional_id' => 'Codigo Promocional',
 			'id_codigo_pedido' => 'Id Codigo Pedido',
-			'id_pedido_finalizado' => 'Id Pedido Finalizado',
 		);
 	}
 
@@ -102,7 +100,6 @@ class TemporalPedido extends CActiveRecord
 		$criteria->compare('fecha',$this->fecha,true);
 		$criteria->compare('codigo_promocional_id',$this->codigo_promocional_id);
 		$criteria->compare('id_codigo_pedido',$this->id_codigo_pedido);
-		$criteria->compare('id_pedido_finalizado',$this->id_pedido_finalizado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
