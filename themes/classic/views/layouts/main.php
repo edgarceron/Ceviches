@@ -125,6 +125,25 @@
 					
 			?>
 			<ul class="navbar-nav ml-sm-3">
+				<?php
+					$criteria = new CDbCriteria;
+					$criteria->compare('perfil', $perfil);
+					$criteria->compare('modulo', 'administracion');
+					$criteria->compare('accion', 'opciones');
+					$permiso = PerfilContenido::model()->find($criteria);
+					if($permiso != null){
+				?>
+				<li class="nav-item dropdown">
+					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotificationPreparando" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/gear32.png">
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotificationPreparando" style="position:absolute; overflow-y: scroll; max-height:700%" id = "notificacionesPreparando">
+						<a class="dropdown-item" href="<?php echo Yii::app()->createUrl("/administracion/default/opciones") ?>">Opciones administrativas</a>
+					</div>
+				</li>
+				<?php
+					}
+				?>
 				<li class="nav-item dropdown">
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarNotificationPreparando" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bell32.png">
