@@ -452,6 +452,7 @@ class CrearPedidoAction extends CAction
 		if($status_code == 200){
 			$data = $obj['data'];
 			$data['id_pedido'] = $id_pedido;
+			$data['task_id'] = '0';
 			$servicio = new ServiciosMu;
 			$servicio->attributes = $data;
 			$servicio->save();
