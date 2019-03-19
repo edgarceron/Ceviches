@@ -434,7 +434,7 @@ class NotificarPedidoAction extends CAction
 			)]
 		];
 		
-		$url = "http://dev.api.mensajerosurbanos.com/delivery/create";
+		$url = "http://dev.api.mensajerosurbanos.com/Create-services";
 		$post = json_encode($parametros);
 		$ch = curl_init();
 
@@ -452,6 +452,7 @@ class NotificarPedidoAction extends CAction
 		if($status_code == 200){
 			$data = $obj['data'];
 			$data['id_pedido'] = $id_pedido;
+			$data['task_id'] = '0';
 			$servicio = new ServiciosMu;
 			$servicio->attributes = $data;
 			$servicio->save();
