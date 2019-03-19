@@ -25,7 +25,7 @@
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/hover.min.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/theme.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" rel="stylesheet">   
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
+	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
 
 	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -367,7 +367,7 @@
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>    
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/scripts.js"></script>              
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js" type="text/javascript"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.PrintArea.js"></script>
 	
 </body>
