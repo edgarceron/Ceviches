@@ -24,15 +24,15 @@
 				if($detalle_mu != array()){
 			?>
 				<h4>Detalle mensajeros urbanos</h4>
-				Valor del domicilio(Cobrado a Ceviche y mar): <?php echo $detalle['total_value'] ?><br>
-				Estado del domicilio: <?php echo $detalle['status'] ?><br>
+				Valor del domicilio(Cobrado a Ceviche y mar): <?php echo $detalle_mu['total_value'] ?><br>
+				Estado del domicilio: <?php echo $detalle_mu['status'] ?><br>
 				Direcciones: <br><?php 
-					foreach($detalle['addresses'] as $address){
+					foreach($detalle_mu['addresses'] as $address){
 						echo $address['address'] . "<br>";
 					}
 				?><br>
 				Historial: <br><?php
-					foreach($detalle['history'] as $history){
+					foreach($detalle_mu['history'] as $history){
 						echo $history['status'] . ":" . $history['date'] . "<br>";
 					}
 				}

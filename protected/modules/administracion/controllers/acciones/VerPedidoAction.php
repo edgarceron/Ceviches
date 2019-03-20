@@ -42,7 +42,7 @@ class VerPedidoAction extends CAction {
 			'usuario' => $usuario,
 			'c' => $c,
 			'mensaje' => $mensaje,
-			'detalle' => $detalle_mu,
+			'detalle_mu' => $detalle_mu,
 			'uuid' => $uuid,
 		));
 	}
