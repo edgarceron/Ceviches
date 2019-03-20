@@ -9,7 +9,6 @@ class ResumenAction extends CAction
 		$programacion = $_POST['programacion'];
 		$items_string = $_POST['items_string'];
 		$codigo_promocional = trim($_POST['codigo']);
-		$_POST['fecha'] = $_POST['fecha'] . ' ' . $_POST['hora']; 
 		
 		$direccion = Direcciones::model()->findByPk($id_direccion);
 		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
@@ -29,6 +28,7 @@ class ResumenAction extends CAction
 		
 		$temporal = new TemporalPedido;
 		$temporal->attributes = $_POST;
+		$temporal->fecha = $_POST['fecha'] . ' ' . $_POST['hora'];
 		$temporal->save();
 		$id_pedido = $temporal['id'];
 		
@@ -64,9 +64,10 @@ class ResumenAction extends CAction
 			}
 			
 			if($error_fecha){
+				$actual = date();
 				Yii::app()->user->setFlash('danger', "Si realiza un pedido para despues tenga en cuenta 
 				que la fecha del pedido debe ser al menos 4 horas mayor que la fecha actual y que debe 
-				ser en el horario laboral (entre $hora_apertura y $hora_cierre");
+				ser en el horario laboral (entre $hora_apertura y $hora_cierre, hora actual: $actual");
 				
 				$this->controller->redirect(Yii::app()->createUrl('tienda/default/finalizarPedido', 
 				array('programacion' => $programacion, 'fecha' => $fecha, 'hora' => $hora)));
