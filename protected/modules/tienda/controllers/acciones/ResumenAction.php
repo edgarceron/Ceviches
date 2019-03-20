@@ -64,7 +64,7 @@ class ResumenAction extends CAction
 			}
 			
 			if($error_fecha){
-				$actual = date();
+				$actual = date('Y-m-d H:i:s');
 				Yii::app()->user->setFlash('danger', "Si realiza un pedido para despues tenga en cuenta 
 				que la fecha del pedido debe ser al menos 4 horas mayor que la fecha actual y que debe 
 				ser en el horario laboral (entre $hora_apertura y $hora_cierre, hora actual: $actual");
