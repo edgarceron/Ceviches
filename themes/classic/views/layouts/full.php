@@ -127,7 +127,6 @@
 		<?php echo $content ?>
 
 </main>
-	
 	<footer class="footer mt-auto py-3 bg-light">
 		<div class="container bg-light">
 			<div class="row">
