@@ -19,7 +19,7 @@
 			<?php 
 			if($detalle_mu != array() || $uuid){
 				if($uuid){
-					echo $uuid;
+					echo 'Id mensajeros urbanos: ' . $uuid;
 				}
 				if($detalle_mu != array()){
 			?>
