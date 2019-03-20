@@ -9,7 +9,7 @@ class ResumenAction extends CAction
 		$programacion = $_POST['programacion'];
 		$items_string = $_POST['items_string'];
 		$codigo_promocional = trim($_POST['codigo']);
-		$POST['fecha'] = $_POST['fecha'] . ' ' . $_POST['hora']; 
+		$_POST['fecha'] = $_POST['fecha'] . ' ' . $_POST['hora']; 
 		
 		$direccion = Direcciones::model()->findByPk($id_direccion);
 		$ciudad = Ciudades::model()->findByPk($direccion['ciudad_direccion']);
