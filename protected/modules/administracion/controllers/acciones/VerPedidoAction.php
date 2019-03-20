@@ -67,6 +67,8 @@ class VerPedidoAction extends CAction {
 		$result=curl_exec ($ch);
 		curl_close($ch);
 		$obj = json_decode($result, true);
+		print_r($obj);
+		exit;
 		$detalle = array();
 		if($obj['status_code'] == 200){	
 			$data = $obj['data'];
