@@ -315,7 +315,6 @@
 		if(isset($usuario)) {
 			if($permiso != null){
 	?>
-	var y = 123;
 	function cargarNotificaciones(tipo){
 		jQuery.ajax({
 			'type':'GET',
@@ -340,13 +339,16 @@
 			}
 		});	
 	}
+	
+	function notificacionesDinamico(){
+		setTimeout( function(){ cargarNotificaciones('Recibido'); cargarNotificaciones('Preparando'); notificacionesDinamico()}, 10000);
+	}
+	
 	<?php
 			}
 		}
 	?>
-	function notificacionesDinamico(){
-		setTimeout( function(){ cargarNotificaciones('Recibido'); cargarNotificaciones('Preparando'); notificacionesDinamico()}, 10000);
-	}
+	
 	
 	window.onload = function() {
 		<?php
@@ -356,12 +358,13 @@
 		?>
 		cargarNotificaciones('Recibido');
 		cargarNotificaciones('Preparando');
+		notificacionesDinamico();
 		<?php
 				}
 			}
 		?>
 		cargarCarrito();
-		notificacionesDinamico();
+		
 	}
 	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
