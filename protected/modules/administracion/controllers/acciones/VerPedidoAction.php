@@ -31,9 +31,8 @@ class VerPedidoAction extends CAction {
 			if($servicio_mu['task_id'] == null){
 				$this->getTaskIdServicios(1);
 			}
-			$task_id = ServiciosMu::model()->findByPk($id_pedido)['task_id'];
 			$uuid = ServiciosMu::model()->findByPk($id_pedido)['uuid'];
-			$detalle_mu = $this->detalleServicio($task_id);
+			$detalle_mu = $this->detalleServicio($uuid);
 		}
 		
 		$this->controller->render('vista_pedido', array(
@@ -48,11 +47,11 @@ class VerPedidoAction extends CAction {
 		));
 	}
 	
-	public function detalleServicio($task_id){
+	public function detalleServicio($uuid){
 		$access_token = OpcionesTienda::getOpcion('access_token');
 		$parametros = [
 			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
-			"task_id"=> $task_id, 
+			"uuid"=> $uuid, 
 		];
 		
 		$url = "http://dev.api.mensajerosurbanos.com/task";
