@@ -47,7 +47,7 @@
 					border-radius: 100%; height:60px; width: 60px; position: absolute; 
 					top: <?php echo $top ?>px; 
 					right:<?php echo $right ?>px">
-						<div style="position: relative; top: 15px; text-align:center;  color: white; font-weight: bold; font-size: 14px; line-height: 100%;"> 
+						<div style="position: relative; top: 16px; text-align:center;  color: white; font-weight: bold; font-size: 12px; line-height: 100%;"> 
 							$<?php echo number_format($precio, 0, ",", ".") ?><br>
 							<?php echo $descripcion ?>
 						</div>
@@ -64,7 +64,7 @@
 						border-radius: 100%; height:60px; width: 60px; position: absolute; 
 						top: <?php echo $top ?>px; 
 						right:<?php echo $right ?>px">
-							<div style="position: relative; top: 20px; text-align:center;  color: white; font-weight: bold; font-size: 14px; line-height: 100%;"> 
+							<div style="position: relative; top: 21px; text-align:center;  color: white; font-weight: bold; font-size: 12px; line-height: 100%;"> 
 								$<?php echo number_format($precio, 0, ",", ".") ?><br>
 							</div>
 						</div>

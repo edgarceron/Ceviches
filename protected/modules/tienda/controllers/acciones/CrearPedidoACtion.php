@@ -73,7 +73,7 @@ class CrearPedidoAction extends CAction
 				$correo = $usuario['nick'];
 				$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 				
-				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items);
+				$this->llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items, $fecha);
 				$pedido['descuento_pedido']  = 0;
 
 				$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
@@ -390,7 +390,7 @@ class CrearPedidoAction extends CAction
 		return $productos;
 	}
 	
-	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items){
+	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items, $fecha){
 		$record = Direcciones::model()->findByPk($id_direccion);
 		$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
 		$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
@@ -400,14 +400,21 @@ class CrearPedidoAction extends CAction
 		$productos = $this->generarProductosMU($items);
 		$access_token = OpcionesTienda::model()->find('descripcion = "access_token_mu"')['valor'];
 		
+		$start_date = date('Y-m-d');
+		$start_time = date('H:i:s');
+		if($fecha != '' && $fecha != '0000-00-00 00:00:00'){
+			$fechahora = explode(" "; $fecha);
+			$start_date = $fechahora[0];
+			$start_time = $fechahora[1];
+		}
 		$parametros = [
 			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
 			"type_service"=> 4, //Tipo de servicio
 			"roundtrip"=> 0, //1=Ida y vuelta;0=solo ida
 			"declared_value"=> $total, //Valor de productos de domicilio
 			"city"=> intval(OpcionesTienda::model()->find('descripcion = "ciudad_id_mu"')['valor']),  //Id de ciudad *tabla
-			"start_date"=> date('Y-m-d'), //Fecha
-			"start_time"=> date('H:i:s'), //Hora
+			"start_date"=> $start_date, //Fecha
+			"start_time"=>$start_time, //Hora
 			"observation"=> "CYM" . $id_pedido , //Descripción General
 			"user_payment_type"=> $payment_type, //Tipo de pago del usuario *Tabla
 			"type_segmentation"=> 1, //Tipo de segmentación *Tabla
