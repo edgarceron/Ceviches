@@ -97,17 +97,20 @@ class NotificarPedidoAction extends CAction
 					
 					$codigo = CodigosPromocionales::model()->findByPk($codigo_promocional_id);
 					if($codigo != null){
-						$pedido['codigo_promocional_pedido'] = $codigo['codigo'];
-						$tipo = $codigo['tipo'];
+						$pedido['codigo_promocional_pedido']  = $codigo['codigo'];
+						$tipo =  $codigo['tipo'];
+						$valor =  $codigo['valor'];
 						if($tipo == 1){
-							$descuento = $total * $valor/100;
+							$descuento = ($total * ($valor / 100));
 						}
 						else if($tipo == 2){
 							$descuento = $valor;
 						}
-						$pedido['descuento_pedido'] = $descuento;
-						$pedido->save();
-					}	
+						$total = $total - $descuento;
+						if($total < 0) $total = 0;
+						$pedido['descuento_pedido']  = $descuento;
+					}
+					$pedido->save();
 					$usuario = SofintUsers::model()->findByPk($id_usuario);
 					$correo = $usuario['nick'];
 					$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
