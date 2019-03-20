@@ -406,8 +406,15 @@ class NotificarPedidoAction extends CAction
 		$start_date = date('Y-m-d');
 		$start_time = date('H:i:s');
 		if($fecha != '' && $fecha != '0000-00-00 00:00:00'){
-			$fechahora = explode(" "; $fecha);
+			$fechahora = explode(" ", $fecha);
 			$start_date = $fechahora[0];
+			$hms = explode(":",$fechahora[1]);
+			$hora = intval($hms[0]) - 1;
+			if($hora < 10){
+				$hora = '0' . $hora;
+			}
+			$hms[0] = $hora;
+			$fechahora[1] = implode(":", $hms);
 			$start_time = $fechahora[1];
 		}
 		$parametros = [

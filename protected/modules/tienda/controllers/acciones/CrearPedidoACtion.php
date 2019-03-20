@@ -405,6 +405,13 @@ class CrearPedidoAction extends CAction
 		if($fecha != '' && $fecha != '0000-00-00 00:00:00'){
 			$fechahora = explode(" ", $fecha);
 			$start_date = $fechahora[0];
+			$hms = explode(":",$fechahora[1]);
+			$hora = intval($hms[0]) - 1;
+			if($hora < 10){
+				$hora = '0' . $hora;
+			}
+			$hms[0] = $hora;
+			$fechahora[1] = implode(":", $hms);
 			$start_time = $fechahora[1];
 		}
 		$parametros = [
