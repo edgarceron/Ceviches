@@ -52,7 +52,6 @@ class VerPedidoAction extends CAction {
 		$parametros = [
 			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
 			"uuid"=> $uuid, 
-			"access_token" => $access_token,
 		];
 		
 		$url = "http://dev.api.mensajerosurbanos.com/task";
