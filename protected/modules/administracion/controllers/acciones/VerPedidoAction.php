@@ -26,11 +26,13 @@ class VerPedidoAction extends CAction {
 		
 		$servicio_mu = ServiciosMu::model()->findByPk($id_pedido);
 		$detalle_mu = array();
+		$uuid = 0;
 		if($servicio_mu != null){
 			if($servicio_mu['task_id'] == null){
 				$this->getTaskIdServicios(1);
 			}
 			$task_id = ServiciosMu::model()->findByPk($id_pedido)['task_id'];
+			$uuid = ServiciosMu::model()->findByPk($id_pedido)['uuid'];
 			$detalle_mu = $this->detalleServicio($task_id);
 		}
 		
@@ -42,6 +44,7 @@ class VerPedidoAction extends CAction {
 			'c' => $c,
 			'mensaje' => $mensaje,
 			'detalle_mu' => $detalle_mu,
+			'uuid' => $uuid,
 		));
 	}
 	
