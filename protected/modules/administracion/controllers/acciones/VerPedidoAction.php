@@ -48,7 +48,7 @@ class VerPedidoAction extends CAction {
 	}
 	
 	public function detalleServicio($uuid){
-		$access_token = OpcionesTienda::getOpcion('access_token');
+		$access_token = OpcionesTienda::model()->find('descripcion = "access_token_mu"')['valor'];
 		$parametros = [
 			"id_user" => intval(OpcionesTienda::model()->find('descripcion = "id_user_mu"')['valor']), // ID de usuario
 			"uuid"=> $uuid, 
