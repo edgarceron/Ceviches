@@ -315,7 +315,7 @@
 		if(isset($usuario)) {
 			if($permiso != null){
 	?>
-	
+	var y = 123;
 	function cargarNotificaciones(tipo){
 		jQuery.ajax({
 			'type':'GET',
