@@ -48,7 +48,7 @@ class ResumenAction extends CAction
 			if(isset( $_POST['fecha']) && isset( $_POST['hora'])){
 				$fecha = $_POST['fecha'];
 				$hora = $_POST['hora'];
-				
+				date_default_timezone_set("America/Bogota");
 				if($hora != '' && $fecha != ''){
 
 					$fecha_hora = strtotime($fecha . ' ' . $hora);
