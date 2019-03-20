@@ -21,7 +21,7 @@
 				if($uuid){
 					echo $uuid;
 				}
-				if($detalle_mu != array(){
+				if($detalle_mu != array()){
 			?>
 				<h4>Detalle mensajeros urbanos</h4>
 				Valor del domicilio(Cobrado a Ceviche y mar): <?php echo $detalle['total_value'] ?><br>
