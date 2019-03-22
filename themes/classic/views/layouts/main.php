@@ -119,8 +119,8 @@
 					$criteria->compare('perfil', $perfil);
 					$criteria->compare('modulo', 'administracion');
 					$criteria->compare('accion', 'cargarNotificaciones');
-					$permiso = PerfilContenido::model()->find($criteria);
-					if($permiso != null){
+					$notificaciones = PerfilContenido::model()->find($criteria);
+					if($notificaciones != null){
 						
 					
 			?>
@@ -313,7 +313,7 @@
 	}
 	<?php
 		if(isset($usuario)) {
-			if($permiso != null){
+			if($notificaciones != null){
 	?>
 	function cargarNotificaciones(tipo){
 		jQuery.ajax({
@@ -354,7 +354,7 @@
 		<?php
 		if(isset($usuario)) {
 			
-			if($permiso != null){
+			if($notificaciones != null){
 		?>
 		cargarNotificaciones('Recibido');
 		cargarNotificaciones('Preparando');
