@@ -90,7 +90,7 @@ $this->breadcrumbs=array(
 								(
 									'label'=>'Eliminar el producto',
 									'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
-									'url'=>'Yii::app()->createUrl("productos/default/formLineaProducto", array("id"=>$data->id))',
+									'url'=>'Yii::app()->createUrl("productos/default/formVariable", array("id"=>$data->id))',
 								),
 							),
 						)

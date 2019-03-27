@@ -20,7 +20,8 @@ class FormTipoVariableAction extends CAction
 			$this->calculoDeErrores();
 			
 			if($this->record->save()){
-				$parametros_get = '?id=' . $this->record['id'];
+				Yii::app()->user->setFlash('success', "Tipo de variable creado correctamente");
+				$this->controller->redirect(Yii::app()->createUrl("productos/default/formTipoVariable", array("id"=>$this->record->id)));
 			}
 		}
 		

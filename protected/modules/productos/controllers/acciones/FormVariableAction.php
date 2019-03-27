@@ -7,26 +7,27 @@ class FormVariableAction extends CAction
     {                     
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
-			$this->record = Variables::record()->findByPk($id);
+			$this->record = Variables::model()->findByPk($id);
 			$parametros_get = '?id=' . $id;
 		}
 		else{
 			$this->record = new Variables;
 			$parametros_get = '';
 		}
+		$tipos_variable = CHtml::listData(TiposVariable::model()->findAll(), 'id', 'nombre_tipo_variable');
 		
 		if(isset($_POST['Variables'])){
 			$this->record->attributes=$_POST['Variables'];
 			$this->calculoDeErrores();
 			
 			if($this->record->save()){
-				$this->controller->render('vista',array(
-					'record' => $this->record,
-				));
+				Yii::app()->user->setFlash('success', "Variable creada correctamente");
+				
+				$this->controller->redirect(Yii::app()->createUrl("productos/default/formVariable", array("id"=>$this->record->id)));
 			}
 		}
 		
-		$tipos_variable = CHtml::listData(TiposVariable::model()->findAll(), 'id', 'nombre_tipo_variable');
+		
 		//Se quitan errores de id que pudieron se consecuencia del escenario error
 		$this->record->clearErrors('id');
 		$this->controller->render('formulario_variable',array(
