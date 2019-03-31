@@ -14,7 +14,7 @@ class SiteController extends Controller
 	{
 		return array(	
                 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('error','login','logout', 'register', 'index'),
+				'actions'=>array('error','login','logout', 'register', 'loginregister','index'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -89,7 +89,10 @@ class SiteController extends Controller
 		}
 		$this->redirect($url);
 	}
-
+	
+	public function ActionLoginregister(){
+		$this->render('loginregister',array());
+	}
 	/**
 	 * This is the action to handle external exceptions.
 	 */

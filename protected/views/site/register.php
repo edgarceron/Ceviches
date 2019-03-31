@@ -16,7 +16,23 @@
 )); ?>	
     <br/>
 	<?php echo $form->errorSummary($model); ?>
-
+	<p class="note">Los campos con <span class="required">*</span> son obligatorios.</p>
+	<div class="col-lg-6">
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'nombre',array('class'=>'label label-success')); ?>
+		<?php echo $form->textField($model,'nombre',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'nombre'); ?>
+	</div>
+    </div>
+	
+    <div class="col-lg-6">
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'apellido',array('class'=>'label label-success')); ?>
+		<?php echo $form->textField($model,'apellido',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'apellido'); ?>
+	</div>
+    </div>
+	
     <div class="col-lg-6">
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'nick',array('class'=>'label label-success')); ?>
@@ -39,21 +55,6 @@
 		<?php echo CHtml::passwordField('confirmar', '',array('class'=>'form-control', 'id' => 'confirmar')); ?>
 	</div>
     </div>
-
-   <div class="col-lg-6">
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'nombre',array('class'=>'label label-success')); ?>
-		<?php echo $form->textField($model,'nombre',array('class'=>'form-control')); ?>
-		<?php echo $form->error($model,'nombre'); ?>
-	</div>
-    </div>
-    <div class="col-lg-6">
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'apellido',array('class'=>'label label-success')); ?>
-		<?php echo $form->textField($model,'apellido',array('class'=>'form-control')); ?>
-		<?php echo $form->error($model,'apellido'); ?>
-	</div>
-    </div>
 	
 	<div class="col-lg-6">
 	<div class="form-group">
@@ -66,7 +67,7 @@
     
     <div class="col-lg-12">
 	<div class="form-group">
-		<?php echo CHtml::submitButton('Submit',array('class'=>'btn btn-primary')); ?>
+		<?php echo CHtml::submitButton('Registrase',array('class'=>'btn btn-primary')); ?>
 	</div>
     </div>
 <?php $this->endWidget(); ?>

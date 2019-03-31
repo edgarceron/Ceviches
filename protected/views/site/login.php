@@ -51,7 +51,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="form-group">
-		<?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
+		<?php echo CHtml::submitButton('Iniciar sesión', array('class' => 'btn btn-primary')); ?>
 		<?php echo CHtml::button('Registrarse', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/site/register'). '"', 'class' => 'btn btn-primary')); ?>
 		
 	</div>

@@ -200,7 +200,7 @@
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarCart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cart32.png">
 					</a>
-					<div class="dropdown-menu dropdown-menu-right table-responsive-md" aria-labelledby="navbarCart" style="position:absolute; min-width: 20rem;" id = "carrito">
+					<div class="dropdown-menu dropdown-menu-right table-responsive-md" aria-labelledby="navbarCart" style="position:absolute; min-width: 20rem;  height: 700%;" id = "carrito">
 						No hay productos para mostrar
 					</div>
 				</li>
@@ -372,6 +372,7 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/scripts.js"></script>              
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.PrintArea.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.doubleScroll.js"></script>
 	
 </body>
 	

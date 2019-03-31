@@ -7,7 +7,7 @@ class FinalizarPedidoAction extends CAction
 		if(Yii::app()->user->name == "Guest"){
 			Yii::app()->user->setFlash('success', "Debe iniciar sesión o crear una cuenta antes de finalizar el pedido");
 			Yii::app()->user->returnUrl = Yii::app()->createUrl('/tienda/default/finalizarPedido');
-			$this->controller->redirect(Yii::app()->createUrl('/site/login'));
+			$this->controller->redirect(Yii::app()->createUrl('/site/loginregister'));
 		}
 		else{
 			$items = Carrito::getItems();

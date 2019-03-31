@@ -3,7 +3,7 @@
 /* @var $model Direcciones */
 /* @var $form CActiveForm */
 ?>
-
+	<p class="note">Los campos con <span class="required">*</span> son obligatorios.</p>
 	<div class="form-row">
 		<div class="form-group col-md-9">
 			<?php echo CHtml::activeLabelEx($model,'nombre_direccion'); ?>

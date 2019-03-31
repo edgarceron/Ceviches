@@ -50,4 +50,9 @@ $this->breadcrumbs=array(
 		?>
 		</div>
 	</div>
+	<br>
+
+	<?php echo CHtml::link('Finalizar pedido', Yii::app()->createUrl('tienda/default/carrito'), 
+		array("class" => "form-control btn-primary", "style" => "text-align:center"))?>
+	<br>
 </div>
