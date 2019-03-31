@@ -40,15 +40,17 @@ class ResumenAction extends CAction
 		$fecha = '';
 		$hora = '';
 		$fecha_hora = false;
-		if($programacion == 2){
-			$error_fecha = true;
-			$hora_apertura = OpcionesTienda::getOpcion('HORA_APERTURA');
-			$hora_cierre = OpcionesTienda::getOpcion('HORA_CIERRE');
-						
+		
+		$error_fecha = true;
+		$hora_apertura = OpcionesTienda::getOpcion('HORA_APERTURA');
+		$hora_cierre = OpcionesTienda::getOpcion('HORA_CIERRE');
+		date_default_timezone_set("America/Bogota");
+		
+		if($programacion == 2){			
 			if(isset( $_POST['fecha']) && isset( $_POST['hora'])){
 				$fecha = $_POST['fecha'];
 				$hora = $_POST['hora'];
-				date_default_timezone_set("America/Bogota");
+				
 				if($hora != '' && $fecha != ''){
 
 					$fecha_hora = strtotime($fecha . ' ' . $hora);
@@ -68,6 +70,26 @@ class ResumenAction extends CAction
 				Yii::app()->user->setFlash('danger', "Si realiza un pedido para despues tenga en cuenta 
 				que la fecha del pedido debe ser al menos 4 horas mayor que la fecha actual y que debe 
 				ser en el horario laboral (entre $hora_apertura y $hora_cierre, hora actual: $actual");
+				
+				$this->controller->redirect(Yii::app()->createUrl('tienda/default/finalizarPedido', 
+				array('programacion' => $programacion, 'fecha' => $fecha, 'hora' => $hora)));
+			}
+		}
+		else{
+			$fecha =  date('Y-m-d');
+			$hora =  date('H:i:s');
+			$fecha_hora = strtotime($fecha . ' ' . $hora);
+	
+			$apertura = strtotime($fecha . ' ' . $hora_apertura);
+			$cierre = strtotime($fecha . ' ' . $hora_cierre);
+			if($fecha_hora > $apertura && $fecha_hora < $cierre){
+				$error_fecha = false;
+			}
+			
+			if($error_fecha){
+				$actual = date('Y-m-d H:i:s');
+				Yii::app()->user->setFlash('danger', "De momento no nos encontramos en servicio, trate de hacer su pedido 
+				entre $hora_apertura y $hora_cierre, hora actual: $actual");
 				
 				$this->controller->redirect(Yii::app()->createUrl('tienda/default/finalizarPedido', 
 				array('programacion' => $programacion, 'fecha' => $fecha, 'hora' => $hora)));

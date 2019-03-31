@@ -23,3 +23,12 @@ var formatNumber = {
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
+
+function seleccionar(tipo){
+	if(tipo == "Efectivo"){
+		$("input[name='medio_pago'][value='1']").prop('checked', true);
+	}
+	else if(tipo == "PayU"){
+		$("input[name='medio_pago'][value='2']").prop('checked', true);
+	}
+}

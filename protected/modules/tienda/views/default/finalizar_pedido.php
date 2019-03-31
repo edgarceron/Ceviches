@@ -40,7 +40,7 @@
 									{input}
 								</td>
 								<td>
-									<img src="'.Yii::app()->request->baseUrl.'/images/{labelTitle}.png">
+									<img src="'.Yii::app()->request->baseUrl.'/images/{labelTitle}.png" onclick="seleccionar(\'{labelTitle}\')">
 								</td>
 							</tr>',
 				"style" => "margin-left:0",			

@@ -7,6 +7,7 @@ class NotificarPedidoAction extends CAction
     //Reemplazar Model por el modelo que corresponda al modulo
     public function run()
     {
+		date_default_timezone_set("America/Bogota");
 		$tipo = '';
 
 		$id_temporal = $_GET['id'];
