@@ -79,8 +79,8 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-md-12 border border-secondary table-responsive">
-		<h4>4. Verifique su pedido</h4>
+	<h4>4. Verifique su pedido</h4>
+	<div class="tbres">
 		<table class="table">
 			<thead>
 				<tr>

@@ -22,6 +22,7 @@ var formatNumber = {
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
+	$('.tbres').doubleScroll({onlyIfScroll: false, resetOnWindowResize: true});
 });
 
 function seleccionar(tipo){

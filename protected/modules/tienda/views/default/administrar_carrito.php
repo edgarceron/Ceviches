@@ -3,8 +3,8 @@
 		<h3>Mi Carrito</h3>
 	</div>
 	<div class="card-body">
-		<div class="table-responsive">
-			<div class="col-md-12">
+		
+		<div class="tbres">
 				<table class="table">
 					<thead>
 						<tr>
@@ -102,7 +102,6 @@
 				</table>
 				<script>
 					<?php echo $vars ?>
-					
 					function quitarProducto(item){
 						var obj = JSON.parse(item);
 						<?php 	
@@ -182,7 +181,6 @@
 						}
 					}
 				</script>	
-			</div>
 		</div>
 
 		<?php echo CHtml::button('Finalizar pedido', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/tienda/default/finalizarPedido'). '"', 'class' => 'btn btn-primary form-control')); ?>
