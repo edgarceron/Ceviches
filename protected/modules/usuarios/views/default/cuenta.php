@@ -80,64 +80,64 @@ $this->breadcrumbs=array(
 					<img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/list64.png' ?>"/>
 				</div>
 				
-				<div class="card-body">
+				<div class="card-body  table-responsive">
 				
 				<?php echo CHtml::button('Crear una nueva dirección', array('onclick' => 'js:document.location.href="'. Yii::app()->createUrl('/direcciones/default/formulario'). '"', 'class' => 'btn btn-primary')); ?>
 				<br><br>
-				<?php
-					Yii::app()->controller->widget(
-						'zii.widgets.grid.CGridView', array(	
-							'id'=>'reporte-grid',
-							'dataProvider'=>$direcciones,
-							'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css'),
-							'cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css',
-							//'data'=>$queue,
-							'itemsCssClass' => 'table table-hover table-striped',
-							'pager'=>array(
-								"internalPageCssClass" => "page-item",
-							),
-							'columns'=>array(
-								'nombre_direccion',
-								array(
-									'name' => 'ciudad_direccion',
-									'type' => 'raw',
-									'value' => 'Ciudades::model()->findByPk($data->ciudad_direccion)->nombre_ciudad',
+					<?php
+						Yii::app()->controller->widget(
+							'zii.widgets.grid.CGridView', array(	
+								'id'=>'reporte-grid',
+								'dataProvider'=>$direcciones,
+								'pager' => array('cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css'),
+								'cssFile' => Yii::app()->baseUrl . '/css/bootstrap.min.css',
+								//'data'=>$queue,
+								'itemsCssClass' => 'table table-hover table-striped',
+								'pager'=>array(
+									"internalPageCssClass" => "page-item",
 								),
-								'linea1_direccion',
-								'linea2_direccion',
-								'telefono_direccion',
-								array
-								(
-									'class'=>'CButtonColumn',
-									'template'=>'{view}{edit}{delete}',
-									'buttons'=>array
-									(
-										'view' => array
-										(
-											'label'=>'Ver direccion',
-											'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
-											'url'=>'Yii::app()->createUrl("direcciones/default/vista", array("id"=>$data->id))',
-										),
-										'edit' => array
-										(
-											'label'=>'Editar direccion',
-											'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
-											'url'=>'Yii::app()->createUrl("direcciones/default/formulario", array("id"=>$data->id))',
-										),
-										'delete' => array
-										(
-											'label'=>'Eliminar direccion',
-											'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
-											'url'=>'Yii::app()->createUrl("direcciones/default/eliminar", 
-												array("id"=>$data->id))',
-										),
+								'columns'=>array(
+									'nombre_direccion',
+									array(
+										'name' => 'ciudad_direccion',
+										'type' => 'raw',
+										'value' => 'Ciudades::model()->findByPk($data->ciudad_direccion)->nombre_ciudad',
 									),
-								)
-								
-							),
-						)
-					);			
-				?>
+									'linea1_direccion',
+									'linea2_direccion',
+									'telefono_direccion',
+									array
+									(
+										'class'=>'CButtonColumn',
+										'template'=>'{view}{edit}{delete}',
+										'buttons'=>array
+										(
+											'view' => array
+											(
+												'label'=>'Ver direccion',
+												'imageUrl'=>Yii::app()->request->baseUrl.'/images/view.png',
+												'url'=>'Yii::app()->createUrl("direcciones/default/vista", array("id"=>$data->id))',
+											),
+											'edit' => array
+											(
+												'label'=>'Editar direccion',
+												'imageUrl'=>Yii::app()->request->baseUrl.'/images/edit.png',
+												'url'=>'Yii::app()->createUrl("direcciones/default/formulario", array("id"=>$data->id))',
+											),
+											'delete' => array
+											(
+												'label'=>'Eliminar direccion',
+												'imageUrl'=>Yii::app()->request->baseUrl.'/images/delete.png',
+												'url'=>'Yii::app()->createUrl("direcciones/default/eliminar", 
+													array("id"=>$data->id))',
+											),
+										),
+									)
+									
+								),
+							)
+						);			
+					?>
 				</div>
 			</div>						
 						
@@ -149,7 +149,7 @@ $this->breadcrumbs=array(
 					<img alt="Bootstrap Image Preview" src="<?php echo Yii::app()->request->baseUrl.'/images/list64.png' ?>"/>
 				</div>
 				
-				<div class="card-body">
+				<div class="card-body table-responsive">
 				<?php
 					Yii::app()->controller->widget(
 						'zii.widgets.grid.CGridView', array(	
