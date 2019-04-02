@@ -54,7 +54,7 @@ class VerPedidoAction extends CAction {
 			"uuid"=> $uuid, 
 		];
 		
-		$url = "http://dev.api.mensajerosurbanos.com/task";
+		$url = "https://cerberus.mensajerosurbanos.com/task";
 		$post = json_encode($parametros);
 		$ch = curl_init();
 		

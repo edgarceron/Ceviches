@@ -102,6 +102,7 @@
 				</table>
 				<script>
 					<?php echo $vars ?>
+					
 					function quitarProducto(item){
 						var obj = JSON.parse(item);
 						<?php 	

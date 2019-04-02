@@ -13,7 +13,7 @@ class AutenticacionMUAction extends CAction
 			'grant_type' => 'client_credentials'
 		];
 		
-		$url = 'http://dev.api.mensajerosurbanos.com/oauth/token';
+		$url = 'https://cerberus.mensajerosurbanos.com/oauth/token';
 		$post = json_encode($parametros);
 		
 		$ch = curl_init();

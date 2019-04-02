@@ -76,6 +76,7 @@
 						
 						<?php 
 						echo CHtml::label($producto['descripcion'], null); 
+						echo '<br>';
 						echo CHtml::label('Calorias: '. Productos::model()->findByPk($id)['calorias_producto'], null); 
 						echo '<br>';
 						$lista_variables = array_keys($producto['variables']);
@@ -91,8 +92,10 @@
 									$opciones[$k] = $producto['variables'][$variable][$k]['descripcion'];
 								}
 								$data[$variable] = "$('#v" . $id . "-" . $variable . "').val()";
-								echo CHtml::label($label, 'v' . $id . "-". $variable); 
-								echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
+								if($label != ""){
+									echo CHtml::label($label, 'v' . $id . "-". $variable); 
+									echo CHtml::dropDownList('v' . $id . "-". $variable,null, $opciones, array('id'=>'v' . $id . "-" . $variable, 'class'=>'form-control')); 
+								}
 								unset($label);
 							}
 						}
