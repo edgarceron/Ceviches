@@ -407,11 +407,23 @@ class CrearPedidoAction extends CAction
 			$fechahora = explode(" ", $fecha);
 			$start_date = $fechahora[0];
 			$hms = explode(":",$fechahora[1]);
-			$hora = intval($hms[0]) - 1;
-			if($hora < 10){
-				$hora = '0' . $hora;
+			$hora = intval($hms[0]);
+			$minutos = intval($hms[1]);
+			if($minutos < 30){
+				$minutos = 60 - (30 - $minutos);
+				$hora = $hora - 1;
+				if($hora < 10){
+					$hora = '0' . $hora;
+				}
+			}
+			else{
+				$minutos = $minutos - 30;
+				if($minutos < 10){
+					$minutos = '0' . $minutos;
+				}
 			}
 			$hms[0] = $hora;
+			$hms[1] = $minutos;
 			$fechahora[1] = implode(":", $hms);
 			$start_time = $fechahora[1];
 		}
