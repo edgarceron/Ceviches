@@ -483,8 +483,6 @@ class CrearPedidoAction extends CAction
 			$servicio = new ServiciosMu;
 			$servicio->attributes = $data;
 			$servicio->save();
-			print_r($servicio);
-			exit;
 		}
 	}
 }
