@@ -475,8 +475,6 @@ class CrearPedidoAction extends CAction
 		$result=curl_exec ($ch);
 		curl_close($ch);
 		$obj = json_decode($result, true);
-		print_r($obj);
-		exit;
 		$status_code = $obj['status_code'];
 		if($status_code == 200){
 			$data = $obj['data'];
@@ -485,6 +483,8 @@ class CrearPedidoAction extends CAction
 			$servicio = new ServiciosMu;
 			$servicio->attributes = $data;
 			$servicio->save();
+			print_r($servicio);
+			exit;
 		}
 	}
 }
