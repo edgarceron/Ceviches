@@ -3,7 +3,7 @@
 		$accion = Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido");
 	}
 	else{
-		$accion = 'https://checkout.payulatam.com/ppp-web-gateway-payu/';
+		$accion = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu';
 		$merchantId = OpcionesTienda::model()->find('descripcion = "merchantId_payu"')['valor'];
 		$apiLogin = OpcionesTienda::model()->find('descripcion = "apiLogin_payu"')['valor'];
 		$apiKey = OpcionesTienda::model()->find('descripcion = "apiKey_payu"')['valor'];
