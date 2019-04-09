@@ -394,9 +394,9 @@ class NotificarPedidoAction extends CAction
 		return $productos;
 	}
 	
-	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $items, $fecha){
+	public function llamarMensajerosMU($total, $id_pedido, $payment_type, $id_direccion, $id_usuario, $items, $fecha){
 		$record = Direcciones::model()->findByPk($id_direccion);
-		$usuario = SofintUsers::model()->findByPk(Yii::app()->user->id);
+		$usuario = SofintUsers::model()->findByPk($id_usuario);
 		$nombre = $usuario['nombre'] . ' ' . $usuario['apellido'];
 		$direccion = $record['linea1_direccion'] . ' ' . $record['linea2_direccion'];
 		$telefono = $record['telefono_direccion'];
