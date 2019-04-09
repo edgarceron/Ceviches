@@ -464,7 +464,7 @@ class NotificarPedidoAction extends CAction
 			)]
 		];
 		
-		$url = "http://dev.api.mensajerosurbanos.com/Create-services";
+		$url = "https://cerberus.mensajerosurbanos.com/Create-services";
 		$post = json_encode($parametros);
 		$ch = curl_init();
 
