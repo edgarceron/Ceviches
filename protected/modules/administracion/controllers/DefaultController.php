@@ -134,7 +134,7 @@ class DefaultController extends Controller
                             ),
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('autenticacionMU'),
-                                'expression' => array(__CLASS__,'allowAutenticacionMU'),
+                                'users'=>array('*'),
                             ),
 			array('allow', // allow only the owner to perform 'view' 'update' 'delete' actions
                                 'actions' => array('formCatalogo'),
