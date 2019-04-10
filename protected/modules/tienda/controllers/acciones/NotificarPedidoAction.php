@@ -484,6 +484,7 @@ class NotificarPedidoAction extends CAction
 		$data['id_pedido'] = $id_pedido;
 		$data['task_id'] = '0';
 		$servicio = new ServiciosMu;
+		$servicio->error = substr(print_r($data, true), 0, 99);
 		$servicio->attributes = $data;
 		$servicio->save();
 		
