@@ -479,15 +479,20 @@ class NotificarPedidoAction extends CAction
 		$obj = json_decode($result, true);
 		
 		$status_code = $obj['status_code'];
-
-		$data = $obj['data'];
-		$data['id_pedido'] = $id_pedido;
-		$data['task_id'] = '0';
-		$servicio = new ServiciosMu;
-		$servicio->attributes = $data;
-		$servicio->error = substr($result, 0, 99);
-		$servicio->save();
-		
+		if($status_code == 200){
+			$data = $obj['data'];
+			$data['id_pedido'] = $id_pedido;
+			$data['task_id'] = '0';
+			$servicio = new ServiciosMu;
+			$servicio->attributes = $data;
+			$servicio->save();
+		}
+		else{
+			$servicio = new ServiciosMu;
+			$servicio['id_pedido'] = $id_pedido;
+			$servicio['task_id'] = '0';
+			$servicio['error'] = substr($result, 0, 99);
+		}
 	}
 }
 
