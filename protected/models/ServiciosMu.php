@@ -34,7 +34,7 @@ class ServiciosMu extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_pedido, uuid, status, total, date, distance, task_id', 'required'),
+			array('id_pedido', 'required'),
 			array('id_pedido, status, distance, task_id', 'numerical', 'integerOnly'=>true),
 			array('total', 'numerical'),
 			array('uuid', 'length', 'max'=>15),

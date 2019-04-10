@@ -3,11 +3,12 @@
 		$accion = Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido");
 	}
 	else{
-		$accion = 'https://checkout.payulatam.com/ppp-web-gateway-payu/';
+		$accion = OpcionesTienda::model()->find('descripcion = "url_payu"')['valor'];
 		$merchantId = OpcionesTienda::model()->find('descripcion = "merchantId_payu"')['valor'];
 		$apiLogin = OpcionesTienda::model()->find('descripcion = "apiLogin_payu"')['valor'];
 		$apiKey = OpcionesTienda::model()->find('descripcion = "apiKey_payu"')['valor'];
-		$accountId = OpcionesTienda::model()->find('descripcion = "accountId_payu"')['valor'];;
+		$accountId = OpcionesTienda::model()->find('descripcion = "accountId_payu"')['valor'];
+		$test = OpcionesTienda::model()->find('descripcion = "test_payu"')['valor'];
 		$currency = "COP";
 		$referenceCode = "CYM" . $id_pedido;
 	}
@@ -228,7 +229,7 @@
 							echo CHtml::hiddenField('amount', $total + $valor_domicilio);
 							echo CHtml::hiddenField('tax', 0);
 							echo CHtml::hiddenField('taxReturnBase', 0);
-							echo CHtml::hiddenField('test', 0);
+							echo CHtml::hiddenField('test', $test);
 							echo CHtml::hiddenField('buyerEmail', $email);
 							echo CHtml::hiddenField('buyerFullName', $nombre_completo);
 							echo CHtml::hiddenField('responseUrl', Yii::app()->createAbsoluteUrl("/tienda/default/crearPedido/id/$id_pedido/tipo/payu/id_ciudad/$id_ciudad/id_direccion/$id_direccion"));
