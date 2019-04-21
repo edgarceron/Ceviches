@@ -229,6 +229,16 @@ class Carrito{
 		return self::$items;
 	}
 	
+	public static function getNumeroItems(){
+		self::cargarCookieCarrito();
+		$contador = 0;
+		foreach(self::$items as $i){
+			$contador += $i['cantidad'];
+		}
+		return $contador;
+	}
+	
+	
 	public static function setItems($items){
 		self::$items = $items;
 		self::guardarCookieCarrito();

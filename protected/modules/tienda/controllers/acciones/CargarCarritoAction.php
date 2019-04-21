@@ -5,7 +5,9 @@ class CargarCarritoAction extends CAction
     public function run()
     {
 		$items = Carrito::getItems();
-		$this->controller->renderPartial('carrito', array('items' => $items));		
+		$html = $this->controller->renderPartial('carrito', array('items' => $items), true);	
+		$numero = Carrito::getNumeroItems();
+		echo $html . "--" . $numero;
     }
 }
 

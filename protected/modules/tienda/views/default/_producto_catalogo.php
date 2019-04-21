@@ -125,13 +125,14 @@
 		iDiv.style.width = "50%";
 		iDiv.style.cssFloat = "none";
 		document.getElementsByTagName('body')[0].appendChild(iDiv);
+		var cantidad = <?php echo "$('#c" . $id . "').val()" ?>;
 		jQuery.ajax(
 			{
 				'type':'GET',
 				'dataType':'html',
 				'async':false,
 				'url':'<?php echo Yii::app()->createUrl('/tienda/default/addItem')?>',
-				'data':{'id':<?php echo $id ?>,'cantidad':<?php echo "$('#c" . $id . "').val()" ?>
+				'data':{'id':<?php echo $id ?>,'cantidad':cantidad
 					<?php
 						foreach(array_keys($data) as $d){
 							 echo ",'$d':" . $data[$d];
@@ -141,6 +142,8 @@
 				'error':function(ob, textStatus, error){alert(error);},
 				'success':function(html){
 					jQuery("#carrito").html(html);
+					var n = "#numeroItemsCarrito";
+					jQuery(n).html(parseInt(jQuery(n).html()) + parseInt(cantidad));
 					$(divname).collapse('show');
 					$(divname).html("Se añadio <?php echo $nombre ?> correctamente");
 					$(divname).collapse('show');

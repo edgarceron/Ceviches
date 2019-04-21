@@ -99,18 +99,7 @@
 			?> -->
 				
 			</ul>	
-			<ul class="navbar-nav ml-sm-2">
-				<li class="nav-item">
-					<?php
-						$nombre = '';
-						if(!(Yii::app()->user->name == "Guest")) {
-							$user = SofintUsers::model()->findByPk(Yii::app()->user->id);
-							$nombre = $user->nombre;
-							echo '<span class="navbar-text">Bienvenido ' . $nombre . '</span>';
-						}
-					?>
-				</li>
-			</ul>
+			
 		</div>
 		<div class="navbar navbar-expand-lg">
 			<?php
@@ -173,6 +162,19 @@
 				}
 			?>
 			<ul class="navbar-nav ml-sm-2">
+				<li class="nav-item">
+					<?php
+						$nombre = '';
+						if(!(Yii::app()->user->name == "Guest")) {
+							$user = SofintUsers::model()->findByPk(Yii::app()->user->id);
+							$nombre = $user->nombre;
+							echo '<span class="navbar-text">Bienvenido&nbsp</span><span class="navbar-text bienvenido">' . $nombre . '</span>';
+						}
+					?>
+				</li>
+			</ul>
+			
+			<ul class="navbar-nav ml-sm-2">
 				
 				<li class="nav-item dropdown">
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -200,6 +202,9 @@
 					<a class="nav-item nav-link dropdown-toggle" href="#" id="navbarCart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cart32.png">
 					</a>
+					<div style="position: absolute; bottom: 1px; right: 8px;">
+						<span class="badge badge-success" id="numeroItemsCarrito">0</span>
+					</div>
 					<div class="dropdown-menu dropdown-menu-right table-responsive-md" aria-labelledby="navbarCart" style="position:absolute; min-width: 20rem;  height: 700%;" id = "carrito">
 						No hay productos para mostrar
 					</div>
@@ -300,16 +305,21 @@
 	
 	<script>
 	function cargarCarrito(){
-		<?php 	
-		echo CHtml::ajax(
-			array(
-				'type'=>'GET',
-				'dataType'=>'html',
-				'async'=>'false',
-				'url' => Yii::app()->createAbsoluteUrl('/tienda/default/cargarCarrito'),
-				'update'=>'#carrito',
-			)
-		); ?>
+		jQuery.ajax({
+			'type':'GET',
+			'dataType':'html',
+			'async':false,
+			'url':'<?php echo Yii::app()->createAbsoluteUrl('/tienda/default/cargarCarrito/') ?>',
+			'cache':false,
+			'data':jQuery(this).parents("form").serialize(),
+			'success':function(pizza){
+				var porciones = pizza.split('--');
+				var html = porciones[0];
+				var numero = parseInt(porciones[1]);
+				jQuery("#carrito").html(html);
+				var n = "#numeroItemsCarrito";
+				jQuery(n).html(numero);
+			}});	
 	}
 	<?php
 		if(isset($usuario)) {

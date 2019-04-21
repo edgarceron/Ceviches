@@ -216,7 +216,7 @@ class SiteController extends Controller
 					Yii::app()->user->setFlash('success', "Usuario creado exitosamente!");
 					$identity=new UserIdentity($email,$password);
 					$identity->authenticate();
-					$duration = 3600;
+					$duration = 3600*24*30;
 					if($identity->errorCode===UserIdentity::ERROR_NONE)
 					{
 						Yii::app()->user->login($identity,$duration);
