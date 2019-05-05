@@ -127,13 +127,14 @@
 		iDiv.style.width = "50%";
 		iDiv.style.cssFloat = "none";
 		document.getElementsByTagName('body')[0].appendChild(iDiv);
+		var cantidad = <?php echo "$('#c" . $id . "').val()" ?>;
 		jQuery.ajax(
 			{
 				'type':'GET',
 				'dataType':'html',
 				'async':false,
 				'url':'<?php echo Yii::app()->createUrl('/tienda/default/addItem')?>',
-				'data':{'id':<?php echo $id ?>,'cantidad':<?php echo "$('#c" . $id . "').val()" ?>
+				'data':{'id':<?php echo $id ?>,'cantidad':cantidad
 					<?php
 						foreach(array_keys($data) as $d){
 							 echo ",'$d':" . $data[$d];
@@ -146,7 +147,15 @@
 					$(divname).collapse('show');
 					$(divname).html("Se añadio <?php echo $nombre ?> correctamente");
 					$(divname).collapse('show');
-
+					
+					ga('ec:addProduct', {
+						'id': '<?php echo $id?>',        // Product ID (string).
+						'name': '<?php echo $nombre?>', // Product name (string).
+						'quantity': cantidad
+					});
+					ga('ec:setAction', 'add');
+					ga('send', 'event', 'UX', 'click', 'add to cart'); 
+					
 					
 					setTimeout(function(){
 						$(divname).collapse('hide');
@@ -165,5 +174,13 @@
 			}
 		);		
 	}
+	
+	// The product being viewed.
+	ga('ec:addProduct', {                 // Provide product details in an productFieldObject.
+	  'id': '<?php echo $id?>',        // Product ID (string).
+	  'name': '<?php echo $nombre?>', // Product name (string).
+	});
+
+	ga('ec:setAction', 'detail');       // Detail action.
 	
 	</script>

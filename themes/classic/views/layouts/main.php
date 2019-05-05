@@ -14,12 +14,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+	<!-- Google Analytics -->
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-125725981-2', 'auto', {'allowLinker': true});
+	ga('require', 'linker');
+	ga('require', 'ec');
+	ga('linker:autoLink', ['https://www.cevicheymar.com, https://www.cevicheymar.com/Ceviches/index.php/tienda']);
+	ga('require', 'displayfeatures');
+	ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+	
+	<!-- Google Tag Manager -->
+	<script>
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-T56F5K4');
+	</script>
+	<!-- End Google Tag Manager -->
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-                  
+	<meta name="viewport" content="width=device-width, initial-scale=1">           
     <!-- Bootstrap core CSS -->        
-
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/hover.min.css" rel="stylesheet">
@@ -29,9 +53,17 @@
 
 	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	
+	
+
 </head>
  
 <body class="d-flex flex-column h-100" cz-shortcut-listen="true">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T56F5K4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <audio preload="none" src="<?php echo Yii::app()->request->baseUrl."/sounds/notification.mp3" ?>" style="width: 100%;" id="audioNotificacion"></audio>
 <main role="main" class="flex-shrink-0">
 	<header class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 4; position:sticky; top:0">

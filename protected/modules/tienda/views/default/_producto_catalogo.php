@@ -147,7 +147,14 @@
 					$(divname).collapse('show');
 					$(divname).html("Se añadio <?php echo $nombre ?> correctamente");
 					$(divname).collapse('show');
-
+					
+					ga('ec:addProduct', {
+						'id': '<?php echo $id?>',        // Product ID (string).
+						'name': '<?php echo $nombre?>', // Product name (string).
+						'quantity': cantidad
+					});
+					ga('ec:setAction', 'add');
+					ga('send', 'event', 'UX', 'click', 'add to cart'); 
 					
 					setTimeout(function(){
 						$(divname).collapse('hide');
@@ -166,6 +173,13 @@
 			}
 		);		
 	}
+	
+	// The impression from a Related Products section.
+	ga('ec:addImpression', {            // Provide product details in an impressionFieldObject.
+	  'id': '<?php echo $id?>',        // Product ID (string).
+	  'name': '<?php echo $nombre?>', // Product name (string).
+	});
+
 	
 	</script>
 </div>

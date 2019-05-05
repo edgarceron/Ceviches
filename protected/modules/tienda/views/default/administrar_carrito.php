@@ -60,7 +60,7 @@
 						<tr>
 							<td><img src="<?php echo Yii::app()->request->baseUrl."/images/productos/$id/$imagen" ?>"></td>
 							<td>
-								<h6 class="my-0"><?php echo $nombre ?></h6>
+								<h6 class="my-0" id="nombre<?php echo $cont ?>"><?php echo $nombre ?></h6>
 								<small class="text-muted"><?php echo $variable_str ?></small>
 							</td>
 							<td>
@@ -115,6 +115,14 @@
 								'data' => 'js:obj',
 							)
 						); ?>
+						ga('ec:addProduct', {
+							'id': obj.id,
+							'name': obj.name,
+							'quantity': product.qty
+						});
+						ga('ec:setAction', 'add');
+						ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
+
 						location.reload(); 
 					}
 					
