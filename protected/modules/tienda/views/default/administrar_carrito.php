@@ -114,7 +114,7 @@
 								'url' => Yii::app()->createAbsoluteUrl('/tienda/default/deleteItem'),
 								'data' => 'js:obj',
 							)
-						); ?>
+						); ?>/*
 						ga('ec:addProduct', {
 							'id': obj.id,
 							'name': obj.name,
@@ -122,7 +122,7 @@
 						});
 						ga('ec:setAction', 'add');
 						ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
-
+						*/
 						location.reload(); 
 					}
 					
