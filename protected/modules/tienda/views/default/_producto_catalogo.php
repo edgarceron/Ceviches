@@ -147,7 +147,8 @@
 					$(divname).collapse('show');
 					$(divname).html("Se añadio <?php echo $nombre ?> correctamente");
 					$(divname).collapse('show');
-					
+					ga('create', 'UA-125725981-2');
+					ga('require', 'ec');
 					ga('ec:addProduct', {
 						'id': '<?php echo $id?>',        // Product ID (string).
 						'name': '<?php echo $nombre?>', // Product name (string).

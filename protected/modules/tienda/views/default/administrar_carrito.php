@@ -117,13 +117,15 @@
 								'cache':false
 							}
 						).success(function(obj){
+							ga('create', 'UA-125725981-2');
+							ga('require', 'ec');
 							ga('ec:addProduct', {
 								'id': obj.id,
 								'name': obj.name,
 								'quantity': obj.qty
 							});
 							ga('ec:setAction', 'remove');
-							ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
+							ga('send', 'event', 'UX', 'click', 'removed from cart');     // Send data using an event.
 						});
 						location.reload(); 
 					}
