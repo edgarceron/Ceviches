@@ -155,7 +155,8 @@
 						'quantity': cantidad
 					});
 					ga('ec:setAction', 'add');
-					ga('send', 'event', 'UX', 'click', 'add to cart'); 
+					ga('send', 'event', 'UX', 'click', 'add to cart');
+					console.log(ga.q); 
 					
 					setTimeout(function(){
 						$(divname).collapse('hide');
