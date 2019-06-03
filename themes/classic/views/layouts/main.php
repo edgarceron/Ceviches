@@ -27,6 +27,7 @@
 	ga('linker:autoLink', ['https://www.cevicheymar.com, https://www.cevicheymar.com/Ceviches/index.php/tienda']);
 	ga('require', 'displayfeatures');
 	ga('send', 'pageview');
+	console.log(ga.q); 
 	</script>
 	<!-- End Google Analytics -->
 	
