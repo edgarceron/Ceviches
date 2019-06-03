@@ -23,10 +23,12 @@
 					$total = 0;
 					foreach($items as $detalle){
 						$item = $detalle['item'];
+						$item['cantidad'] = $detalle['cantidad'];
 						$jsonitem = json_encode($item);
 						$vars = $vars . "var" . $cont . " = " . "'". $jsonitem ."';\n";
 						$id = $item['id'];
 						unset($item['id']);
+						unset($item['cantidad']);
 						$variables = $item;
 						$cantidad = $detalle['cantidad'];
 						
@@ -105,24 +107,24 @@
 					
 					function quitarProducto(item){
 						var obj = JSON.parse(item);
-						<?php 	
-						echo CHtml::ajax(
-							array(
-								'type'=>'GET',
-								'dataType'=>'html',
-								'async'=> false,
-								'url' => Yii::app()->createAbsoluteUrl('/tienda/default/deleteItem'),
-								'data' => 'js:obj',
-							)
-						); ?>/*
-						ga('ec:addProduct', {
-							'id': obj.id,
-							'name': obj.name,
-							'quantity': product.qty
+						jQuery.ajax(
+							{
+								'type':'GET',
+								'dataType':'json',
+								'async':false,
+								'url':'<?php echo Yii::app()->createAbsoluteUrl('/tienda/default/deleteItem') ?>',
+								'data':obj,
+								'cache':false
+							}
+						).success(function(obj){
+							ga('ec:addProduct', {
+								'id': obj.id,
+								'name': obj.name,
+								'quantity': obj.qty
+							});
+							ga('ec:setAction', 'remove');
+							ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
 						});
-						ga('ec:setAction', 'add');
-						ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
-						*/
 						location.reload(); 
 					}
 					

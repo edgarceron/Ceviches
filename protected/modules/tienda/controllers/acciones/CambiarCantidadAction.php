@@ -5,13 +5,13 @@ class CambiarCantidadAction extends CAction
     public function run()
     {       
 		//unset(Yii::app()->request->cookies['carrito']);
-		$item = $_GET['item'];
+				$item = $_GET['item'];
         $id = $item['id'];
-		unset($item['id']);
-		$variables = $item;
-		$cantidad = $_GET['cantidad'];
-		Carrito::cambiarCantidad($id, $variables, $cantidad);
-		$this->controller->redirect('cargarCarrito');
+				unset($item['id']);
+				$variables = $item;
+				$cantidad = $_GET['cantidad'];
+				Carrito::cambiarCantidad($id, $variables, $cantidad);
+				$this->controller->redirect('cargarCarrito');
     }
 }
 
