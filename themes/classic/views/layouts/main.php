@@ -407,7 +407,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 		?>
 		cargarCarrito();
-		
+		console.log(ga.q); 
 	}
 	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
